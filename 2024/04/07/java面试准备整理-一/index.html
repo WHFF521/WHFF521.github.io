@@ -1,0 +1,455 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>java面试准备整理(一) | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. java面向对象有哪些特征面向对象的三大特征：封装、继承、多态 2. ArrayList和LinkedList的区别都实现了List接口。ArrayList是基于索引的数据接口，底层是数组。LinkedList(链表)是以元素列表的形式存储数据。 3. 高并发中的集合有哪些问题1. 第一代线程安全集合类Vector、Hashtable。使用synchronized。效率低下。 2. 第二代A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java面试准备整理(一)">
+<meta property="og:url" content="https://whff521.github.io/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="1. java面向对象有哪些特征面向对象的三大特征：封装、继承、多态 2. ArrayList和LinkedList的区别都实现了List接口。ArrayList是基于索引的数据接口，底层是数组。LinkedList(链表)是以元素列表的形式存储数据。 3. 高并发中的集合有哪些问题1. 第一代线程安全集合类Vector、Hashtable。使用synchronized。效率低下。 2. 第二代A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://c.wallhere.com/photos/a1/11/Monogatari_Series_anime_girls_Oshino_Shinobu_red_eyes_blonde-1383217.jpg!d">
+<meta property="article:published_time" content="2024-04-07T14:03:51.000Z">
+<meta property="article:modified_time" content="2024-04-10T03:37:41.147Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://c.wallhere.com/photos/a1/11/Monogatari_Series_anime_girls_Oshino_Shinobu_red_eyes_blonde-1383217.jpg!d"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://whff521.github.io/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java面试准备整理(一)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-10 11:37:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://c.wallhere.com/photos/a1/11/Monogatari_Series_anime_girls_Oshino_Shinobu_red_eyes_blonde-1383217.jpg!d')"><nav id="nav"><span id="blog-info"><a href="/" title="AiRomance"><span class="site-name">AiRomance</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">java面试准备整理(一)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-04-07T14:03:51.000Z" title="Created 2024-04-07 22:03:51">2024-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-04-10T03:37:41.147Z" title="Updated 2024-04-10 11:37:41">2024-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="java面试准备整理(一)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-java面向对象有哪些特征"><a href="#1-java面向对象有哪些特征" class="headerlink" title="1. java面向对象有哪些特征"></a>1. java面向对象有哪些特征</h2><p>面向对象的三大特征：<strong>封装、继承、多态</strong></p>
+<h2 id="2-ArrayList和LinkedList的区别"><a href="#2-ArrayList和LinkedList的区别" class="headerlink" title="2. ArrayList和LinkedList的区别"></a>2. ArrayList和LinkedList的区别</h2><p>都实现了<code>List</code>接口。<br><code>ArrayList</code>是基于索引的数据接口，底层是数组。<br><code>LinkedList</code>(链表)是以元素列表的形式存储数据。</p>
+<h2 id="3-高并发中的集合有哪些问题"><a href="#3-高并发中的集合有哪些问题" class="headerlink" title="3. 高并发中的集合有哪些问题"></a>3. 高并发中的集合有哪些问题</h2><h3 id="1-第一代线程安全集合类"><a href="#1-第一代线程安全集合类" class="headerlink" title="1. 第一代线程安全集合类"></a>1. 第一代线程安全集合类</h3><p><code>Vector</code>、<code>Hashtable</code>。使用<code>synchronized</code>。效率低下。</p>
+<h3 id="2-第二代"><a href="#2-第二代" class="headerlink" title="2. 第二代"></a>2. 第二代</h3><p><code>ArrayList</code>、<code>HashMap</code>。使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collections.synchronizedList(list);</span><br><span class="line">Collections.synchronizedMap(m);</span><br></pre></td></tr></table></figure>
+<h3 id="3-第三代"><a href="#3-第三代" class="headerlink" title="3. 第三代"></a>3. 第三代</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.util.concurrent.*</span><br><span class="line">ConcurrentHashMap</span><br><span class="line">CopyOnWriteArrayList</span><br><span class="line">CopyOnWriteArraySet</span><br></pre></td></tr></table></figure>
+<p>Java 中的高并发环境下使用集合可能会遇到以下问题：</p>
+<ol>
+<li><p><strong>线程安全性问题</strong>：Java 中的大多数集合类（如 <code>ArrayList</code>、<code>HashMap</code> 等）在多线程环境下不是线程安全的，因此可能会导致数据不一致或者其他意外行为。</p>
+</li>
+<li><p><strong>性能问题</strong>：在高并发环境下，如果使用线程安全的集合类（如 <code>ConcurrentHashMap</code>、<code>CopyOnWriteArrayList</code> 等），可能会引入额外的性能开销，因为它们通常会使用同步或者复制等机制来保证线程安全。</p>
+</li>
+<li><p><strong>迭代器失效问题</strong>：在使用迭代器遍历集合时，如果其他线程对集合进行了修改，可能会导致迭代器失效，抛出 <code>ConcurrentModificationException</code> 异常。</p>
+</li>
+<li><p><strong>死锁问题</strong>：如果在高并发环境下不正确地使用集合，可能会出现死锁问题，例如两个线程分别持有集合中的不同锁，并试图获取对方持有的锁。</p>
+</li>
+<li><p><strong>内存泄漏问题</strong>：如果不正确地使用集合，可能会导致内存泄漏问题，例如在高并发环境下频繁地向集合中添加元素但未及时删除，可能会导致集合持有过多的引用而无法被及时回收。</p>
+</li>
+</ol>
+<p>为了解决这些问题，可以采用以下方法：</p>
+<ul>
+<li>使用线程安全的集合类，如 <code>ConcurrentHashMap</code>、<code>CopyOnWriteArrayList</code> 等。</li>
+<li>使用同步机制来保证多线程访问的安全性，例如使用 <code>synchronized</code> 关键字或者 <code>ReentrantLock</code> 类。</li>
+<li>避免在迭代集合时对集合进行修改，可以使用迭代器的安全删除操作或者将集合复制一份后再进行操作。</li>
+<li>注意合理设计并发访问的逻辑，避免死锁等并发问题的发生。</li>
+<li>注意集合的内存使用情况，避免内存泄漏问题的发生。</li>
+</ul>
+<h2 id="4-JDK1-8的新特性有哪些"><a href="#4-JDK1-8的新特性有哪些" class="headerlink" title="4. JDK1.8的新特性有哪些"></a>4. JDK1.8的新特性有哪些</h2><p>由于要兼容Lambda表达式，接口里实现了默认方法，接口中带了实现。<br>函数式接口<br>支持了多重注解<br>Java 8 引入了许多重要的新特性，其中一些最显着的包括：</p>
+<ol>
+<li><p><strong>Lambda 表达式</strong>：Lambda 表达式是一种匿名函数，它可以作为参数传递给方法或者作为函数式接口的实例使用，极大地简化了代码的编写和阅读。</p>
+</li>
+<li><p><strong>Stream API</strong>：Stream API 提供了一种声明式的方式来操作集合，可以轻松地进行过滤、映射、排序、聚合等操作，大大提高了代码的简洁性和可读性。</p>
+</li>
+<li><p><strong>函数式接口</strong>：Java 8 引入了 <code>@FunctionalInterface</code> 注解，用于标识函数式接口，即只包含一个抽象方法的接口。这种接口可以被 Lambda 表达式直接实现，使得函数式编程更加方便。</p>
+</li>
+<li><p><strong>方法引用</strong>：方法引用允许通过方法的名字来引用方法，而不需要像 Lambda 表达式那样提供方法的完整定义，可以进一步简化代码。</p>
+</li>
+<li><p><strong>默认方法</strong>：接口中可以定义默认方法，这些方法可以在接口中提供默认的实现，从而在接口的实现类中直接使用，而无需重新实现。</p>
+</li>
+<li><p><strong>Optional 类</strong>：Optional 类是一个容器对象，用于包装可能为 null 的值，可以避免空指针异常，并提供了一些便利的方法来处理可能为 null 的值。</p>
+</li>
+<li><p><strong>新的日期和时间 API</strong>：Java 8 引入了 <code>java.time</code> 包，提供了全新的日期和时间 API，解决了旧的 <code>java.util.Date</code> 和 <code>java.util.Calendar</code> API 的许多问题，例如线程安全性和易用性。</p>
+</li>
+<li><p><strong>CompletableFuture 类</strong>：CompletableFuture 类提供了一种便利的方式来进行异步编程，可以轻松地处理异步任务的完成和组合。</p>
+</li>
+</ol>
+<p>这些新特性使得 Java 8 成为一个重要的版本，为 Java 编程带来了许多新的可能性和优势。</p>
+<h2 id="5-Java接口和抽象类有哪些区别"><a href="#5-Java接口和抽象类有哪些区别" class="headerlink" title="5. Java接口和抽象类有哪些区别"></a>5. Java接口和抽象类有哪些区别</h2><p>语法的区别<br>语义的区别：什么时候用接口，什么时候用抽象类。<br>抽象类面对的是一个概念，动物，哺乳动物，植物，有具体概念的建议用抽象类去实现。<br>接口描述的是某些共同特征，比如flyable</p>
+<h2 id="6-hashcode和equals如何使用"><a href="#6-hashcode和equals如何使用" class="headerlink" title="6. hashcode和equals如何使用"></a>6. hashcode和equals如何使用</h2><p>在Java中，<code>hashCode()</code>和<code>equals()</code>方法是用于处理对象相等性和哈希值计算的两个重要方法。</p>
+<ol>
+<li><p><code>hashCode()</code>方法：</p>
+<ul>
+<li><code>hashCode()</code>方法用于返回对象的哈希码（hash code），它是一个32位的整数。</li>
+<li>哈希码用于快速定位对象在哈希表中的位置，因此它对于实现高效的数据结构如HashMap、HashSet等非常重要。</li>
+<li>在实现<code>hashCode()</code>方法时，通常需要遵循以下约定：<ul>
+<li>如果两个对象根据<code>equals()</code>方法相等，则它们的哈希码必须相等。</li>
+<li>但是，两个对象的哈希码相等并不意味着它们相等，即对于不同的对象，哈希码可能相同（哈希冲突）。</li>
+</ul>
+</li>
+<li>如果重写了<code>equals()</code>方法，则通常也需要重写<code>hashCode()</code>方法，以保持对象相等性和哈希码一致。</li>
+</ul>
+</li>
+<li><p><code>equals()</code>方法：</p>
+<ul>
+<li><code>equals()</code>方法用于比较两个对象是否相等。在Java中，默认的<code>equals()</code>方法实现是比较对象的引用是否相同（即比较内存地址）。</li>
+<li>通常需要重写<code>equals()</code>方法来定义对象相等的规则。重写<code>equals()</code>方法时，需要遵循以下约定：<ul>
+<li>自反性：对于任何非空引用值<code>x</code>，<code>x.equals(x)</code>必须返回<code>true</code>。</li>
+<li>对称性：对于任何非空引用值<code>x</code>和<code>y</code>，如果<code>x.equals(y)</code>返回<code>true</code>，则<code>y.equals(x)</code>也必须返回<code>true</code>。</li>
+<li>传递性：对于任何非空引用值<code>x</code>、<code>y</code>和<code>z</code>，如果<code>x.equals(y)</code>返回<code>true</code>，<code>y.equals(z)</code>返回<code>true</code>，则<code>x.equals(z)</code>也必须返回<code>true</code>。</li>
+<li>一致性：对于任何非空引用值<code>x</code>和<code>y</code>，如果对象中的信息没有改变，多次调用<code>x.equals(y)</code>应该始终返回相同的结果。</li>
+<li>对于任何非空引用值<code>x</code>，<code>x.equals(null)</code>必须返回<code>false</code>。</li>
+</ul>
+</li>
+<li>重写<code>equals()</code>方法时，需要确保与<code>hashCode()</code>方法一致，即如果两个对象根据<code>equals()</code>方法相等，则它们的哈希码也必须相等。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，<code>hashCode()</code>和<code>equals()</code>方法在Java中常用于实现对象的相等性比较和哈希值计算，这对于在集合中存储对象、使用哈希表等数据结构非常重要。</p>
+<h2 id="7-java代理的几种实现方式"><a href="#7-java代理的几种实现方式" class="headerlink" title="7. java代理的几种实现方式"></a>7. java代理的几种实现方式</h2><p>静态代理<br>两种动态代理<br>在Java中，代理是一种常见的设计模式，用于控制对其他对象的访问。代理可以在访问对象时添加额外的逻辑，例如日志记录、性能监控、安全控制等。Java中实现代理的几种方式包括：</p>
+<ol>
+<li><p>静态代理：</p>
+<ul>
+<li>静态代理是在编译时确定代理类和被代理类的关系。代理类和被代理类在编译期间就已经确定，代理类通常实现与被代理类相同的接口或者继承相同的父类。</li>
+<li>静态代理的实现比较简单，可以直接在代理类中调用被代理类的方法，并在方法前后添加额外的逻辑。</li>
+</ul>
+</li>
+<li><p>动态代理（JDK动态代理）：</p>
+<ul>
+<li>JDK动态代理是在运行时动态生成代理类的方式。它是通过Java反射机制实现的，在运行时创建代理对象并动态处理对被代理方法的调用。</li>
+<li>JDK动态代理要求被代理的类必须实现接口，代理类通过实现<code>InvocationHandler</code>接口来处理被代理方法的调用。</li>
+</ul>
+</li>
+<li><p>CGLIB代理：</p>
+<ul>
+<li>CGLIB代理是针对类的代理，它通过动态生成被代理类的子类来实现代理。因此，被代理类不需要实现接口，而是通过继承来实现代理。</li>
+<li>CGLIB代理通过字节码技术在运行时创建代理类的子类，并重写其中的方法，在方法前后添加额外的逻辑。</li>
+</ul>
+</li>
+<li><p>Java动态代理与CGLIB代理的比较：</p>
+<ul>
+<li>Java动态代理适用于接口代理，要求被代理的类必须实现接口，因此更加灵活，但是无法对类的非接口方法进行代理。</li>
+<li>CGLIB代理适用于类的代理，不要求被代理的类实现接口，因此更加灵活，可以代理类的任何方法，但是无法代理<code>final</code>方法和<code>private</code>方法。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，静态代理、JDK动态代理和CGLIB代理是Java中常用的代理实现方式，它们各自具有不同的特点和适用场景，可以根据具体需求选择合适的代理方式。</p>
+<h2 id="8-java中-和-equals-有哪些区别"><a href="#8-java中-和-equals-有哪些区别" class="headerlink" title="8. java中 &#x3D;&#x3D; 和 equals 有哪些区别"></a>8. java中 &#x3D;&#x3D; 和 equals 有哪些区别</h2><p><code>==</code> 基本数据类型比较值，引用数据类型比较的地址。<br><code>equals</code> 比较两个对象的内容是否相等</p>
+<h2 id="9-java中异常处理机制是什么"><a href="#9-java中异常处理机制是什么" class="headerlink" title="9. java中异常处理机制是什么"></a>9. java中异常处理机制是什么</h2><p>抛出异常 throw<br>捕获异常 try catch finally<br>声明异常 throws</p>
+<h2 id="10-java中重写和重载有哪些区别"><a href="#10-java中重写和重载有哪些区别" class="headerlink" title="10. java中重写和重载有哪些区别"></a>10. java中重写和重载有哪些区别</h2><p>重载overload：同一个类中，参数不同的<br>重写override：子类和父类中，重写的方法和被重写的方法</p>
+<h2 id="11-String、StringBuffer、StringBuilder区别及使用场景"><a href="#11-String、StringBuffer、StringBuilder区别及使用场景" class="headerlink" title="11. String、StringBuffer、StringBuilder区别及使用场景"></a>11. String、StringBuffer、StringBuilder区别及使用场景</h2><p>String是只读字符串<br><code>String</code>、<code>StringBuffer</code>和<code>StringBuilder</code>是Java中用于处理字符串的三个类，它们在设计和使用上有一些区别，适用于不同的场景：</p>
+<ol>
+<li><p><code>String</code>：</p>
+<ul>
+<li><code>String</code>是不可变的（immutable）类，一旦创建就不能被修改。这意味着每次对<code>String</code>进行修改时，都会创建一个新的<code>String</code>对象，旧的对象会被丢弃，这样会导致性能开销和内存浪费。</li>
+<li>由于<code>String</code>是不可变的，因此它是线程安全的，可以被多个线程安全地共享。</li>
+</ul>
+</li>
+<li><p><code>StringBuffer</code>：</p>
+<ul>
+<li><code>StringBuffer</code>是可变的（mutable）类，它提供了对字符串进行修改的方法，例如<code>append()</code>、<code>insert()</code>、<code>delete()</code>等。因此，对于频繁的字符串拼接或者修改操作，使用<code>StringBuffer</code>会比直接使用<code>String</code>更高效。</li>
+<li><code>StringBuffer</code>是线程安全的，它的方法都是同步的，适用于多线程环境。</li>
+</ul>
+</li>
+<li><p><code>StringBuilder</code>：</p>
+<ul>
+<li><code>StringBuilder</code>与<code>StringBuffer</code>类似，也是可变的字符串序列。但是，与<code>StringBuffer</code>不同的是，<code>StringBuilder</code>的方法都是非同步的，因此在单线程环境下性能更好。</li>
+<li>由于<code>StringBuilder</code>的方法不是同步的，因此它不适用于多线程环境。</li>
+</ul>
+</li>
+</ol>
+<p>使用场景：</p>
+<ul>
+<li>当需要处理不可变的字符串时，例如字符串常量，可以使用<code>String</code>类。</li>
+<li>当需要在单线程环境下进行频繁的字符串操作时，例如字符串拼接、修改等，可以使用<code>StringBuilder</code>。</li>
+<li>当需要在多线程环境下进行字符串操作时，可以使用<code>StringBuffer</code>，因为它是线程安全的，但是性能相对较低，如果不需要线程安全的话，也可以使用<code>StringBuilder</code>。</li>
+</ul>
+<p>综上所述，根据具体需求和线程安全性要求，可以选择使用<code>String</code>、<code>StringBuffer</code>或者<code>StringBuilder</code>来处理字符串。</p>
+<h2 id="12-怎样声明一个类不会被继承，什么场景下会用"><a href="#12-怎样声明一个类不会被继承，什么场景下会用" class="headerlink" title="12. 怎样声明一个类不会被继承，什么场景下会用"></a>12. 怎样声明一个类不会被继承，什么场景下会用</h2><p>用final修饰。例如Math类</p>
+<h2 id="13-自定义异常在生产中如何应用"><a href="#13-自定义异常在生产中如何应用" class="headerlink" title="13. 自定义异常在生产中如何应用"></a>13. 自定义异常在生产中如何应用</h2><p>自定义异常在生产环境中的应用可以提高代码的健壮性、可维护性和可读性，使得异常处理更加规范和易于管理。合理地使用自定义异常可以有效地提高系统的稳定性和可靠性，从而提升用户体验和系统性能。<br>继承合适的父类：自定义异常类应当继承自Exception类或者其子类，例如RuntimeException，以便在异常处理时能够统一处理或者捕获。</p>
+<h2 id="14-Redis线程模型有哪些，单线程为什么快"><a href="#14-Redis线程模型有哪些，单线程为什么快" class="headerlink" title="14. Redis线程模型有哪些，单线程为什么快"></a>14. Redis线程模型有哪些，单线程为什么快</h2><p>Redis的线程模型主要有单线程模型和多线程模型两种。</p>
+<ol>
+<li><p>单线程模型：</p>
+<ul>
+<li>Redis最初采用的是单线程模型。单线程模型指的是Redis服务器在一个线程中顺序地处理所有请求，所有的命令都在一个事件循环中执行。</li>
+<li>单线程模型的优势在于简单高效，因为不需要考虑线程同步和线程切换的开销，避免了多线程并发访问共享数据可能引发的竞态条件和死锁问题。</li>
+<li>Redis单线程模型适用于大多数情况下的数据存储和处理，特别是在单个CPU核心的情况下，单线程模型的性能表现通常比较优秀。</li>
+</ul>
+</li>
+<li><p>多线程模型：</p>
+<ul>
+<li>Redis 6.0 版本引入了多线程模型（Redis主从分离模式），可以充分利用多核CPU的性能，提升服务器的吞吐量和并发处理能力。</li>
+<li>多线程模型将网络IO、命令处理和数据读写等操作分配给多个工作线程处理，可以提高系统的并发处理能力，适用于高并发的场景。</li>
+</ul>
+</li>
+</ol>
+<p>为什么单线程模型在某些情况下会比多线程模型快呢？</p>
+<ol>
+<li><p>线程切换开销：在多线程模型中，由于涉及到线程的创建、销毁和切换，会产生额外的开销，而单线程模型避免了这些开销。</p>
+</li>
+<li><p>CPU缓存优化：单线程模型可以更好地利用CPU缓存，因为数据和指令都在同一个线程中执行，避免了多线程中频繁的数据共享和同步操作可能引发的缓存失效问题。</p>
+</li>
+<li><p>线程同步和锁竞争：在多线程模型中，由于涉及到多个线程对共享资源的访问和修改，需要进行线程同步和锁竞争，而单线程模型避免了这些问题。</p>
+</li>
+</ol>
+<p>虽然单线程模型在某些情况下性能优于多线程模型，但是对于高并发、大规模的应用场景，多线程模型能够更好地利用多核CPU的性能，提高系统的并发处理能力。因此，选择合适的线程模型需要根据具体的应用场景和需求进行权衡和选择。</p>
+<h2 id="15-Redis持久化机制：RDB和AOF"><a href="#15-Redis持久化机制：RDB和AOF" class="headerlink" title="15. Redis持久化机制：RDB和AOF"></a>15. Redis持久化机制：RDB和AOF</h2><p>Redis（远程字典服务器）是一种流行的内存数据库，它支持多种持久化机制来保证数据的安全性和可靠性。两种主要的持久化机制是RDB（Redis Database）和AOF（Append-Only File）。</p>
+<ol>
+<li><p><strong>RDB（Redis Database）</strong>：</p>
+<ul>
+<li>RDB 是 Redis 的一种快照持久化方式，它周期性地将 Redis 在内存中的数据以快照的形式保存到硬盘上的一个文件中。</li>
+<li>生成 RDB 文件的时机可以通过配置文件中的保存条件来设置，比如在一定的时间间隔内或者在达到一定数量的写操作后。</li>
+<li>由于 RDB 是将整个数据集保存到文件中，因此它的恢复速度比较快，适用于对数据一致性要求不是很高、需要定期备份或者迁移数据的场景。</li>
+</ul>
+</li>
+<li><p><strong>AOF（Append-Only File）</strong>：</p>
+<ul>
+<li>AOF 是通过将 Redis 的写操作以追加的方式记录到一个文件中来实现持久化的机制。</li>
+<li>AOF 文件记录了 Redis 服务器接收到的所有写命令，通过重放这些命令可以恢复数据。</li>
+<li>AOF 文件的内容是可读的，因此在故障发生时可以比较容易地手动修复，但相对于 RDB，AOF 文件通常会更大一些。</li>
+<li>AOF 提供了不同的同步选项，可以在性能和数据安全之间进行权衡，比如可以选择每个命令都同步到磁盘，或者每秒同步一次等。</li>
+</ul>
+</li>
+</ol>
+<p>在实际应用中，可以根据业务需求和对数据一致性、恢复速度等方面的要求选择适合的持久化机制，甚至可以同时使用 RDB 和 AOF 来提高数据的安全性。</p>
+<h2 id="16-redis的过期键有哪些删除策略"><a href="#16-redis的过期键有哪些删除策略" class="headerlink" title="16. redis的过期键有哪些删除策略"></a>16. redis的过期键有哪些删除策略</h2><p>Redis 中有几种删除过期键的策略，它们分别是：</p>
+<ol>
+<li><p><strong>定期删除（定时任务）</strong>：<br>Redis 默认会每秒检查一定数量的过期键，然后删除其中已过期的键。这个数量可以通过配置文件中的 <code>hz</code> 参数进行设置，默认为 10。</p>
+</li>
+<li><p><strong>惰性删除</strong>：<br>当客户端尝试访问某个键时，Redis 会先检查该键是否过期，如果过期则会立即删除。这种方式称为惰性删除。</p>
+</li>
+<li><p><strong>定期删除 + 惰性删除结合</strong>：<br>定期删除和惰性删除可以结合使用，定期删除确保过期键不会一直占据内存，而惰性删除则保证了内存的及时回收。</p>
+</li>
+<li><p><strong>过期键删除策略配置</strong>：<br>在 Redis 的配置文件中，可以通过设置 <code>maxmemory-policy</code> 参数来调整过期键的删除策略。常见的策略包括：</p>
+<ul>
+<li><code>volatile-lru</code>：从已设置过期时间的键中挑选最近最少使用的键进行删除。</li>
+<li><code>volatile-ttl</code>：从已设置过期时间的键中挑选即将过期的键进行删除。</li>
+<li><code>volatile-random</code>：从已设置过期时间的键中随机选择键进行删除。</li>
+<li><code>allkeys-lru</code>：从所有键中挑选最近最少使用的键进行删除，包括设置过期时间和未设置过期时间的键。</li>
+<li><code>allkeys-random</code>：从所有键中随机选择键进行删除。</li>
+<li><code>noeviction</code>：禁止删除任何键，当内存用完时，所有写操作都会返回错误。</li>
+</ul>
+</li>
+</ol>
+<p>通过选择合适的删除策略，可以根据实际需求来平衡内存使用和数据可用性。</p>
+<h2 id="17-redis缓存如何回收"><a href="#17-redis缓存如何回收" class="headerlink" title="17. redis缓存如何回收"></a>17. redis缓存如何回收</h2><p>Redis 中的缓存回收通常是指对内存的回收，以确保 Redis 不会因为内存占用过高而导致性能下降或者服务不可用。主要的缓存回收方法包括：</p>
+<ol>
+<li><p><strong>内存淘汰策略</strong>：<br>Redis 提供了多种内存淘汰策略，用于在内存达到最大限制时选择要移除的键。常见的淘汰策略包括：</p>
+<ul>
+<li>LRU（最近最少使用）：移除最近最少使用的键。</li>
+<li>LFU（最少频繁使用）：移除最少频繁使用的键。</li>
+<li>TTL（过期时间）：移除最早过期的键。</li>
+</ul>
+</li>
+<li><p><strong>设置内存最大限制</strong>：<br>可以在 Redis 配置文件中设置 <code>maxmemory</code> 参数，限制 Redis 实例使用的最大内存量。当达到这个限制时，Redis 将会根据配置的内存淘汰策略来回收内存。</p>
+</li>
+<li><p><strong>手动删除</strong>：<br>可以通过手动删除键来释放内存。当某些键不再需要缓存时，可以通过 <code>DEL</code> 命令删除这些键。</p>
+</li>
+<li><p><strong>持久化策略</strong>：<br>使用持久化机制（如 RDB 或 AOF）时，可以通过合理的设置持久化策略来控制数据的持久化频率，从而间接地控制内存的占用。</p>
+</li>
+<li><p><strong>过期键自动删除</strong>：<br>Redis 中的键可以设置过期时间，一旦过期时间到达，Redis 将自动删除这些键以释放内存空间。</p>
+</li>
+<li><p><strong>内存优化</strong>：<br>可以通过一些优化策略来减少 Redis 实例的内存占用，比如使用数据结构优化、压缩数据、分片数据等方式。</p>
+</li>
+</ol>
+<p>综合利用这些方法，可以有效地管理 Redis 的内存使用，确保其在高性能的同时不会因为内存溢出而导致服务不可用。</p>
+<h2 id="18-redis集群方案有哪些"><a href="#18-redis集群方案有哪些" class="headerlink" title="18. redis集群方案有哪些"></a>18. redis集群方案有哪些</h2><p>在搭建 Redis 集群时，有几种常见的方案：</p>
+<ol>
+<li><p><strong>Redis Sentinel</strong>：<br>Redis Sentinel 是 Redis 官方提供的高可用性解决方案，它可以监控 Redis 实例的健康状态，并在主节点宕机时自动将从节点提升为主节点，以保证系统的可用性。但是 Redis Sentinel 本身并不支持数据分片，只能用于高可用性方案。</p>
+</li>
+<li><p><strong>Redis Cluster</strong>：<br>Redis Cluster 是 Redis 官方提供的分布式方案，它将数据分片存储在多个节点上，并提供了自动数据分片和数据复制等功能，可以实现水平扩展和高可用性。Redis Cluster 在设计上遵循了主从复制、数据分片和节点互相通信等原则，提供了一套完整的分布式解决方案。</p>
+</li>
+<li><p><strong>第三方方案</strong>：<br>除了官方提供的解决方案之外，还有一些第三方工具和方案可以实现 Redis 的集群化，比如 Twemproxy、Codis 等。这些方案可能会提供一些额外的功能或者更加灵活的配置选项，但也可能会增加系统的复杂度和维护成本。</p>
+</li>
+</ol>
+<p>在选择适合自己的 Redis 集群方案时，需要考虑到系统的需求、性能要求、高可用性要求以及团队的技术栈和维护成本等因素。</p>
+<h2 id="19-redis事务是怎么实现的"><a href="#19-redis事务是怎么实现的" class="headerlink" title="19. redis事务是怎么实现的"></a>19. redis事务是怎么实现的</h2><p>Redis 的事务是通过 MULTI&#x2F;EXEC 命令组合来实现的，具体过程如下：</p>
+<ol>
+<li><p><strong>MULTI 命令</strong>：<br>客户端发送 MULTI 命令给 Redis 服务器，表示开始一个事务。Redis 服务器收到 MULTI 命令后，会将当前客户端设置为事务状态，并将后续的命令都放入一个队列中，等待执行。</p>
+</li>
+<li><p><strong>命令入队</strong>：<br>在 MULTI 和 EXEC 之间的所有命令都会被放入事务队列中，而不是立即执行。这些命令不会立即改变数据库状态，而是暂时保存在队列中。</p>
+</li>
+<li><p><strong>命令执行</strong>：<br>客户端发送 EXEC 命令给 Redis 服务器，表示执行事务中的所有命令。Redis 服务器收到 EXEC 命令后，会按照命令入队的顺序，逐个执行事务队列中的命令。</p>
+</li>
+<li><p><strong>事务原子性</strong>：<br>在执行事务期间，Redis 会将这些命令作为一个整体进行执行，要么全部执行成功，要么全部执行失败。这保证了事务的原子性，即要么所有命令都成功执行，要么都不执行。</p>
+</li>
+<li><p><strong>执行结果返回</strong>：<br>执行事务队列中的命令后，Redis 会将每个命令的执行结果按照顺序返回给客户端。如果在执行事务过程中出现了错误，Redis 会返回一个错误给客户端，同时回滚之前已执行的命令。</p>
+</li>
+</ol>
+<p>通过这种方式，Redis 的事务可以确保一系列命令的原子性执行，但需要注意的是，Redis 的事务并不支持回滚操作，因此在发生错误时，需要由客户端自行处理错误并进行补偿操作。</p>
+<h2 id="20-redis-主从复制的原理"><a href="#20-redis-主从复制的原理" class="headerlink" title="20. redis 主从复制的原理"></a>20. redis 主从复制的原理</h2><p>Redis 主从复制是一种常用的高可用性和读写分离方案，它的原理如下：</p>
+<ol>
+<li><p><strong>建立连接</strong>：<br>首先，从节点（Slave）会向主节点（Master）发送一个 PSYNC 或 SYNC 命令，请求建立复制连接。</p>
+</li>
+<li><p><strong>同步数据</strong>：<br>一旦连接建立成功，主节点会将自己的数据发送给从节点，从节点会接收并保存这些数据。如果是首次进行复制，主节点会发送整个数据集；如果是增量复制，主节点会发送从上次复制点之后的数据变化。</p>
+</li>
+<li><p><strong>增量复制</strong>：<br>在初始同步完成后，主节点会继续将所有写命令发送给从节点，从节点会根据这些写命令来更新自己的数据集。这样，从节点就能保持和主节点一样的数据状态。</p>
+</li>
+<li><p><strong>持续连接和同步</strong>：<br>一旦复制建立，主从节点之间会维持一个持久的连接。主节点会持续地将写命令发送给从节点，确保从节点始终与主节点保持同步。</p>
+</li>
+<li><p><strong>主从切换</strong>：<br>当主节点宕机或者不可用时，可以手动或自动地将从节点提升为主节点，以保证系统的高可用性。在自动故障转移中，Redis Sentinel 或其他监控工具会监测主节点的状态，并在主节点不可用时自动将某个从节点升级为主节点。</p>
+</li>
+</ol>
+<p>通过主从复制，Redis 实现了数据的备份和读写分离，提高了系统的可用性和性能。从节点可以处理读请求，分担主节点的压力，同时在主节点故障时可以快速接管，保证服务的连续性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://whff521.github.io">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://whff521.github.io/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/">https://whff521.github.io/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java</a><a class="post-meta__tags" href="/tags/redis/">redis</a></div><div class="post_share"><div class="social-share" data-image="https://c.wallhere.com/photos/a1/11/Monogatari_Series_anime_girls_Oshino_Shinobu_red_eyes_blonde-1383217.jpg!d" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/04/07/verbal-advantage-level-1-41-50/" title="verbal advantage level 1 41-50"><img class="cover" src="https://m.media-amazon.com/images/I/61IiwFVZr1L._SL1200_.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">verbal advantage level 1 41-50</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AiRomance</div><div class="author-info__description">又遇到什么好事了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E5%BE%81"><span class="toc-number">1.</span> <span class="toc-text">1. java面向对象有哪些特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-ArrayList%E5%92%8CLinkedList%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">2. ArrayList和LinkedList的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88%E6%9C%89%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">3. 高并发中的集合有哪些问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AC%AC%E4%B8%80%E4%BB%A3%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%9B%86%E5%90%88%E7%B1%BB"><span class="toc-number">3.1.</span> <span class="toc-text">1. 第一代线程安全集合类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AC%AC%E4%BA%8C%E4%BB%A3"><span class="toc-number">3.2.</span> <span class="toc-text">2. 第二代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%AC%AC%E4%B8%89%E4%BB%A3"><span class="toc-number">3.3.</span> <span class="toc-text">3. 第三代</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-JDK1-8%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">4.</span> <span class="toc-text">4. JDK1.8的新特性有哪些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Java%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">5. Java接口和抽象类有哪些区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-hashcode%E5%92%8Cequals%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">6. hashcode和equals如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-java%E4%BB%A3%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">7. java代理的几种实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-java%E4%B8%AD-%E5%92%8C-equals-%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="toc-number">8.</span> <span class="toc-text">8. java中 &#x3D;&#x3D; 和 equals 有哪些区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-java%E4%B8%AD%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">9.</span> <span class="toc-text">9. java中异常处理机制是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-java%E4%B8%AD%E9%87%8D%E5%86%99%E5%92%8C%E9%87%8D%E8%BD%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">10. java中重写和重载有哪些区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E5%8C%BA%E5%88%AB%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">11.</span> <span class="toc-text">11. String、StringBuffer、StringBuilder区别及使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E6%80%8E%E6%A0%B7%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%8D%E4%BC%9A%E8%A2%AB%E7%BB%A7%E6%89%BF%EF%BC%8C%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%E4%B8%8B%E4%BC%9A%E7%94%A8"><span class="toc-number">12.</span> <span class="toc-text">12. 怎样声明一个类不会被继承，什么场景下会用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%9C%A8%E7%94%9F%E4%BA%A7%E4%B8%AD%E5%A6%82%E4%BD%95%E5%BA%94%E7%94%A8"><span class="toc-number">13.</span> <span class="toc-text">13. 自定义异常在生产中如何应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="toc-number">14.</span> <span class="toc-text">14. Redis线程模型有哪些，单线程为什么快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%EF%BC%9ARDB%E5%92%8CAOF"><span class="toc-number">15.</span> <span class="toc-text">15. Redis持久化机制：RDB和AOF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-redis%E7%9A%84%E8%BF%87%E6%9C%9F%E9%94%AE%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5"><span class="toc-number">16.</span> <span class="toc-text">16. redis的过期键有哪些删除策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-redis%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6"><span class="toc-number">17.</span> <span class="toc-text">17. redis缓存如何回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-redis%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">18.</span> <span class="toc-text">18. redis集群方案有哪些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-redis%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="toc-number">19.</span> <span class="toc-text">19. redis事务是怎么实现的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-redis-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">20.</span> <span class="toc-text">20. redis 主从复制的原理</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/" title="java面试准备整理(一)"><img src="https://c.wallhere.com/photos/a1/11/Monogatari_Series_anime_girls_Oshino_Shinobu_red_eyes_blonde-1383217.jpg!d" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java面试准备整理(一)"/></a><div class="content"><a class="title" href="/2024/04/07/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%B8%80/" title="java面试准备整理(一)">java面试准备整理(一)</a><time datetime="2024-04-07T14:03:51.000Z" title="Created 2024-04-07 22:03:51">2024-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/07/verbal-advantage-level-1-41-50/" title="verbal advantage level 1 41-50"><img src="https://m.media-amazon.com/images/I/61IiwFVZr1L._SL1200_.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="verbal advantage level 1 41-50"/></a><div class="content"><a class="title" href="/2024/04/07/verbal-advantage-level-1-41-50/" title="verbal advantage level 1 41-50">verbal advantage level 1 41-50</a><time datetime="2024-04-07T07:17:09.000Z" title="Created 2024-04-07 15:17:09">2024-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/05/%E6%B4%9B%E8%B0%B7P1655-%E6%96%AF%E7%89%B9%E7%81%B5%E6%95%B0java/" title="洛谷P1655 斯特灵数java"><img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/df4729c4-91a3-4048-84df-515397f5e31c/d4vn08i-5b765c8d-fba2-4336-a666-33c1e7f269d3.jpg/v1/fill/w_900,h_507,q_75,strp/nisemonogatari_shinobu_wallpaper_2_by_nicobass20_d4vn08i-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTA3IiwicGF0aCI6IlwvZlwvZGY0NzI5YzQtOTFhMy00MDQ4LTg0ZGYtNTE1Mzk3ZjVlMzFjXC9kNHZuMDhpLTViNzY1YzhkLWZiYTItNDMzNi1hNjY2LTMzYzFlN2YyNjlkMy5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.Rwoa1l5T7GGyNaKqEzxGGXdeuMVWarlWKdyUnWWPZTk" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="洛谷P1655 斯特灵数java"/></a><div class="content"><a class="title" href="/2024/04/05/%E6%B4%9B%E8%B0%B7P1655-%E6%96%AF%E7%89%B9%E7%81%B5%E6%95%B0java/" title="洛谷P1655 斯特灵数java">洛谷P1655 斯特灵数java</a><time datetime="2024-04-05T13:58:51.000Z" title="Created 2024-04-05 21:58:51">2024-04-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/05/verbal-advantage-level-1-21-40/" title="verbal advantage level 1 21-40"><img src="https://m.media-amazon.com/images/I/61IiwFVZr1L._SL1200_.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="verbal advantage level 1 21-40"/></a><div class="content"><a class="title" href="/2024/04/05/verbal-advantage-level-1-21-40/" title="verbal advantage level 1 21-40">verbal advantage level 1 21-40</a><time datetime="2024-04-05T08:59:09.000Z" title="Created 2024-04-05 16:59:09">2024-04-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/03/verbal-advantage-level-1-1-20/" title="verbal advantage level 1 1-20"><img src="https://m.media-amazon.com/images/I/61IiwFVZr1L._SL1200_.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="verbal advantage level 1 1-20"/></a><div class="content"><a class="title" href="/2024/04/03/verbal-advantage-level-1-1-20/" title="verbal advantage level 1 1-20">verbal advantage level 1 1-20</a><time datetime="2024-04-03T11:02:45.000Z" title="Created 2024-04-03 19:02:45">2024-04-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
