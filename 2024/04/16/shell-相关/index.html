@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>shell 相关 | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lecture 1: Course Overview + The Shell (2020)对应中文网站  date 查看时间  echo Hello\ World 输出Hello World  echo $path  查看电脑有哪些路径  which echo  查看echo命令会执行哪里的文件  pwd Print Working Directory，即打印当前工作目录  cd .&#x2F;home">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell 相关">
+<meta property="og:url" content="https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="Lecture 1: Course Overview + The Shell (2020)对应中文网站  date 查看时间  echo Hello\ World 输出Hello World  echo $path  查看电脑有哪些路径  which echo  查看echo命令会执行哪里的文件  pwd Print Working Directory，即打印当前工作目录  cd .&#x2F;home">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://repository-images.githubusercontent.com/330956615/0e6dd600-6196-11eb-809a-f573ebf81f4f">
+<meta property="article:published_time" content="2024-04-16T05:59:23.000Z">
+<meta property="article:modified_time" content="2024-04-16T06:03:26.772Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://repository-images.githubusercontent.com/330956615/0e6dd600-6196-11eb-809a-f573ebf81f4f"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'shell 相关',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-04-16 14:03:26'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://repository-images.githubusercontent.com/330956615/0e6dd600-6196-11eb-809a-f573ebf81f4f')"><nav id="nav"><span id="blog-info"><a href="/" title="AiRomance"><span class="site-name">AiRomance</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">shell 相关</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-04-16T05:59:23.000Z" title="Created 2024-04-16 13:59:23">2024-04-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-04-16T06:03:26.772Z" title="Updated 2024-04-16 14:03:26">2024-04-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/">计算机相关</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="shell 相关"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://youtu.be/Z56Jmr9Z34Q?si=_VH1jttQRmA_-t82">Lecture 1: Course Overview + The Shell (2020)</a><br><a target="_blank" rel="noopener" href="https://missing-semester-cn.github.io/2020/course-shell/">对应中文网站</a></p>
+<ul>
+<li><p><code>date</code> 查看时间</p>
+</li>
+<li><p><code>echo Hello\ World</code> 输出Hello World</p>
+</li>
+<li><p><code>echo $path</code>  查看电脑有哪些路径</p>
+</li>
+<li><p><code>which echo</code>  查看echo命令会执行哪里的文件</p>
+</li>
+<li><p><code>pwd</code> Print Working Directory，即打印当前工作目录</p>
+</li>
+<li><p><code>cd ./home</code>  打开当前目录下home文件夹</p>
+</li>
+<li><p><code>ls</code> “list” 的缩写，表示列出目录中的文件和子目录</p>
+</li>
+<li><p><code>cd</code> ||<code>cd ~</code>  take you home </p>
+</li>
+<li><p><code>cd -</code>  返回刚才所在文件夹，常用于cd ~ 后</p>
+</li>
+<li><p><code>ls -l</code> 长格式显示目录内容,包括文件权限、所有者、文件大小、最后修改时间等</p>
+</li>
+<li><p><code>mv file.txt newfile.txt</code> 重新命名文件</p>
+</li>
+<li><p><code>mv file.txt directory/</code> 移动文件到指定目录中</p>
+</li>
+<li><p><code>cp file.txt directory/</code> 复制文件到指定文件夹</p>
+</li>
+<li><p><code>cp file.txt directory/newfile.txt</code> 复制文件到指定文件夹并重命名</p>
+</li>
+<li><p><code>rm file.txt</code> 删除指定文件，不能删除文件夹及里面的内容</p>
+</li>
+<li><p><code>rm -r directory</code> 删除指定文件夹及其内容，能进行递归删除</p>
+</li>
+<li><p><code>rmdir</code> 仅能删除空文件夹</p>
+</li>
+<li><p><code>mkdir My\ Photos</code> 创建My Photos文件夹，或者用双引号包围带空格的名称</p>
+<ul>
+<li><code>mkdir My Photos</code> 创建My文件夹和Photos文件夹</li>
+</ul>
+</li>
+<li><p><code>ctrl</code>+<code>l</code> clear your terminal and go back to the top</p>
+</li>
+<li><p><code>&gt; file</code>和<code>&lt; file</code><br>  <code>&gt; file</code> 和 <code>&lt;file</code> 重定向符号，用于输入和输出文件。</p>
+<ul>
+<li><p><code>&gt;</code> 符号用于将命令的输出重定向到一个文件中。例如，<code>ls &gt; file.txt</code> 将 <code>ls</code> 命令的输出写入到 <code>file.txt</code> 文件中，如果文件不存在则创建，如果文件已经存在则覆盖原有内容。</p>
+</li>
+<li><p><code>&lt;</code> 符号用于将一个文件的内容作为输入提供给命令。例如，<code>cat &lt; file.txt</code> 将 <code>file.txt</code> 文件的内容作为 <code>cat</code> 命令的输入，<code>cat</code> 命令会将文件的内容输出到终端上。</p>
+</li>
+</ul>
+</li>
+<li><p><code>cat filename</code> 显示一个文件的内容。  </p>
+<ul>
+<li><code>cat</code> 命令还有一些常用的选项，例如 <code>-n</code> 选项用于显示行号，<code>-b</code> 选项用于显示非空行的行号，<code>-E</code> 选项用于在每行的末尾显示一个 <code>$</code> 符号等。</li>
+<li><code>cat &lt; hello.txt &gt; hello2.txt</code> 将<code>hello.txt</code>的内容覆盖写入<code>hello2.txt</code><br>  -<code>cat &lt; hello.txt &gt;&gt; hello2.txt</code> 将内容append到<code>hello2.txt</code></li>
+</ul>
+</li>
+<li><p><code>ls -l | tail -n1</code> 其中 <code>|</code> 组成命令行管道，用于将一个命令的输出作为另一个命令的输入</p>
+</li>
+<li><p><code>sudo su</code> 切换为root用户</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://whff521.github.io">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/">https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/shell/">shell</a></div><div class="post_share"><div class="social-share" data-image="https://repository-images.githubusercontent.com/330956615/0e6dd600-6196-11eb-809a-f573ebf81f4f" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/04/15/tarjan%E7%AE%97%E6%B3%95/" title="tarjan算法"><img class="cover" src="https://w.forfun.com/fetch/25/25c70c7bc7d7a0a8139a3099f4b1a1ba.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">tarjan算法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AiRomance</div><div class="author-info__description">又遇到什么好事了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/04/16/shell-%E7%9B%B8%E5%85%B3/" title="shell 相关"><img src="https://repository-images.githubusercontent.com/330956615/0e6dd600-6196-11eb-809a-f573ebf81f4f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell 相关"/></a><div class="content"><a class="title" href="/2024/04/16/shell-%E7%9B%B8%E5%85%B3/" title="shell 相关">shell 相关</a><time datetime="2024-04-16T05:59:23.000Z" title="Created 2024-04-16 13:59:23">2024-04-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/15/tarjan%E7%AE%97%E6%B3%95/" title="tarjan算法"><img src="https://w.forfun.com/fetch/25/25c70c7bc7d7a0a8139a3099f4b1a1ba.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="tarjan算法"/></a><div class="content"><a class="title" href="/2024/04/15/tarjan%E7%AE%97%E6%B3%95/" title="tarjan算法">tarjan算法</a><time datetime="2024-04-15T03:45:12.000Z" title="Created 2024-04-15 11:45:12">2024-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/14/verbal-advantage-level-2-1-20/" title="verbal advantage level 2 1-20"><img src="https://m.media-amazon.com/images/I/61IiwFVZr1L._SL1200_.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="verbal advantage level 2 1-20"/></a><div class="content"><a class="title" href="/2024/04/14/verbal-advantage-level-2-1-20/" title="verbal advantage level 2 1-20">verbal advantage level 2 1-20</a><time datetime="2024-04-14T15:42:58.000Z" title="Created 2024-04-14 23:42:58">2024-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/" title="mac电脑vscode的c++运行配置"><img src="https://i.pinimg.com/736x/98/bc/48/98bc48289f6eb6bff72e32da9aecd317.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mac电脑vscode的c++运行配置"/></a><div class="content"><a class="title" href="/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/" title="mac电脑vscode的c++运行配置">mac电脑vscode的c++运行配置</a><time datetime="2024-04-13T15:29:38.000Z" title="Created 2024-04-13 23:29:38">2024-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/11/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%BA%8C/" title="java面试准备整理(二)"><img src="https://wallpapercave.com/wp/wp3760776.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java面试准备整理(二)"/></a><div class="content"><a class="title" href="/2024/04/11/java%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E6%95%B4%E7%90%86-%E4%BA%8C/" title="java面试准备整理(二)">java面试准备整理(二)</a><time datetime="2024-04-10T16:14:17.000Z" title="Created 2024-04-11 00:14:17">2024-04-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
