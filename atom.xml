@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>AiRomance</title>
-  <icon>https://whff521.github.io/images/101.jpg</icon>
+  <icon>https://blog.whff521.xyz/images/101.jpg</icon>
   <subtitle>爱裸漫三三</subtitle>
-  <link href="https://whff521.github.io/atom.xml" rel="self"/>
+  <link href="https://blog.whff521.xyz/atom.xml" rel="self"/>
   
-  <link href="https://whff521.github.io/"/>
+  <link href="https://blog.whff521.xyz/"/>
   <updated>2024-04-23T09:20:28.502Z</updated>
-  <id>https://whff521.github.io/</id>
+  <id>https://blog.whff521.xyz/</id>
   
   <author>
     <name>AiRomance</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>为博客添加RSS，sitemap和本地搜索</title>
-    <link href="https://whff521.github.io/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/"/>
-    <id>https://whff521.github.io/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/</id>
+    <link href="https://blog.whff521.xyz/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/"/>
+    <id>https://blog.whff521.xyz/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/</id>
     <published>2024-04-23T09:17:40.000Z</published>
     <updated>2024-04-23T09:20:28.502Z</updated>
     
@@ -36,19 +36,19 @@
     
     
     
-    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
     
     
-    <category term="hexo" scheme="https://whff521.github.io/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.whff521.xyz/tags/hexo/"/>
     
-    <category term="butterfly" scheme="https://whff521.github.io/tags/butterfly/"/>
+    <category term="butterfly" scheme="https://blog.whff521.xyz/tags/butterfly/"/>
     
   </entry>
   
   <entry>
     <title>Project 0: 2048</title>
-    <link href="https://whff521.github.io/2024/04/22/Project-0-2048/"/>
-    <id>https://whff521.github.io/2024/04/22/Project-0-2048/</id>
+    <link href="https://blog.whff521.xyz/2024/04/22/Project-0-2048/"/>
+    <id>https://blog.whff521.xyz/2024/04/22/Project-0-2048/</id>
     <published>2024-04-22T08:48:45.000Z</published>
     <updated>2024-04-22T08:57:15.976Z</updated>
     
@@ -65,17 +65,17 @@
     
     
     
-    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
     
     
-    <category term="CS61B 21sp" scheme="https://whff521.github.io/tags/CS61B-21sp/"/>
+    <category term="CS61B 21sp" scheme="https://blog.whff521.xyz/tags/CS61B-21sp/"/>
     
   </entry>
   
   <entry>
     <title>shell 相关</title>
-    <link href="https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/"/>
-    <id>https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/</id>
+    <link href="https://blog.whff521.xyz/2024/04/16/shell-%E7%9B%B8%E5%85%B3/"/>
+    <id>https://blog.whff521.xyz/2024/04/16/shell-%E7%9B%B8%E5%85%B3/</id>
     <published>2024-04-16T05:59:23.000Z</published>
     <updated>2024-04-16T06:03:26.772Z</updated>
     
@@ -92,17 +92,17 @@
     
     
     
-    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
     
     
-    <category term="shell" scheme="https://whff521.github.io/tags/shell/"/>
+    <category term="shell" scheme="https://blog.whff521.xyz/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>tarjan算法</title>
-    <link href="https://whff521.github.io/2024/04/15/tarjan%E7%AE%97%E6%B3%95/"/>
-    <id>https://whff521.github.io/2024/04/15/tarjan%E7%AE%97%E6%B3%95/</id>
+    <link href="https://blog.whff521.xyz/2024/04/15/tarjan%E7%AE%97%E6%B3%95/"/>
+    <id>https://blog.whff521.xyz/2024/04/15/tarjan%E7%AE%97%E6%B3%95/</id>
     <published>2024-04-15T03:45:12.000Z</published>
     <updated>2024-04-15T03:49:26.044Z</updated>
     
@@ -119,17 +119,17 @@
     
     
     
-    <category term="算法题" scheme="https://whff521.github.io/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    <category term="算法题" scheme="https://blog.whff521.xyz/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
     
     
-    <category term="tarjan" scheme="https://whff521.github.io/tags/tarjan/"/>
+    <category term="tarjan" scheme="https://blog.whff521.xyz/tags/tarjan/"/>
     
   </entry>
   
   <entry>
     <title>verbal advantage level 2 1-20</title>
-    <link href="https://whff521.github.io/2024/04/14/verbal-advantage-level-2-1-20/"/>
-    <id>https://whff521.github.io/2024/04/14/verbal-advantage-level-2-1-20/</id>
+    <link href="https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/"/>
+    <id>https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/</id>
     <published>2024-04-14T15:42:58.000Z</published>
     <updated>2024-04-15T02:10:31.231Z</updated>
     
@@ -146,10 +146,10 @@
     
     
     
-    <category term="VERBAL ADVANTAGE" scheme="https://whff521.github.io/categories/VERBAL-ADVANTAGE/"/>
+    <category term="VERBAL ADVANTAGE" scheme="https://blog.whff521.xyz/categories/VERBAL-ADVANTAGE/"/>
     
     
-    <category term="English" scheme="https://whff521.github.io/tags/English/"/>
+    <category term="English" scheme="https://blog.whff521.xyz/tags/English/"/>
     
   </entry>
   
