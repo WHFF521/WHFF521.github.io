@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>AiRomance</title>
-  <icon>https://whff521.github.io/icon.png</icon>
+  <icon>https://whff521.github.io/images/101.jpg</icon>
   <subtitle>爱裸漫三三</subtitle>
   <link href="https://whff521.github.io/atom.xml" rel="self"/>
   
@@ -40,6 +40,152 @@
     
     
     <category term="CS61B 21sp" scheme="https://whff521.github.io/tags/CS61B-21sp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>shell 相关</title>
+    <link href="https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/"/>
+    <id>https://whff521.github.io/2024/04/16/shell-%E7%9B%B8%E5%85%B3/</id>
+    <published>2024-04-16T05:59:23.000Z</published>
+    <updated>2024-04-16T06:03:26.772Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://youtu.be/Z56Jmr9Z34Q?si=_VH1jttQRmA_-t82&quot;&gt;Lecture 1: Course Overview + The Shell (2020)&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://missing-semester-cn.github.io/2020/course-shell/&quot;&gt;对应中文网站&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;date&lt;/code&gt; 查看时间&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;echo Hello&#92; World&lt;/code&gt; 输出Hello World&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;echo $path&lt;/code&gt;  查看电脑有哪些路径&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;which echo&lt;/code&gt;  查看echo命令会执行哪里的文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;pwd&lt;/code&gt; Print Working Directory，即打印当前工作目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;cd ./home&lt;/code&gt;  打开当前目录下home文件夹&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;ls&lt;/code&gt; “list” 的缩写，表示列出目录中的文件和子目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;cd&lt;/code&gt; ||&lt;code&gt;cd ~&lt;/code&gt;  take you home &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;cd -&lt;/code&gt;  返回刚才所在文件夹，常用于cd ~ 后&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;ls -l&lt;/code&gt; 长格式显示目录内容,包括文件权限、所有者、文件大小、最后修改时间等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;mv file.txt newfile.txt&lt;/code&gt; 重新命名文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;mv file.txt directory/&lt;/code&gt; 移动文件到指定目录中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;cp file.txt directory/&lt;/code&gt; 复制文件到指定文件夹&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;cp</summary>
+        
+      
+    
+    
+    
+    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="shell" scheme="https://whff521.github.io/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tarjan算法</title>
+    <link href="https://whff521.github.io/2024/04/15/tarjan%E7%AE%97%E6%B3%95/"/>
+    <id>https://whff521.github.io/2024/04/15/tarjan%E7%AE%97%E6%B3%95/</id>
+    <published>2024-04-15T03:45:12.000Z</published>
+    <updated>2024-04-15T03:49:26.044Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;tarjan-算法（Tarjan’s-strongly-connected-components-algorithm）&quot;&gt;&lt;a href=&quot;#tarjan-算法（Tarjan’s-strongly-connected-components-algorithm）&quot; class=&quot;headerlink&quot; title=&quot;tarjan 算法（Tarjan’s strongly connected components algorithm）&quot;&gt;&lt;/a&gt;tarjan 算法（Tarjan’s strongly connected components algorithm）&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://youtu.be/wUgWX0nc4NY?si=pbuZzimi3Nep-z36&quot;&gt;很棒的解释视频&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;简述算法&quot;&gt;&lt;a href=&quot;#简述算法&quot; class=&quot;headerlink&quot; title=&quot;简述算法&quot;&gt;&lt;/a&gt;简述算法&lt;/h2&gt;&lt;p&gt;Tarjan 算法是一种用于查找图中强连通分量的算法，由 Robert Tarjan 在 1972 年提出。强连通分量是指在有向图中，如果从顶点 u 到顶点 v 以及从顶点 v 到顶点 u 都存在一条路径，那么顶点 u 和顶点 v 是强连通的。&lt;/p&gt;
+&lt;p&gt;Tarjan 算法的核心思想是通过深度优先搜索（DFS）遍历图，并使用堆栈来追踪搜索过程中的顶点。在遍历的过程中，对每个顶点进行标记，记录其在搜索树中的深度和最小后向边的深度。如果发现某个顶点的后继节点指向了一个已经被访问过的顶点，那么这个顶点及其所有后继节点构成一个强连通分量。&lt;/p&gt;
+&lt;p&gt;Tarjan 算法的关键点在于维护一个栈，用来保存正在搜索的节点。当 DFS 遍历过程中发现一个节点的所有后继节点已经搜索完毕，并且该节点是当前 DFS 搜索树中的根节点时，可以将该节点以及其所有后继节点弹出栈，并将它们标记为一个强连通分量。&lt;/p&gt;
+&lt;p&gt;Tarjan 算法的时间复杂度为 O(V + E)，其中 V 表示图中的顶点数，E 表示图中的边数。由于只需要一次 DFS 遍历即可找到所有的强连通分量，因此 Tarjan 算法是一种高效的强连通分量查找算法。&lt;/p&gt;
+&lt;h2 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="算法题" scheme="https://whff521.github.io/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="tarjan" scheme="https://whff521.github.io/tags/tarjan/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>verbal advantage level 2 1-20</title>
+    <link href="https://whff521.github.io/2024/04/14/verbal-advantage-level-2-1-20/"/>
+    <id>https://whff521.github.io/2024/04/14/verbal-advantage-level-2-1-20/</id>
+    <published>2024-04-14T15:42:58.000Z</published>
+    <updated>2024-04-15T02:10:31.231Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;word-1-10&quot;&gt;&lt;a href=&quot;#word-1-10&quot; class=&quot;headerlink&quot; title=&quot;word 1-10&quot;&gt;&lt;/a&gt;word 1-10&lt;/h1&gt;&lt;h2 id=&quot;word-1-advocate-提倡，拥护，主张&quot;&gt;&lt;a href=&quot;#word-1-advocate-提倡，拥护，主张&quot; class=&quot;headerlink&quot; title=&quot;word 1: advocate 提倡，拥护，主张&quot;&gt;&lt;/a&gt;word 1: &lt;strong&gt;advocate&lt;/strong&gt; 提倡，拥护，主张&lt;/h2&gt;&lt;p&gt;Similarly, many are now aware of this polarized notion of the field and some have begun to advocate possible alternatives.&lt;/p&gt;
+&lt;h2 id=&quot;word-2-delegate-委托，托付&quot;&gt;&lt;a href=&quot;#word-2-delegate-委托，托付&quot; class=&quot;headerlink&quot; title=&quot;word 2: delegate 委托，托付&quot;&gt;&lt;/a&gt;word 2: &lt;strong&gt;delegate&lt;/strong&gt; 委托，托付&lt;/h2&gt;&lt;p&gt;However, these delegates saw their efforts as serving purposes beyond profit generation.&lt;/p&gt;
+&lt;h2 id=&quot;word-3-unprecedented-前所未有的，史无前例的&quot;&gt;&lt;a href=&quot;#word-3-unprecedented-前所未有的，史无前例的&quot; class=&quot;headerlink&quot; title=&quot;word 3: unprecedented 前所未有的，史无前例的&quot;&gt;&lt;/a&gt;word 3: &lt;strong&gt;unprecedented&lt;/strong&gt; 前所未有的，史无前例的&lt;/h2&gt;&lt;p&gt;With the surge of population and economic activity during the past two generations or so, the environment has come under</summary>
+        
+      
+    
+    
+    
+    <category term="VERBAL ADVANTAGE" scheme="https://whff521.github.io/categories/VERBAL-ADVANTAGE/"/>
+    
+    
+    <category term="English" scheme="https://whff521.github.io/tags/English/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac电脑vscode的c++运行配置</title>
+    <link href="https://whff521.github.io/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/"/>
+    <id>https://whff521.github.io/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/</id>
+    <published>2024-04-13T15:29:38.000Z</published>
+    <updated>2024-04-16T06:07:06.808Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近换了电脑，vscode的环境是重新配的，遇到了些许问题。&lt;/p&gt;
+&lt;h1 id=&quot;1-Code-Runner-对于C-的一些函数不识别&quot;&gt;&lt;a href=&quot;#1-Code-Runner-对于C-的一些函数不识别&quot; class=&quot;headerlink&quot; title=&quot;1. Code Runner 对于C++的一些函数不识别&quot;&gt;&lt;/a&gt;1. Code Runner 对于C++的一些函数不识别&lt;/h1&gt;&lt;p&gt;这是因为code runner默认执行命令里没有添加c++17的选项。&lt;br&gt;解决方案：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开vscode设置，搜索&lt;code&gt;code runner&lt;/code&gt;，找到&lt;code&gt;Code-runner: Executor Map&lt;/code&gt;，点击&lt;code&gt;edit in settings.json&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;Find the &lt;code&gt;cpp&lt;/code&gt; and add &lt;code&gt;-std=c++17&lt;/code&gt; after &lt;code&gt;cd $dir &amp;amp;&amp;amp; g++&lt;/code&gt; Like this &lt;code&gt;&amp;quot;cpp&amp;quot;: &amp;quot;cd $dir &amp;amp;&amp;amp; g++ -std=c++17 $fileName -o $fileNameWithoutExt &amp;amp;&amp;amp; $dir$fileNameWithoutExt&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;2-Code-Runner-运行C-是在OUTPUT里运行的，不能通过键盘输入数据&quot;&gt;&lt;a href=&quot;#2-Code-Runner-运行C-是在OUTPUT里运行的，不能通过键盘输入数据&quot; class=&quot;headerlink&quot; title=&quot;2. Code Runner 运行C++是在OUTPUT里运行的，不能通过键盘输入数据&quot;&gt;&lt;/a&gt;2. Code Runner 运行C++是在OUTPUT里运行的，不能通过键盘输入数据&lt;/h1&gt;&lt;p&gt;解决方案：&lt;br&gt;打开vscode设置，搜索&lt;code&gt;code runner&lt;/code&gt;，勾选&lt;code&gt;Code-runner: Run In Terminal&lt;/code&gt;&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="bug" scheme="https://whff521.github.io/tags/bug/"/>
+    
+    <category term="vscode" scheme="https://whff521.github.io/tags/vscode/"/>
+    
+    <category term="mac" scheme="https://whff521.github.io/tags/mac/"/>
     
   </entry>
   
