@@ -6,7 +6,7 @@
   <link href="https://whff521.github.io/atom.xml" rel="self"/>
   
   <link href="https://whff521.github.io/"/>
-  <updated>2024-04-22T08:57:15.976Z</updated>
+  <updated>2024-04-23T09:20:28.502Z</updated>
   <id>https://whff521.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>为博客添加RSS，sitemap和本地搜索</title>
+    <link href="https://whff521.github.io/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/"/>
+    <id>https://whff521.github.io/2024/04/23/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0RSS%EF%BC%8Csitemap%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/</id>
+    <published>2024-04-23T09:17:40.000Z</published>
+    <updated>2024-04-23T09:20:28.502Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;博客的一些配置总结&quot;&gt;&lt;a href=&quot;#博客的一些配置总结&quot; class=&quot;headerlink&quot; title=&quot;博客的一些配置总结&quot;&gt;&lt;/a&gt;博客的一些配置总结&lt;/h1&gt;&lt;h2 id=&quot;添加RSS&quot;&gt;&lt;a href=&quot;#添加RSS&quot; class=&quot;headerlink&quot; title=&quot;添加RSS&quot;&gt;&lt;/a&gt;添加RSS&lt;/h2&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-generator-feed --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在&lt;code&gt;_config.yml&lt;/code&gt; 里添加：&lt;/p&gt;
+&lt;figure class=&quot;highlight yml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="hexo" scheme="https://whff521.github.io/tags/hexo/"/>
+    
+    <category term="butterfly" scheme="https://whff521.github.io/tags/butterfly/"/>
+    
+  </entry>
   
   <entry>
     <title>Project 0: 2048</title>
@@ -150,42 +179,6 @@
     
     
     <category term="English" scheme="https://whff521.github.io/tags/English/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mac电脑vscode的c++运行配置</title>
-    <link href="https://whff521.github.io/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/"/>
-    <id>https://whff521.github.io/2024/04/13/mac%E7%94%B5%E8%84%91vscode%E7%9A%84c-%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE/</id>
-    <published>2024-04-13T15:29:38.000Z</published>
-    <updated>2024-04-16T06:07:06.808Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近换了电脑，vscode的环境是重新配的，遇到了些许问题。&lt;/p&gt;
-&lt;h1 id=&quot;1-Code-Runner-对于C-的一些函数不识别&quot;&gt;&lt;a href=&quot;#1-Code-Runner-对于C-的一些函数不识别&quot; class=&quot;headerlink&quot; title=&quot;1. Code Runner 对于C++的一些函数不识别&quot;&gt;&lt;/a&gt;1. Code Runner 对于C++的一些函数不识别&lt;/h1&gt;&lt;p&gt;这是因为code runner默认执行命令里没有添加c++17的选项。&lt;br&gt;解决方案：  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;打开vscode设置，搜索&lt;code&gt;code runner&lt;/code&gt;，找到&lt;code&gt;Code-runner: Executor Map&lt;/code&gt;，点击&lt;code&gt;edit in settings.json&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;Find the &lt;code&gt;cpp&lt;/code&gt; and add &lt;code&gt;-std=c++17&lt;/code&gt; after &lt;code&gt;cd $dir &amp;amp;&amp;amp; g++&lt;/code&gt; Like this &lt;code&gt;&amp;quot;cpp&amp;quot;: &amp;quot;cd $dir &amp;amp;&amp;amp; g++ -std=c++17 $fileName -o $fileNameWithoutExt &amp;amp;&amp;amp; $dir$fileNameWithoutExt&amp;quot;&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&quot;2-Code-Runner-运行C-是在OUTPUT里运行的，不能通过键盘输入数据&quot;&gt;&lt;a href=&quot;#2-Code-Runner-运行C-是在OUTPUT里运行的，不能通过键盘输入数据&quot; class=&quot;headerlink&quot; title=&quot;2. Code Runner 运行C++是在OUTPUT里运行的，不能通过键盘输入数据&quot;&gt;&lt;/a&gt;2. Code Runner 运行C++是在OUTPUT里运行的，不能通过键盘输入数据&lt;/h1&gt;&lt;p&gt;解决方案：&lt;br&gt;打开vscode设置，搜索&lt;code&gt;code runner&lt;/code&gt;，勾选&lt;code&gt;Code-runner: Run In Terminal&lt;/code&gt;&lt;/p&gt;
-&lt;h1</summary>
-        
-      
-    
-    
-    
-    <category term="计算机相关" scheme="https://whff521.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
-    
-    
-    <category term="bug" scheme="https://whff521.github.io/tags/bug/"/>
-    
-    <category term="mac" scheme="https://whff521.github.io/tags/mac/"/>
-    
-    <category term="vscode" scheme="https://whff521.github.io/tags/vscode/"/>
     
   </entry>
   
