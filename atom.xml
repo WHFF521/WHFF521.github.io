@@ -6,7 +6,7 @@
   <link href="https://blog.whff521.xyz/atom.xml" rel="self"/>
   <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
   <link href="https://blog.whff521.xyz/"/>
-  <updated>2024-04-23T12:35:39.900Z</updated>
+  <updated>2024-04-25T08:55:08.614Z</updated>
   <id>https://blog.whff521.xyz/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spotify美化</title>
+    <link href="https://blog.whff521.xyz/2024/04/25/spotify%E7%BE%8E%E5%8C%96/"/>
+    <id>https://blog.whff521.xyz/2024/04/25/spotify%E7%BE%8E%E5%8C%96/</id>
+    <published>2024-04-25T08:49:31.000Z</published>
+    <updated>2024-04-25T08:55:08.614Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基于spicetify-cli对Spotify进行客制化"><a href="#基于spicetify-cli对Spotify进行客制化" class="headerlink" title="基于spicetify-cli对Spotify进行客制化"></a>基于<code>spicetify-cli</code>对Spotify进行客制化</h1><h2 id="什么是spicetify-cli"><a href="#什么是spicetify-cli" class="headerlink" title="什么是spicetify-cli"></a>什么是<code>spicetify-cli</code></h2><ul><li><a href="https://github.com/spicetify/spicetify-cli">spicetify仓库地址</a>  </li><li><a href="https://spicetify.app/docs/getting-started">官网Doc</a>  <blockquote><p>Command-line tool to customize the official Spotify client. Supports Windows, MacOS and Linux.</p></blockquote></li></ul><p>仓库readme明确说明了这是用于定制官方客户端的命令行工具。但是在官网Doc的安装教程里面却没有说清楚，这样会带来很多的麻烦。</p><h2 id="在安装之前你必须要做的事情："><a href="#在安装之前你必须要做的事情：" class="headerlink" title="在安装之前你必须要做的事情："></a>在安装之前你必须要做的事情：</h2><ul><li>确保电脑已经<strong>安装了spotify官方客户端</strong>，因为spicetify只是美化工具而不包含客户端</li><li>确保已经<strong>登陆了个人账号</strong>，新安装的spotify客户端在登陆之前<code>prefs</code>文件并不会创建，会导致spicetify找不到路径而报错。</li><li>默认你已经解决了所有关于网络的问题</li></ul><h2 id="macOS安装步骤"><a href="#macOS安装步骤" class="headerlink" title="macOS安装步骤"></a>macOS安装步骤</h2><p>若安装步骤有问题或者是其他操作系统，你可以直接去官网Doc查看最新的安装步骤。</p><ul><li><p>Spicetify CLI(工具本身)</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh</span><br></pre></td></tr></table></figure></li><li><p>Spicetify Marketplace(在ui中显示市场，一定程度上减轻命令行操作)</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh</span><br></pre></td></tr></table></figure></li><li><p>卸载命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spicetify restore</span><br><span class="line">rm -rf ~/.spicetify</span><br><span class="line">rm -rf ~/.config/spicetify</span><br></pre></td></tr></table></figure></li></ul><h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><p>在此贴出我<a href="https://www.cnblogs.com/hui-tong/p/18065055">参考的博客</a>。  </p><ul><li><p>我使用的主题：<code>Sleek</code><br><img src="https://raw.githubusercontent.com/spicetify/spicetify-themes/master/Sleek/wealthy.png" alt="Sleek"></p></li><li><p>我使用的插件：</p><ul><li><code>lyrics-plus</code> 歌词强化，从各种源中搜寻当前歌的歌词。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spicetify config custom_apps lyrics-plus   </span><br><span class="line">spicetify apply</span><br></pre></td></tr></table></figure></li></ul></li></ul><h2 id="让mac拥有桌面歌词"><a href="#让mac拥有桌面歌词" class="headerlink" title="让mac拥有桌面歌词"></a>让mac拥有桌面歌词</h2><p><a href="https://github.com/ddddxxx/LyricsX">LyricsX</a><br>直接用<code>homebrew</code>安装：<code>brew install --cask lyricsx</code>。<br>安装后，打开，点击右上角<code>LyricsX</code>图标，选择<code>Preferences</code>，将默认音乐播放器改为<code>spotify</code>即可，播放歌曲的时候会自动匹配。<br><img src="https://raw.githubusercontent.com/ddddxxx/LyricsX/master/docs/img/desktop_lyrics.gif" alt="lyricsx"></p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基于spicetify-cli对Spotify进行客制化&quot;&gt;&lt;a href=&quot;#基于spicetify-cli对Spotify进行客制化&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    
+    
+    <category term="spotify" scheme="https://blog.whff521.xyz/tags/spotify/"/>
+    
+  </entry>
   
   <entry>
     <title>为博客添加RSS，sitemap和本地搜索</title>
@@ -123,33 +150,6 @@
     
     
     <category term="tarjan" scheme="https://blog.whff521.xyz/tags/tarjan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>verbal advantage level 2 1-20</title>
-    <link href="https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/"/>
-    <id>https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/</id>
-    <published>2024-04-14T15:42:58.000Z</published>
-    <updated>2024-04-15T02:10:31.231Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="word-1-10"><a href="#word-1-10" class="headerlink" title="word 1-10"></a>word 1-10</h1><h2 id="word-1-advocate-提倡，拥护，主张"><a href="#word-1-advocate-提倡，拥护，主张" class="headerlink" title="word 1: advocate 提倡，拥护，主张"></a>word 1: <strong>advocate</strong> 提倡，拥护，主张</h2><p>Similarly, many are now aware of this polarized notion of the field and some have begun to advocate possible alternatives.</p><h2 id="word-2-delegate-委托，托付"><a href="#word-2-delegate-委托，托付" class="headerlink" title="word 2: delegate 委托，托付"></a>word 2: <strong>delegate</strong> 委托，托付</h2><p>However, these delegates saw their efforts as serving purposes beyond profit generation.</p><h2 id="word-3-unprecedented-前所未有的，史无前例的"><a href="#word-3-unprecedented-前所未有的，史无前例的" class="headerlink" title="word 3: unprecedented 前所未有的，史无前例的"></a>word 3: <strong>unprecedented</strong> 前所未有的，史无前例的</h2><p>With the surge of population and economic activity during the past two generations or so, the environment has come under unprecedented stress.</p><h2 id="word-4-poignant-尖锐的，强烈的，酸楚的"><a href="#word-4-poignant-尖锐的，强烈的，酸楚的" class="headerlink" title="word 4: poignant 尖锐的，强烈的，酸楚的"></a>word 4: <strong>poignant</strong> 尖锐的，强烈的，酸楚的</h2><p>The women’s stories are at once poignant and remarkable.</p><h2 id="word-5-nebulous-朦胧的，模糊的"><a href="#word-5-nebulous-朦胧的，模糊的" class="headerlink" title="word 5: nebulous 朦胧的，模糊的"></a>word 5: <strong>nebulous</strong> 朦胧的，模糊的</h2><p>The authors admit that their subject matter is nebulous and its meanings ambiguous.</p><h2 id="word-6-clandestine-秘密的，暗中的"><a href="#word-6-clandestine-秘密的，暗中的" class="headerlink" title="word 6: clandestine 秘密的，暗中的"></a>word 6: <strong>clandestine</strong> 秘密的，暗中的</h2><p>They have wanted war, they have been waging it upon us for three years, but in a clandestine, hypocritical, roundabout manner.</p><h2 id="word-7-tirade-（激烈的）长篇演说"><a href="#word-7-tirade-（激烈的）长篇演说" class="headerlink" title="word 7: tirade （激烈的）长篇演说"></a>word 7: <strong>tirade</strong> （激烈的）长篇演说</h2><p>The whole of his speech has been directed as a tirade against and an attack upon trade unionism.</p><h2 id="word-8-recur-重现"><a href="#word-8-recur-重现" class="headerlink" title="word 8: recur 重现"></a>word 8: <strong>recur</strong> 重现</h2><p>Yet in the midst of this diversity, at least four themes recur.</p><h2 id="word-9-tacit-缄默的，默许的"><a href="#word-9-tacit-缄默的，默许的" class="headerlink" title="word 9: tacit 缄默的，默许的"></a>word 9: <strong>tacit</strong> 缄默的，默许的</h2><p>There is a tacit but quite unjustified assumption in traditional grammar that nouns can appear in adjunct function only when accompanied by an explicit dependent.</p><h2 id="word-10-allegation-宣称，断言，指控"><a href="#word-10-allegation-宣称，断言，指控" class="headerlink" title="word 10: allegation 宣称，断言，指控"></a>word 10: <strong>allegation</strong> 宣称，断言，指控</h2><p>Surprisingly, the source for this serious allegation is not identified.</p><h1 id="word-11-20"><a href="#word-11-20" class="headerlink" title="word 11-20"></a>word 11-20</h1><h2 id="word-11-gullible-轻信的，易受骗的"><a href="#word-11-gullible-轻信的，易受骗的" class="headerlink" title="word 11: gullible 轻信的，易受骗的"></a>word 11: <strong>gullible</strong> 轻信的，易受骗的</h2><p>Not only are the public often assumed to be a trifle gullible, they are also portrayed as empty vessels.</p><h2 id="word-12-benign-和蔼的，良性的，吉利的"><a href="#word-12-benign-和蔼的，良性的，吉利的" class="headerlink" title="word 12: benign 和蔼的，良性的，吉利的"></a>word 12: <strong>benign</strong> 和蔼的，良性的，吉利的</h2><p>The chance of malignant degeneration in a benign papillioma is not well understood.</p><h2 id="word-13-peripheral-外围的，不重要的"><a href="#word-13-peripheral-外围的，不重要的" class="headerlink" title="word 13: peripheral 外围的，不重要的"></a>word 13: <strong>peripheral</strong> 外围的，不重要的</h2><p>The book contains a great deal of peripheral detail.</p><h2 id="word-14-rebuff-断然拒绝，回绝"><a href="#word-14-rebuff-断然拒绝，回绝" class="headerlink" title="word 14: rebuff 断然拒绝，回绝"></a>word 14: <strong>rebuff</strong> 断然拒绝，回绝</h2><p>She rebuffed all suggestions that she should resign.</p><h2 id="word-15-animosity-敌意，仇恨"><a href="#word-15-animosity-敌意，仇恨" class="headerlink" title="word 15: animosity 敌意，仇恨"></a>word 15: <strong>animosity</strong> 敌意，仇恨</h2><p>Of course we’re competitive, but there’s no personal animosity between us.</p><h2 id="word-16-tenuous-纤细的，脆弱的"><a href="#word-16-tenuous-纤细的，脆弱的" class="headerlink" title="word 16: tenuous 纤细的，脆弱的"></a>word 16: <strong>tenuous</strong> 纤细的，脆弱的</h2><p>The police have only found a tenuous connection between the two robberies.</p><h2 id="word-17-complacent-自满的，沾沾自喜的"><a href="#word-17-complacent-自满的，沾沾自喜的" class="headerlink" title="word 17: complacent 自满的，沾沾自喜的"></a>word 17: <strong>complacent</strong> 自满的，沾沾自喜的</h2><p>We can’t afford to become complacent about any of our products.</p><h2 id="word-18-acme-顶端，最高点"><a href="#word-18-acme-顶端，最高点" class="headerlink" title="word 18: acme 顶端，最高点"></a>word 18: <strong>acme</strong> 顶端，最高点</h2><p>To act on this world-famous stage is surely the acme of any actor’s career.</p><h2 id="word-19-defunct-失效的，不在世的"><a href="#word-19-defunct-失效的，不在世的" class="headerlink" title="word 19: defunct 失效的，不在世的"></a>word 19: <strong>defunct</strong> 失效的，不在世的</h2><p>(humorous) I think this TV is defunct!</p><h2 id="word-20-abet-支持，煽动，教唆"><a href="#word-20-abet-支持，煽动，教唆" class="headerlink" title="word 20: abet 支持，煽动，教唆"></a>word 20: <strong>abet</strong> 支持，煽动，教唆</h2><p>His accountant had aided and abetted him in the fraud.</p>]]></content>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;word-1-10&quot;&gt;&lt;a href=&quot;#word-1-10&quot; class=&quot;headerlink&quot; title=&quot;word 1-10&quot;&gt;&lt;/a&gt;word 1-10&lt;/h1&gt;&lt;h2 id=&quot;word-1-advocate-提倡，拥护，主张&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="VERBAL ADVANTAGE" scheme="https://blog.whff521.xyz/categories/VERBAL-ADVANTAGE/"/>
-    
-    
-    <category term="English" scheme="https://blog.whff521.xyz/tags/English/"/>
     
   </entry>
   
