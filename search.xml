@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>3 out 1 in</title>
+      <link href="/2024/05/16/3-out-1-in/"/>
+      <url>/2024/05/16/3-out-1-in/</url>
+      
+        <content type="html"><![CDATA[<h1 id="3out1in"><a href="#3out1in" class="headerlink" title="3out1in"></a>3out1in</h1><p><a href="https://www.codechef.com/problems/OKLAMA">题目链接</a>  </p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>这是<code>codechef starter 134 div4</code>的第五题。  </p><p>给你一个数组B，里面包含M个数字，其中M必定为奇数。操作是选出三个数字a,b,c, 这三个数字从数组里剔除，数组中重新加入成员<code>a+b-c</code>。可以看出来每一次操作会让数组少两个元素，问最后剩下一个元素的最大值是多少。其中有多个询问，询问内容是如果只有前k个元素，剩下的最后一个元素最大值是多少。</p><h2 id="赛时回顾"><a href="#赛时回顾" class="headerlink" title="赛时回顾"></a>赛时回顾</h2><p>我在第一次做这道题的时候就直接考虑到了用优先队列。显然最优解是每次选两个最大值，然后减去最小值。原数组我用数组<code>a</code>存储，每次将前<code>k</code>个元素送入优先队列和数组<code>b</code>中，数组<code>b</code>进行排序用来获得最小值，优先队列获取最大值。成功拿到30分的部分分，其他测试会超时。</p><h2 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h2><p>官方题解思路让我恍然大悟。<strong>永远记得可以用空间换取时间</strong>。既然可以用一个优先队列，那么我们就可以用两个优先队列。虽然我们不知道给出的qurey里<code>k</code>的值是多少，但是我们可以用<code>ans</code>数组记录所有对应k值的答案。  </p><p>首先就要考虑随着数组元素的增加，状态是如何转移的。我们可以将现有元素分成两组，一个是<code>samll</code>组，一个是<code>large</code>组。<code>small</code>组是所有会被减去的数字，<code>large</code>组是所有会被加上的数字。每次需要两个<code>large</code>组的元素相加，一个<code>small</code>组的元素被减，但是得到的数字还应该被保留在<code>large</code>数组里。可以推断出，<code>large</code>数组元素个数应该永远比<code>small</code>数组多1。</p><p>事实上我们并不需要将真的每次操作得到的数字压到优先队列里面。因为每个数字只有两种可能，被赋予加号，代表和其他元素相加，被赋予减号，代表被减去。符号确定后所有元素的和是不会变的。我们只需要计算现在<code>small</code>组里元素的总和<code>sumin</code>，<code>large</code>组里元素的总和<code>sumax</code>，然后答案就是<code>sumax-sumin</code>。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mxlen = <span class="number">2e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> a[mxlen];</span><br><span class="line">ll ans[mxlen];</span><br><span class="line"><span class="type">int</span> n,q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">work</span><span class="params">()</span></span>&#123;</span><br><span class="line">    priority_queue&lt;ll&gt; pqmin;</span><br><span class="line">    priority_queue&lt;ll&gt; pqmax;</span><br><span class="line">    ll sumin = <span class="number">0</span>;</span><br><span class="line">    ll sumax = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        pqmin.<span class="built_in">push</span>(a[i]);</span><br><span class="line">        sumin+=a[i];</span><br><span class="line">        <span class="comment">//这里表达式的意思是pqmin.size()要永远少一个</span></span><br><span class="line">        <span class="keyword">while</span>(pqmin.<span class="built_in">size</span>()&gt;=pqmax.<span class="built_in">size</span>())&#123;</span><br><span class="line">            ll mi = pqmin.<span class="built_in">top</span>();</span><br><span class="line">            pqmin.<span class="built_in">pop</span>();</span><br><span class="line">            pqmax.<span class="built_in">push</span>(-mi);</span><br><span class="line">            sumax+=mi;</span><br><span class="line">            sumin-=mi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!pqmin.<span class="built_in">empty</span>()&amp;&amp;pqmin.<span class="built_in">top</span>()&gt;-pqmax.<span class="built_in">top</span>())&#123;</span><br><span class="line">            ll mi = pqmin.<span class="built_in">top</span>();</span><br><span class="line">            ll ma = -pqmax.<span class="built_in">top</span>();</span><br><span class="line">            pqmin.<span class="built_in">pop</span>(); pqmax.<span class="built_in">pop</span>();</span><br><span class="line">            pqmin.<span class="built_in">push</span>(ma);</span><br><span class="line">            pqmax.<span class="built_in">push</span>(-mi);</span><br><span class="line">            sumin = sumin-mi+ma;</span><br><span class="line">            sumax = sumax-ma+mi;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ans[i]=sumax-sumin;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="type">int</span> T;</span><br><span class="line">cin&gt;&gt;T;</span><br><span class="line"><span class="keyword">while</span>(T--)&#123;</span><br><span class="line">    </span><br><span class="line">    cin&gt;&gt;n&gt;&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;a[i];</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="built_in">work</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=q;i++)&#123;</span><br><span class="line">        <span class="type">int</span> k;</span><br><span class="line">        cin&gt;&gt;k;</span><br><span class="line">            cout&lt;&lt;ans[k]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 优先队列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Codeforces Round 944 (Div. 4) 回顾</title>
       <link href="/2024/05/11/Codeforces-Round-944-Div-4-%E5%9B%9E%E9%A1%BE/"/>
       <url>/2024/05/11/Codeforces-Round-944-Div-4-%E5%9B%9E%E9%A1%BE/</url>
@@ -561,11 +586,11 @@
       
         <tags>
             
+            <tag> vscode </tag>
+            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
-            
-            <tag> vscode </tag>
             
         </tags>
       
