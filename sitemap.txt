@@ -1,3 +1,4 @@
+https://blog.whff521.xyz/2024/05/17/Prison-Escape/
 https://blog.whff521.xyz/2024/05/16/3-out-1-in/
 https://blog.whff521.xyz/2024/05/11/Codeforces-Round-944-Div-4-%E5%9B%9E%E9%A1%BE/
 https://blog.whff521.xyz/2024/05/11/%E5%AE%89%E8%A3%85%E5%AE%8C%E6%95%B4%E7%89%88Xcode%E5%90%8E%E6%88%91%E7%9A%84C-%E4%B8%87%E8%83%BD%E5%BA%93%E4%B8%8D%E8%A7%81%E4%BA%86/
@@ -56,6 +57,8 @@ https://blog.whff521.xyz/tags/ipv6/
 https://blog.whff521.xyz/tags/%E6%B4%9B%E8%B0%B7/
 https://blog.whff521.xyz/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/
 https://blog.whff521.xyz/tags/%E6%A8%A1%E6%8B%9F/
+https://blog.whff521.xyz/tags/01BFS/
+https://blog.whff521.xyz/tags/%E5%A4%9A%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF/
 https://blog.whff521.xyz/categories/%E7%AE%97%E6%B3%95%E9%A2%98/
 https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/
 https://blog.whff521.xyz/categories/%E6%9C%89%E6%84%9F/
