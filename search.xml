@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>check for three</title>
+      <link href="/2024/05/22/check-for-three/"/>
+      <url>/2024/05/22/check-for-three/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Chess-For-Three"><a href="#Chess-For-Three" class="headerlink" title="Chess For Three"></a>Chess For Three</h1><p>这是Codeforces Round 945 (Div. 2) 第一题。  </p><p><a href="https://codeforces.com/contest/1973/problem/A">题目链接</a>  </p><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>三个人玩游戏，每局两个人玩。赢得人得2分，输的人得0分。平局每个人得1分。会给你三个人的最终得分，问最多平局多少局。</p><h2 id="重点记录"><a href="#重点记录" class="headerlink" title="重点记录"></a>重点记录</h2><p>这里题确实不难，但是有一个样例因为没有给怎么算的导致我一直以为样例给错了。。。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3 4 5</span><br><span class="line">6</span><br></pre></td></tr></table></figure><p>3分4分5分，最大平局数是6。  </p><p>我最一开始想的是a和b平局3次，b还剩一局和c平局，这是4次。a和c平局3次，b和c平局2次，这是5次。<br>但是样例给的是6次。</p><p>6次的情况应该是<strong>c和a平局2次，c和b平局3次，a和b平局1次</strong>，这样就是6次。这真的是太amazing了。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>可以直接暴力枚举a和b，a和c，b和c平局次数，然后判断分数是否合法。除去平局的分数，剩下的分数应该<code>left%2==0</code>。  </p><p>但是还有结论， <code>min((p1+p2+p3)/2,p1+p2)</code>，这里保证<code>p1&lt;=p2&lt;=p3</code>。  </p><p>先考虑合不合法，三个数加一起如果是偶数就一定合法。  </p><p>其次，如果<code>p1+p2&lt;=p3</code>，那么情况应该是a和c平局p1次，b和c平局p2次。这就是最大的平局数。  </p><p>如果<code>p1+p2&gt;p3</code>，相当于<code>p1&gt;p3-p2</code>。a可以和c玩p3-p2次，相当于a剩余分数为<code>p1-(p3-p2)</code>，这个分数一定是偶数。a还可以和b和c分别玩<code>(p1-(p3-p2))/2</code>次。这里a和其他人的平局数就是p1。b和c还可以平局<code>p2-(p1-(p3-p2))/2)</code>次。加一起就是<code>(p1+p2+p3)/2</code>。</p><p>标程核心：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; (v[<span class="number">0</span>] + v[<span class="number">1</span>] + v[<span class="number">2</span>] - <span class="built_in">max</span>(<span class="number">0</span>, v[<span class="number">2</span>] - v[<span class="number">0</span>] - v[<span class="number">1</span>])) / <span class="number">2</span> &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure><p>暴力正解：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> p1,p2,p3;</span><br><span class="line">        cin&gt;&gt;p1&gt;&gt;p2&gt;&gt;p3;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">// i d12,j d13,k d23</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">30</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=<span class="number">30</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;=<span class="number">30</span>;k++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(p1-i-j&gt;=<span class="number">0</span>&amp;&amp;(p1-i-j)%<span class="number">2</span>==<span class="number">0</span> &amp;&amp;</span><br><span class="line">                       p2-i-k&gt;=<span class="number">0</span>&amp;&amp;(p2-i-k)%<span class="number">2</span>==<span class="number">0</span> &amp;&amp;</span><br><span class="line">                       p3-j-k&gt;=<span class="number">0</span>&amp;&amp;(p3-j-k)%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                        ans = <span class="built_in">max</span>(ans,i+j+k);    </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans!=<span class="number">-1</span>) cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">else</span> cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Codeforces </tag>
+            
+            <tag> 数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Prison Escape</title>
       <link href="/2024/05/17/Prison-Escape/"/>
       <url>/2024/05/17/Prison-Escape/</url>

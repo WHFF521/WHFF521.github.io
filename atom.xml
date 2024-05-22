@@ -6,7 +6,7 @@
   <link href="https://blog.whff521.xyz/atom.xml" rel="self"/>
   <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
   <link href="https://blog.whff521.xyz/"/>
-  <updated>2024-05-17T08:21:05.189Z</updated>
+  <updated>2024-05-22T09:16:28.201Z</updated>
   <id>https://blog.whff521.xyz/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>check for three</title>
+    <link href="https://blog.whff521.xyz/2024/05/22/check-for-three/"/>
+    <id>https://blog.whff521.xyz/2024/05/22/check-for-three/</id>
+    <published>2024-05-22T09:14:42.000Z</published>
+    <updated>2024-05-22T09:16:28.201Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Chess-For-Three"><a href="#Chess-For-Three" class="headerlink" title="Chess For Three"></a>Chess For Three</h1><p>这是Codeforces Round 945 (Div. 2) 第一题。  </p><p><a href="https://codeforces.com/contest/1973/problem/A">题目链接</a>  </p><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>三个人玩游戏，每局两个人玩。赢得人得2分，输的人得0分。平局每个人得1分。会给你三个人的最终得分，问最多平局多少局。</p><h2 id="重点记录"><a href="#重点记录" class="headerlink" title="重点记录"></a>重点记录</h2><p>这里题确实不难，但是有一个样例因为没有给怎么算的导致我一直以为样例给错了。。。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3 4 5</span><br><span class="line">6</span><br></pre></td></tr></table></figure><p>3分4分5分，最大平局数是6。  </p><p>我最一开始想的是a和b平局3次，b还剩一局和c平局，这是4次。a和c平局3次，b和c平局2次，这是5次。<br>但是样例给的是6次。</p><p>6次的情况应该是<strong>c和a平局2次，c和b平局3次，a和b平局1次</strong>，这样就是6次。这真的是太amazing了。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>可以直接暴力枚举a和b，a和c，b和c平局次数，然后判断分数是否合法。除去平局的分数，剩下的分数应该<code>left%2==0</code>。  </p><p>但是还有结论， <code>min((p1+p2+p3)/2,p1+p2)</code>，这里保证<code>p1&lt;=p2&lt;=p3</code>。  </p><p>先考虑合不合法，三个数加一起如果是偶数就一定合法。  </p><p>其次，如果<code>p1+p2&lt;=p3</code>，那么情况应该是a和c平局p1次，b和c平局p2次。这就是最大的平局数。  </p><p>如果<code>p1+p2&gt;p3</code>，相当于<code>p1&gt;p3-p2</code>。a可以和c玩p3-p2次，相当于a剩余分数为<code>p1-(p3-p2)</code>，这个分数一定是偶数。a还可以和b和c分别玩<code>(p1-(p3-p2))/2</code>次。这里a和其他人的平局数就是p1。b和c还可以平局<code>p2-(p1-(p3-p2))/2)</code>次。加一起就是<code>(p1+p2+p3)/2</code>。</p><p>标程核心：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; (v[<span class="number">0</span>] + v[<span class="number">1</span>] + v[<span class="number">2</span>] - <span class="built_in">max</span>(<span class="number">0</span>, v[<span class="number">2</span>] - v[<span class="number">0</span>] - v[<span class="number">1</span>])) / <span class="number">2</span> &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure><p>暴力正解：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> p1,p2,p3;</span><br><span class="line">        cin&gt;&gt;p1&gt;&gt;p2&gt;&gt;p3;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">// i d12,j d13,k d23</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">30</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=<span class="number">30</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;=<span class="number">30</span>;k++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(p1-i-j&gt;=<span class="number">0</span>&amp;&amp;(p1-i-j)%<span class="number">2</span>==<span class="number">0</span> &amp;&amp;</span><br><span class="line">                       p2-i-k&gt;=<span class="number">0</span>&amp;&amp;(p2-i-k)%<span class="number">2</span>==<span class="number">0</span> &amp;&amp;</span><br><span class="line">                       p3-j-k&gt;=<span class="number">0</span>&amp;&amp;(p3-j-k)%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                        ans = <span class="built_in">max</span>(ans,i+j+k);    </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans!=<span class="number">-1</span>) cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">else</span> cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Chess-For-Three&quot;&gt;&lt;a href=&quot;#Chess-For-Three&quot; class=&quot;headerlink&quot; title=&quot;Chess For Three&quot;&gt;&lt;/a&gt;Chess For Three&lt;/h1&gt;&lt;p&gt;这是Codeforces</summary>
+        
+      
+    
+    
+    
+    <category term="算法题" scheme="https://blog.whff521.xyz/categories/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    
+    
+    <category term="Codeforces" scheme="https://blog.whff521.xyz/tags/Codeforces/"/>
+    
+    <category term="数学" scheme="https://blog.whff521.xyz/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>Prison Escape</title>
@@ -123,33 +152,6 @@
     
     
     <category term="mac" scheme="https://blog.whff521.xyz/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>将本机ipv6地址复制到粘贴板脚本</title>
-    <link href="https://blog.whff521.xyz/2024/05/08/%E5%B0%86%E6%9C%AC%E6%9C%BAipv6%E5%9C%B0%E5%9D%80%E5%A4%8D%E5%88%B6%E5%88%B0%E7%B2%98%E8%B4%B4%E6%9D%BF%E8%84%9A%E6%9C%AC/"/>
-    <id>https://blog.whff521.xyz/2024/05/08/%E5%B0%86%E6%9C%AC%E6%9C%BAipv6%E5%9C%B0%E5%9D%80%E5%A4%8D%E5%88%B6%E5%88%B0%E7%B2%98%E8%B4%B4%E6%9D%BF%E8%84%9A%E6%9C%AC/</id>
-    <published>2024-05-07T16:04:46.000Z</published>
-    <updated>2024-05-07T16:22:25.928Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="将本机ipv6地址复制到粘贴板脚本"><a href="#将本机ipv6地址复制到粘贴板脚本" class="headerlink" title="将本机ipv6地址复制到粘贴板脚本"></a>将本机ipv6地址复制到粘贴板脚本</h1><p>准确的来说是将windows主机的ipv6地址复制到粘贴板上的<code>powershell</code>脚本。因为有时候需要远程连接我自己的R9000p，所以与其每次开机去命令行运行<code>ipconfig</code>，不如直接复制到粘贴板里，这样就可以直接打开邮件将地址发送出去。本来想写一个一件发送ipv6地址到指定邮箱的脚本，但是好像很麻烦，就算了。代码由chatgpt生成，再根据我的实际情况改写的。  </p><h2 id="设备配置"><a href="#设备配置" class="headerlink" title="设备配置"></a>设备配置</h2><p>windows为win11，由于学校校园网比较特殊，使用的是拨号上网，拨号名称我设置成了<code>DIANXIN</code>。  </p><p>在命令行中运行<code>ipconfig</code>后会显示很多网络适配器，其中我需要的是：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Windows IP Configuration</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PPP adapter DIANXIN:</span><br><span class="line"></span><br><span class="line">Connection-specific DNS Suffix  . :</span><br><span class="line">IPv6 Address. . . . . . . . . . . : 240e:360:40b:200:XXXX:XXXX:fc48:XXX</span><br><span class="line">Link-local IPv6 Address . . . . . : fe80::XXXX:XXXX:fc48:XXX%64</span><br><span class="line">IPv4 Address. . . . . . . . . . . : XXX.XX.XXX.XX</span><br><span class="line">Subnet Mask . . . . . . . . . . . : 255.255.255.XXX</span><br><span class="line">Default Gateway . . . . . . . . . : XXXX::ce1a:XXXX:XXXX:bf80%64</span><br></pre></td></tr></table></figure><p>其中<code>IPv6 Address</code>是我想要的。</p><h2 id="脚本代码"><a href="#脚本代码" class="headerlink" title="脚本代码"></a>脚本代码</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取网络适配器的全局 IPv6 地址</span></span><br><span class="line"><span class="variable">$ipv6Addresses</span> = (<span class="built_in">Get-NetIPAddress</span> <span class="literal">-AddressFamily</span> IPv6 | </span><br><span class="line">                  <span class="built_in">Where-Object</span> &#123; <span class="variable">$_</span>.InterfaceAlias <span class="operator">-eq</span> <span class="string">&quot;DIANXIN&quot;</span> <span class="operator">-and</span> <span class="variable">$_</span>.PrefixOrigin <span class="operator">-ne</span> <span class="string">&quot;LinkLayerAddress&quot;</span> &#125;).IPAddress</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取第二个全局 IPv6 地址</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$ipv6Addresses</span>.Count <span class="operator">-ge</span> <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="variable">$ipv6Address</span> = <span class="variable">$ipv6Addresses</span>[<span class="number">1</span>]  <span class="comment"># 第二个地址的索引为 1</span></span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;Second IPv6 Address: <span class="variable">$ipv6Address</span>&quot;</span></span><br><span class="line">    <span class="variable">$ipv6Address</span> | <span class="built_in">Set-Clipboard</span>  <span class="comment"># 将 IPv6 地址复制到剪贴板</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;Second IPv6 Address not found for specified network adapter.&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><ol><li><p><code>$ipv6Addresses = (Get-NetIPAddress -AddressFamily IPv6 | Where-Object &#123; $_.InterfaceAlias -eq &quot;DIANXIN&quot; -and $_.PrefixOrigin -ne &quot;LinkLayerAddress&quot; &#125;).IPAddress</code>：<br>这行代码获取特定网络适配器（InterfaceAlias为”DIANXIN”）的全局 IPv6 地址，并将结果存储在 <code>$ipv6Addresses</code> 变量中。</p></li><li><p><code>if ($ipv6Addresses.Count -ge 2) &#123;</code>：<br>这是一个条件语句，用于检查变量 <code>$ipv6Addresses</code> 中存储的 IPv6 地址数量是否至少为 2。</p></li><li><p><code>$ipv6Address = $ipv6Addresses[1]</code>：<br>如果存在至少两个 IPv6 地址，那么这行代码将第二个 IPv6 地址（索引为 1）存储在 <code>$ipv6Address</code> 变量中。</p></li><li><p><code>Write-Host &quot;Second IPv6 Address: $ipv6Address&quot;</code>：<br>这行代码输出第二个 IPv6 地址到控制台，并在前面添加一条消息 “Second IPv6 Address: “。</p></li><li><p><code>$ipv6Address | Set-Clipboard</code>：<br>这行代码将第二个 IPv6 地址复制到剪贴板中，以便将其粘贴到其他应用程序中使用。</p></li><li><p><code>&#125; else &#123;</code>：<br>这是条件语句的结尾，用于处理当 IPv6 地址数量小于 2 时的情况。</p></li><li><p><code>Write-Host &quot;Second IPv6 Address not found for specified network adapter.&quot;</code>：<br>如果 IPv6 地址数量小于 2，那么这行代码输出一条消息到控制台，提示找不到第二个 IPv6 地址。</p></li><li><p><code>Read-Host -Prompt &quot;Press Enter to exit&quot;</code>：<br>这行代码在脚本执行完毕后等待用户按下 Enter 键，以保持 PowerShell 会话处于打开状态。</p></li></ol><p>因为脚本会获取到两个<code>ipv6</code>地址，一个内网地址和一个外网地址，外网地址是第二个，所以选择了第二个地址。</p>]]></content>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;将本机ipv6地址复制到粘贴板脚本&quot;&gt;&lt;a href=&quot;#将本机ipv6地址复制到粘贴板脚本&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
-    
-    
-    <category term="ipv6" scheme="https://blog.whff521.xyz/tags/ipv6/"/>
     
   </entry>
   
