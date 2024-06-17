@@ -1,4 +1,5 @@
 https://blog.whff521.xyz/2024/06/17/Eloquent-JavaScript-05-Exercises/
+https://blog.whff521.xyz/2024/06/17/Eloquent-JavaScript-06-Exercises/
 https://blog.whff521.xyz/2024/06/12/%E7%94%A8github-Desktop%E7%AE%80%E5%8C%96%E4%BD%A0%E7%9A%84%E6%8E%A8%E9%80%81%E6%B5%81%E7%A8%8B/
 https://blog.whff521.xyz/2024/05/17/Prison-Escape/
 https://blog.whff521.xyz/2024/05/22/check-for-three/
@@ -51,13 +52,13 @@ https://blog.whff521.xyz/tags/java/
 https://blog.whff521.xyz/tags/redis/
 https://blog.whff521.xyz/tags/mac/
 https://blog.whff521.xyz/tags/vscode/
+https://blog.whff521.xyz/tags/shell/
+https://blog.whff521.xyz/tags/English/
+https://blog.whff521.xyz/tags/tarjan/
 https://blog.whff521.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/
 https://blog.whff521.xyz/tags/%E5%A4%87%E4%BB%BD/
 https://blog.whff521.xyz/tags/mysql/
-https://blog.whff521.xyz/tags/shell/
 https://blog.whff521.xyz/tags/spotify/
-https://blog.whff521.xyz/tags/tarjan/
-https://blog.whff521.xyz/tags/English/
 https://blog.whff521.xyz/tags/hexo/
 https://blog.whff521.xyz/tags/butterfly/
 https://blog.whff521.xyz/tags/ipv6/
@@ -70,5 +71,5 @@ https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B
 https://blog.whff521.xyz/categories/JavaScript/
 https://blog.whff521.xyz/categories/%E6%9C%89%E6%84%9F/
 https://blog.whff521.xyz/categories/%E6%91%98%E6%8A%84/
-https://blog.whff521.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/
 https://blog.whff521.xyz/categories/VERBAL-ADVANTAGE/
+https://blog.whff521.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/

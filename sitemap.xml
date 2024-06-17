@@ -11,6 +11,15 @@
   </url>
   
   <url>
+    <loc>https://blog.whff521.xyz/2024/06/17/Eloquent-JavaScript-06-Exercises/</loc>
+    
+    <lastmod>2024-06-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.whff521.xyz/2024/06/12/%E7%94%A8github-Desktop%E7%AE%80%E5%8C%96%E4%BD%A0%E7%9A%84%E6%8E%A8%E9%80%81%E6%B5%81%E7%A8%8B/</loc>
     
     <lastmod>2024-06-12</lastmod>
@@ -445,6 +454,27 @@
   </url>
   
   <url>
+    <loc>https://blog.whff521.xyz/tags/shell/</loc>
+    <lastmod>2024-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.whff521.xyz/tags/English/</loc>
+    <lastmod>2024-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.whff521.xyz/tags/tarjan/</loc>
+    <lastmod>2024-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.whff521.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2024-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -466,28 +496,7 @@
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/tags/shell/</loc>
-    <lastmod>2024-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.whff521.xyz/tags/spotify/</loc>
-    <lastmod>2024-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.whff521.xyz/tags/tarjan/</loc>
-    <lastmod>2024-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.whff521.xyz/tags/English/</loc>
     <lastmod>2024-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -580,14 +589,14 @@
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>https://blog.whff521.xyz/categories/VERBAL-ADVANTAGE/</loc>
     <lastmod>2024-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/categories/VERBAL-ADVANTAGE/</loc>
+    <loc>https://blog.whff521.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2024-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
