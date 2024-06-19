@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.whff521.xyz/2024/06/19/Eloquent-JavaScript-08-Exercises/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.whff521.xyz/2024/06/19/Eloquent-JavaScript-07-robot/</loc>
     
     <lastmod>2024-06-19</lastmod>
@@ -449,6 +458,27 @@
   </url>
   
   <url>
+    <loc>https://blog.whff521.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <lastmod>2024-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.whff521.xyz/tags/%E5%A4%87%E4%BB%BD/</loc>
+    <lastmod>2024-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.whff521.xyz/tags/mysql/</loc>
+    <lastmod>2024-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.whff521.xyz/tags/mac/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -477,27 +507,6 @@
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2024-06-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.whff521.xyz/tags/%E5%A4%87%E4%BB%BD/</loc>
-    <lastmod>2024-06-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.whff521.xyz/tags/mysql/</loc>
-    <lastmod>2024-06-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.whff521.xyz/tags/tarjan/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -506,6 +515,13 @@
   
   <url>
     <loc>https://blog.whff521.xyz/tags/English/</loc>
+    <lastmod>2024-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.whff521.xyz/tags/ipv6/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -526,13 +542,6 @@
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/tags/ipv6/</loc>
-    <lastmod>2024-06-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.whff521.xyz/tags/%E6%B4%9B%E8%B0%B7/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -547,14 +556,14 @@
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/tags/%E6%A8%A1%E6%8B%9F/</loc>
+    <loc>https://blog.whff521.xyz/tags/git/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.whff521.xyz/tags/git/</loc>
+    <loc>https://blog.whff521.xyz/tags/%E6%A8%A1%E6%8B%9F/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
