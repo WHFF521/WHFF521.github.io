@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>毕业设计day0</title>
+      <link href="/2024/11/19/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1day0/"/>
+      <url>/2024/11/19/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1day0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Day-0"><a href="#Day-0" class="headerlink" title="Day 0"></a>Day 0</h1><p>此为记录毕业设计中代码实现功能记录的系列。</p><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>目前只是创建了项目初始文件和git仓库，由于尚未完成，所以github仓库暂为私有不公开状态。</p><h3 id="后端-SpringBoot"><a href="#后端-SpringBoot" class="headerlink" title="后端 SpringBoot"></a>后端 SpringBoot</h3><p>创建项目截图如下：</p><p><img src="https://images.whff521.top/Screenshot%202024-11-19%20at%2010.58.59.png" alt="springboot1"></p><p><img src="https://images.whff521.top/Screenshot%202024-11-19%20at%2011.00.43.png" alt="springboot2"></p><p>Maven仓库，java17，jar包，Spring Boot 3.3.5，预装插件为 MySQL Driver，Lombok，Spring Web</p><h3 id="前端-Android"><a href="#前端-Android" class="headerlink" title="前端 Android"></a>前端 Android</h3><p>创建截图如下：</p><p><img src="https://images.whff521.top/Screenshot%202024-11-17%20at%2018.56.37.png" alt="android"></p><p>java编写， Minimum SDK：API24(Android 7.0),Groovy DSL 构建。</p><p>因为感觉好玩，初始选了Android Studio给的Navigation Drawer Views Activity，现在用这种布局的软件比较少，打算做一个和小红书差不多的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 毕业设计 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 毕业设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>排序</title>
       <link href="/2024/10/31/%E6%8E%92%E5%BA%8F/"/>
       <url>/2024/10/31/%E6%8E%92%E5%BA%8F/</url>
@@ -1356,11 +1381,11 @@
       
         <tags>
             
+            <tag> vscode </tag>
+            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
-            
-            <tag> vscode </tag>
             
         </tags>
       
