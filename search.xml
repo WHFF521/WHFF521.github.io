@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>FFmpeg提取视频音频</title>
+      <link href="/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/"/>
+      <url>/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="FFmpeg提取视频音频"><a href="#FFmpeg提取视频音频" class="headerlink" title="FFmpeg提取视频音频"></a>FFmpeg提取视频音频</h1><h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><p>最近在补夏目友人帐的第七季，前几季都是初中时候看的了得有快十年没看了，所以周更的时候没有跟着追。现在有时间了都下载下来一集一集看。</p><p>我发现夏目的语速非常慢，而且发音很标准，毕竟声优是神谷浩史，很有辨识度。重要的是里边用到的词汇也都非常基础，有很多日常生活中的常用词。最近我也在学新版的标日初级上下册，所以对一些基础词汇非常的敏感。</p><p>今天在去超市的路上本来想听一听播客，但是有很多还没有更新，有的更新也是不太想听，感觉营养较低。前几个月我是有搜寻一些日语播客的，想要练一练听力，但是完全听不懂就放弃了。</p><p>所以我联想到了我刚看的两集夏目，这个番非常适合练习听力，而且看过一遍字幕不用担心完全听不懂的现象，而且有有趣的对话和悠扬的背景音乐。</p><p><img src="https://images.whff521.top/vlcsnap-2025-01-21-23h20m21s316.png" alt="xiamu"></p><p><strong>如果能把视频的音频提取出来传到手机上听就好了。</strong></p><p>所以就有了这篇博客。</p><h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><h3 id="安装-FFmpeg"><a href="#安装-FFmpeg" class="headerlink" title="安装 FFmpeg"></a>安装 FFmpeg</h3><ol><li>下载并安装 FFmpeg：<a href="https://ffmpeg.org/download.html">FFmpeg 官网</a></li><li>配置环境变量（Windows 用户需要手动添加到 PATH，MacOS直接homebrew下载即可）。</li></ol><h3 id="提取音频命令"><a href="#提取音频命令" class="headerlink" title="提取音频命令"></a>提取音频命令</h3><p>假设你的文件是 <code>input.mp4</code>，目标音频文件格式是 MP3：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -q:a 0 -map a output.mp3</span><br></pre></td></tr></table></figure><ul><li><code>-q:a 0</code> 表示使用最高质量。</li><li><code>-map a</code> 表示仅提取音频流。</li></ul><h2 id="手机端"><a href="#手机端" class="headerlink" title="手机端"></a>手机端</h2><p>不想重复造轮子，我自己的方法是直接电脑上传到apple music资料库，等上传后手机就可以听了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> FFmpeg </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>南游记</title>
       <link href="/2025/01/19/%E5%8D%97%E6%B8%B8%E8%AE%B0/"/>
       <url>/2025/01/19/%E5%8D%97%E6%B8%B8%E8%AE%B0/</url>
