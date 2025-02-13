@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Codeforces Adjacent Digit Sums | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Codeforces Adjacent Digit Sums这是Codeforces Round 1004(Div.2)的第一题，题目链接。 题目大意题目给出了两个数 𝑥 和 𝑦，要求判断是否存在一个整数 𝑛，使得 𝑛 的各位数字之和等于 𝑥，且 𝑛+1 的各位数字之和等于 𝑦。 S(n) &#x3D; x, S(n+1) &#x3D; y 换句话说，你需要找到一个整数 𝑛，使得：  𝑛 的各位数字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces Adjacent Digit Sums">
+<meta property="og:url" content="https://blog.whff521.xyz/2025/02/13/Codeforces-Adjacent-Digit-Sums/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="Codeforces Adjacent Digit Sums这是Codeforces Round 1004(Div.2)的第一题，题目链接。 题目大意题目给出了两个数 𝑥 和 𝑦，要求判断是否存在一个整数 𝑛，使得 𝑛 的各位数字之和等于 𝑥，且 𝑛+1 的各位数字之和等于 𝑦。 S(n) &#x3D; x, S(n+1) &#x3D; y 换句话说，你需要找到一个整数 𝑛，使得：  𝑛 的各位数字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg">
+<meta property="article:published_time" content="2025-02-13T02:12:29.000Z">
+<meta property="article:modified_time" content="2025-02-13T02:28:48.126Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="Codeforces">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg"><link rel="shortcut icon" href="/images/101.ico"><link rel="canonical" href="https://blog.whff521.xyz/2025/02/13/Codeforces-Adjacent-Digit-Sums/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="9ws3s15bqXTtMN6ESVURO4Ces-UA9EELAL9f16L_lc0"/><meta name="baidu-site-verification" content="codeva-LMHDaMyBu1"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Codeforces Adjacent Digit Sums',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-13 10:28:48'
+}</script><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="AiRomance" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AiRomance</span></a><a class="nav-page-title" href="/"><span class="site-name">Codeforces Adjacent Digit Sums</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Codeforces Adjacent Digit Sums</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-13T02:12:29.000Z" title="Created 2025-02-13 10:12:29">2025-02-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-13T02:28:48.126Z" title="Updated 2025-02-13 10:28:48">2025-02-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Codeforces-Adjacent-Digit-Sums"><a href="#Codeforces-Adjacent-Digit-Sums" class="headerlink" title="Codeforces Adjacent Digit Sums"></a>Codeforces Adjacent Digit Sums</h1><p>这是<code>Codeforces Round 1004(Div.2)</code>的第一题，<a target="_blank" rel="noopener" href="https://codeforces.com/contest/2067/problem/A#">题目链接</a>。</p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>题目给出了两个数 𝑥 和 𝑦，要求判断是否存在一个整数 𝑛，使得 𝑛 的各位数字之和等于 𝑥，且 𝑛+1 的各位数字之和等于 𝑦。</p>
+<p>S(n) = x, S(n+1) = y</p>
+<p>换句话说，你需要找到一个整数 𝑛，使得：</p>
+<ol>
+<li>𝑛 的各位数字相加等于 𝑥。</li>
+<li>𝑛+1 的各位数字相加等于 𝑦。</li>
+</ol>
+<p>如果存在这样的 𝑛，输出“YES”；否则输出“NO”。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><ol>
+<li>对于n的个位数字不是9的，<code>S(n+1) = S(n) + 1</code>;</li>
+<li>对于 n 的个位数字是 9 的，假设从个位开始有连续的 k 个 9，那么<code>S(n+1) = S(n) + 1 - k*9</code>,因为从个位开始加上 1 后连续的 k 个 9 都会变成0，最后的进1贡献为1。</li>
+</ol>
+<p>归纳如果 k = 0 即为情况1。</p>
+<p>将 x 和 y 替换到等式里, y = x + 1 - k*9, k = (x-y+1)/9。</p>
+<p>只需判断k是否为大于等于0的整数即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> x,y;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">        <span class="type">int</span> remainder = (x-y+<span class="number">1</span>)%<span class="number">9</span>;</span><br><span class="line">        <span class="keyword">if</span>(remainder==<span class="number">0</span>&amp;&amp;(x-y+<span class="number">1</span>)/<span class="number">9</span>&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;NO\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz/2025/02/13/Codeforces-Adjacent-Digit-Sums/">https://blog.whff521.xyz/2025/02/13/Codeforces-Adjacent-Digit-Sums/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Codeforces/">Codeforces</a></div><div class="post-share"><div class="social-share" data-image="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/" title="曾经最想去的地方是现在最讨厌的地方"><img class="cover" src="https://images.whff521.top/GiNy2ieaIAA-EBt.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">曾经最想去的地方是现在最讨厌的地方</div></div><div class="info-2"><div class="info-item-1">“欲买桂花同载酒，终不似，少年游。”</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/05/22/check-for-three/" title="Chess For Three"><img class="cover" src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/06/monogatari-featured.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-22</div><div class="info-item-2">Chess For Three</div></div><div class="info-2"><div class="info-item-1">Chess For Three这是Codeforces Round 945 (Div. 2) 第一题。   题目链接   题意三个人玩游戏，每局两个人玩。赢得人得2分，输的人得0分。平局每个人得1分。会给你三个人的最终得分，问最多平局多少局。 重点记录这里题确实不难，但是有一个样例因为没有给怎么算的导致我一直以为样例给错了。。。 123 4 56 3分4分5分，最大平局数是6。   我最一开始想的是a和b平局3次，b还剩一局和c平局，这是4次。a和c平局3次，b和c平局2次，这是5次。但是样例给的是6次。 6次的情况应该是c和a平局2次，c和b平局3次，a和b平局1次，这样就是6次。这真的是太amazing了。 题解可以直接暴力枚举a和b，a和c，b和c平局次数，然后判断分数是否合法。除去平局的分数，剩下的分数应该left%2==0。   但是还有结论， min((p1+p2+p3)/2,p1+p2)，这里保证p1&lt;=p2&lt;=p3。   先考虑合不合法，三个数加一起如果是偶数就一定合法。 ...</div></div></div></a><a class="pagination-related" href="/2024/05/11/Codeforces-Round-944-Div-4-%E5%9B%9E%E9%A1%BE/" title="Codeforces Round 944 (Div. 4) 回顾"><img class="cover" src="https://images.immediate.co.uk/production/volatile/sites/3/2024/01/monogatari-365bec4-e1705577403416.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-11</div><div class="info-item-2">Codeforces Round 944 (Div. 4) 回顾</div></div><div class="info-2"><div class="info-item-1">Codeforces Round 944 (Div. 4) 回顾比赛回顾赛中是AC了前四题，E答案错误，F超时。可以说是做到了最后五分钟，排名是6000多。   比赛链接   官方题解链接   题目分析AB就直接跳过了，纯签到。  C. Clock and StringsC题意思是给出表中两对数字，看每对数字连接的线是否相交。我的思路是只要一条线的一个端点在另一条线的区间内，切另一端在区间外即可断定这两条线是相交的。 为了更好的进行区分，我进行了排序，其中满足a&lt;c a&lt;b c&lt;d。 我觉得不能直接去写，表上的数字是1到12，对于一条线，一个端点是1，另一个端点是10，其中11和12其实是在线的包围内的，所以我给所有小于6的数字加了12，区间变成了6到17，然后判断是否c在a和b之间,d在a和b之外。但是我今天才发现我的判断语句竟然是这样的： 12if((a&lt;c&amp;&amp;c&lt;b)||(a&lt;d&amp;&amp;d&lt;b)) cout&lt;&lt;&quot;YES&quot;&lt;&lt;endl;        else...</div></div></div></a><a class="pagination-related" href="/2024/05/03/Codeforces-Round-943-Div-3-A-E-solutions/" title="Codeforces Round 943 (Div. 3) A-E solutions"><img class="cover" src="https://assetsio.reedpopcdn.com/Monogatari-featured.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-03</div><div class="info-item-2">Codeforces Round 943 (Div. 3) A-E solutions</div></div><div class="info-2"><div class="info-item-1">Codeforces Round 943 (Div. 3)In this competition, I just got three Accepted.Competition Address A. Maximize?The meaning of the question is to find maximum of gcd(x,y)+y when gives you x.My solution is to  have a linear search. Enough to pass this question.12345678910111213141516171819202122232425#include&lt;bits/stdc++.h&gt;using namespace std;int gcd(int a,int b)&#123;    if(b==0) return a;    return gcd(b,a%b);&#125;int main()&#123;    int T;    cin&gt;&gt;T;    while(T--)&#123;        int...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AiRomance</div><div class="author-info-description">又遇到什么好事了吗？</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #f26522;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">猫又おかゆは世界で一番かわいい</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Codeforces-Adjacent-Digit-Sums"><span class="toc-number">1.</span> <span class="toc-text">Codeforces Adjacent Digit Sums</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="toc-number">1.1.</span> <span class="toc-text">题目大意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">题解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums"><img src="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Codeforces Adjacent Digit Sums"/></a><div class="content"><a class="title" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums">Codeforces Adjacent Digit Sums</a><time datetime="2025-02-13T02:12:29.000Z" title="Created 2025-02-13 10:12:29">2025-02-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/" title="曾经最想去的地方是现在最讨厌的地方"><img src="https://images.whff521.top/GiNy2ieaIAA-EBt.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="曾经最想去的地方是现在最讨厌的地方"/></a><div class="content"><a class="title" href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/" title="曾经最想去的地方是现在最讨厌的地方">曾经最想去的地方是现在最讨厌的地方</a><time datetime="2025-01-26T15:19:58.000Z" title="Created 2025-01-26 23:19:58">2025-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/" title="FFmpeg提取视频音频"><img src="https://images.whff521.top/GhkQ1IkaEAA1T1A.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FFmpeg提取视频音频"/></a><div class="content"><a class="title" href="/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/" title="FFmpeg提取视频音频">FFmpeg提取视频音频</a><time datetime="2025-01-21T15:05:16.000Z" title="Created 2025-01-21 23:05:16">2025-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/19/%E5%8D%97%E6%B8%B8%E8%AE%B0/" title="南游记"><img src="https://images.whff521.top/Ghj_OkIa8AAYOCL.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="南游记"/></a><div class="content"><a class="title" href="/2025/01/19/%E5%8D%97%E6%B8%B8%E8%AE%B0/" title="南游记">南游记</a><time datetime="2025-01-19T15:13:18.000Z" title="Created 2025-01-19 23:13:18">2025-01-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/05/switch%E8%BF%9E%E6%8E%A5openwrt%E8%B7%AF%E7%94%B1%E5%99%A8NAT%E7%A9%BF%E8%B6%8A%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/" title="switch连接openwrt路由器NAT穿越失败问题"><img src="https://images.whff521.top/Ge87m2rbwAEyzvo.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="switch连接openwrt路由器NAT穿越失败问题"/></a><div class="content"><a class="title" href="/2025/01/05/switch%E8%BF%9E%E6%8E%A5openwrt%E8%B7%AF%E7%94%B1%E5%99%A8NAT%E7%A9%BF%E8%B6%8A%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/" title="switch连接openwrt路由器NAT穿越失败问题">switch连接openwrt路由器NAT穿越失败问题</a><time datetime="2025-01-05T00:20:06.000Z" title="Created 2025-01-05 08:20:06">2025-01-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'b574649da36a28a0c3bb',
+      clientSecret: 'caae8c036167555e8f4ed612d8ef1ec3ce94e2d4',
+      repo: 'WHFF521.github.io',
+      owner: 'WHFF521',
+      admin: ['WHFF521'],
+      id: '00ebcde5075b3c69396d304a6ac2a287',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

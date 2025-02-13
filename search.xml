@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Codeforces Adjacent Digit Sums</title>
+      <link href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/"/>
+      <url>/2025/02/13/Codeforces-Adjacent-Digit-Sums/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Codeforces-Adjacent-Digit-Sums"><a href="#Codeforces-Adjacent-Digit-Sums" class="headerlink" title="Codeforces Adjacent Digit Sums"></a>Codeforces Adjacent Digit Sums</h1><p>这是<code>Codeforces Round 1004(Div.2)</code>的第一题，<a href="https://codeforces.com/contest/2067/problem/A#">题目链接</a>。</p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>题目给出了两个数 𝑥 和 𝑦，要求判断是否存在一个整数 𝑛，使得 𝑛 的各位数字之和等于 𝑥，且 𝑛+1 的各位数字之和等于 𝑦。</p><p>S(n) = x, S(n+1) = y</p><p>换句话说，你需要找到一个整数 𝑛，使得：</p><ol><li>𝑛 的各位数字相加等于 𝑥。</li><li>𝑛+1 的各位数字相加等于 𝑦。</li></ol><p>如果存在这样的 𝑛，输出“YES”；否则输出“NO”。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><ol><li>对于n的个位数字不是9的，<code>S(n+1) = S(n) + 1</code>;</li><li>对于 n 的个位数字是 9 的，假设从个位开始有连续的 k 个 9，那么<code>S(n+1) = S(n) + 1 - k*9</code>,因为从个位开始加上 1 后连续的 k 个 9 都会变成0，最后的进1贡献为1。</li></ol><p>归纳如果 k = 0 即为情况1。</p><p>将 x 和 y 替换到等式里, y = x + 1 - k*9, k = (x-y+1)/9。</p><p>只需判断k是否为大于等于0的整数即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> x,y;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">        <span class="type">int</span> remainder = (x-y+<span class="number">1</span>)%<span class="number">9</span>;</span><br><span class="line">        <span class="keyword">if</span>(remainder==<span class="number">0</span>&amp;&amp;(x-y+<span class="number">1</span>)/<span class="number">9</span>&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;NO\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Codeforces </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>曾经最想去的地方是现在最讨厌的地方</title>
       <link href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/"/>
       <url>/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/</url>
@@ -1614,11 +1639,11 @@
       
         <tags>
             
-            <tag> vscode </tag>
-            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
+            
+            <tag> vscode </tag>
             
         </tags>
       
