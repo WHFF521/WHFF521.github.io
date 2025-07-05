@@ -6,7 +6,7 @@
   <link href="https://blog.whff521.xyz/atom.xml" rel="self"/>
   <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
   <link href="https://blog.whff521.xyz/"/>
-  <updated>2025-02-13T02:28:48.126Z</updated>
+  <updated>2025-07-05T02:50:23.217Z</updated>
   <id>https://blog.whff521.xyz/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pytorch和cuda环境安装</title>
+    <link href="https://blog.whff521.xyz/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
+    <id>https://blog.whff521.xyz/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</id>
+    <published>2025-07-05T02:09:36.000Z</published>
+    <updated>2025-07-05T02:50:23.217Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Pytorch和cuda环境安装"><a href="#Pytorch和cuda环境安装" class="headerlink" title="Pytorch和cuda环境安装"></a>Pytorch和cuda环境安装</h1><p>为了避免更换不同版本Cuda的麻烦，环境在Anaconda里面搭建。</p><h2 id="创建conda环境"><a href="#创建conda环境" class="headerlink" title="创建conda环境"></a>创建conda环境</h2><p>Anaconda的安装就不赘述，首先是创建一个虚拟环境：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name your-env-name python=3.13</span><br></pre></td></tr></table></figure><br><code>your-env-name</code>是环境名称，随意更换，python版本也可根据不同环境进行更改。这里要注意<code>--name</code>是两个<code>-</code>，如果只打一个<code>-</code>你有概率会获得一个名字叫<code>ame</code>的虚拟环境😂</p><p>千万不要忘了进入虚拟环境再进行下面的操作：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate your-env-name</span><br></pre></td></tr></table></figure></p><h2 id="安装Cuda"><a href="#安装Cuda" class="headerlink" title="安装Cuda"></a>安装Cuda</h2><p>这里有两种方法，第一是用conda命令进行安装，源应该是conda仓库。第二种是通过pip，源是pip的仓库。其中conda安装的命令虽然更简单，但是conda仓库里Cuda版本十分有限，所以如果conda仓库里如果没有自己想要的版本还是推荐用pip进行安装。</p><h3 id="通过conda安装"><a href="#通过conda安装" class="headerlink" title="通过conda安装"></a>通过conda安装</h3><p>可以通过以下命令查看conda仓库中有哪些版本的Cuda：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda search cudatoolkit --info</span><br></pre></td></tr></table></figure><br>通过conda安装Cuda的命令为：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install cudatoolkit=11.7</span><br></pre></td></tr></table></figure></p><h3 id="通过pip安装"><a href="#通过pip安装" class="headerlink" title="通过pip安装"></a>通过pip安装</h3><p><a href="https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#pip-wheels-windows">NVIDIA 官网</a>提供了通过pip安装的方法。</p><p>安装命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新pip</span></span><br><span class="line">py -m pip install --upgrade setuptools pip wheel</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装nvidia-pyindex</span></span><br><span class="line">py -m pip install nvidia-pyindex</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装cuda12</span></span><br><span class="line">py -m pip install nvidia-cuda-runtime-cu12</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可选 安装其他模块</span></span><br><span class="line">py -m pip install nvidia-&lt;library&gt;</span><br></pre></td></tr></table></figure><br>其中<code>py</code>需要替换成<code>python</code>。</p><h2 id="安装Pytorch"><a href="#安装Pytorch" class="headerlink" title="安装Pytorch"></a>安装Pytorch</h2><p><a href="https://pytorch.org/get-started/locally/">Pytorch 官网</a>提供了对应的安装命令<br><img src="https://images.whff521.top/Screenshot%202025-07-05%20at%2010.35.01.png" alt="安装命令"></p><p>这里贴出我使用的：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118</span><br></pre></td></tr></table></figure></p><h2 id="检验安装"><a href="#检验安装" class="headerlink" title="检验安装"></a>检验安装</h2><p>直接在命令行中输入<code>python</code>进入到python，输入以下几行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(torch.version.cuda)</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure><p>注意import之后会有一段时间等待python加载。</p><p>PS：今天也是我第一次用anaconda进行搭建这个环境，仅仅是搭建还未投入到代码的使用，可能会有问题。</p><p>PS2：封面是大空スバル，两天前是她的生日！しゅばしゅばしゅば！！！ </p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Pytorch和cuda环境安装&quot;&gt;&lt;a href=&quot;#Pytorch和cuda环境安装&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://blog.whff521.xyz/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="Pytorch" scheme="https://blog.whff521.xyz/tags/Pytorch/"/>
+    
+    <category term="Cuda" scheme="https://blog.whff521.xyz/tags/Cuda/"/>
+    
+  </entry>
   
   <entry>
     <title>Codeforces Adjacent Digit Sums</title>
@@ -111,27 +140,6 @@
     <category term="旅行" scheme="https://blog.whff521.xyz/tags/%E6%97%85%E8%A1%8C/"/>
     
     <category term="朋友" scheme="https://blog.whff521.xyz/tags/%E6%9C%8B%E5%8F%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>switch连接openwrt路由器NAT穿越失败问题</title>
-    <link href="https://blog.whff521.xyz/2025/01/05/switch%E8%BF%9E%E6%8E%A5openwrt%E8%B7%AF%E7%94%B1%E5%99%A8NAT%E7%A9%BF%E8%B6%8A%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/"/>
-    <id>https://blog.whff521.xyz/2025/01/05/switch%E8%BF%9E%E6%8E%A5openwrt%E8%B7%AF%E7%94%B1%E5%99%A8NAT%E7%A9%BF%E8%B6%8A%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/</id>
-    <published>2025-01-05T00:20:06.000Z</published>
-    <updated>2025-01-05T01:04:35.211Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="switch连接openwrt路由器NAT穿越失败问题"><a href="#switch连接openwrt路由器NAT穿越失败问题" class="headerlink" title="switch连接openwrt路由器NAT穿越失败问题"></a>switch连接openwrt路由器NAT穿越失败问题</h1><p>首先说结论，解决问题的办法是<code>ShadowSocksR Plus+</code>需要代理的端口要改成“所有端口”。</p><h2 id="问题的来源"><a href="#问题的来源" class="headerlink" title="问题的来源"></a>问题的来源</h2><p>我需要路由器给我的switch（任天堂游戏机）做代理，我家里的老路由器NAT类型是B，虽然能匹配到马车8，但是感觉延迟很大，而且大乱斗的竞猜观也看不了。正好我有一个刷过openwrt（QWRT）的路由器。</p><h2 id="试错"><a href="#试错" class="headerlink" title="试错"></a>试错</h2><p>我第一个想法是有线桥接。lan to lan 这样接起来，然后让主路由器分配ip，副路由器只负责当交换机。</p><p>但是不知道为什么网上的桥接教程我都不能成功实现。他们教的把副路由器lan口ip改成主路由器lan口ip统一网段的这一步，每当我改完ip然后路由器就失联了，也没有网。</p><p>好在我直接拔电源再插回去，路由器的系统会重置为出厂化设置。研究了几个小时之后我发现路由器并不是失联了，而是我没有正确的访问。我不知道原因是什么，我电脑网线连接路由器之所以找不到路由器配置网址，好像是因为改lan口ip后新的网络ip并没有分配给电脑，然后电脑和路由器panel在不同的网段里，所以不能访问。</p><p>解决办法就是在电脑控制面板里找到适配器设置（Control Panel-&gt;All Control Panel Items-&gt;Network and Sharing Center-&gt;Change adapter settings），将以太网属性里的ipv4设置为手动ip，设置为和更改panel的ip的同一网段的不同ip上。</p><p><img src="https://images.whff521.top/69968835425934D848C83A3278D54FF2.png" alt="ipv4"></p><p>如图，假设主路由器Default Gateway是192.168.3.1，这个如果不知道就用电脑连接主路由器，然后Terminal里输入<code>ipconfig /all</code>查看。然后路由器lan设置为192.168.3.2,只需要上图一样配置，将自己电脑ip改为同一网段的不同ip即可。然后再输入192.168.3.2就能够再次访问到路由器panel。</p><p>这里解释一下为什么192.168.1.1和192.168.3.1是不同网段，主要是因为家庭路由器的子网掩码是255.255.255.0。这里涉及到计网的知识。这个子网掩码应该按照二进制的思维思考，前面都是111111…后面是0,然后第三个字段的3和1仍然还是不同网段，但是第四个字段对应的0属于同一网段。</p><h2 id="可能是正解"><a href="#可能是正解" class="headerlink" title="可能是正解"></a>可能是正解</h2><p>重置路由器后，网线插在wan口上，wan口协议设置为DHCP服务端即可。这样副路由器就应该有网了。</p><p>当然这样的做法使得主副路由器会在不同的网段中，共享打印机那种场景应该会出问题，但是我并没有这种场景。</p><h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>我为什么排除了vpn的问题而是一心觉得是因为不同网段的问题。第一因为这个路由器在学校的时候运作十分正常，第二chatgpt告诉我可能是因为双重NAT导致的。显然我的决策是有误的。</p><p>因为开梯子和不开梯子NAT类型都是B，而且开梯子后反而完不了马车8了让我心急如焚。我不知道为什么<code>ShadowSocksR Plus+</code>的代理端口为什么被改成了“不代理p2p流量”，这一个设置让我折腾了快一天的时间：</p><p><img src="https://images.whff521.top/Screenshot%202025-01-05%20at%2008.58.42.png" alt="search history"></p><p>这是部分搜索截图。</p><p>最后看到NAT类型变成A，然后狠狠打了几把NS Sports，还是很开心的。</p>]]></content>
-    
-    
-    <summary type="html">因为一个简单的设置导致度过了痛苦的几个小时的解决问题的时间</summary>
-    
-    
-    
-    <category term="计算机相关" scheme="https://blog.whff521.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
-    
-    
-    <category term="openwrt" scheme="https://blog.whff521.xyz/tags/openwrt/"/>
     
   </entry>
   

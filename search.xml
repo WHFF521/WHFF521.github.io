@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Pytorch和cuda环境安装</title>
+      <link href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
+      <url>/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Pytorch和cuda环境安装"><a href="#Pytorch和cuda环境安装" class="headerlink" title="Pytorch和cuda环境安装"></a>Pytorch和cuda环境安装</h1><p>为了避免更换不同版本Cuda的麻烦，环境在Anaconda里面搭建。</p><h2 id="创建conda环境"><a href="#创建conda环境" class="headerlink" title="创建conda环境"></a>创建conda环境</h2><p>Anaconda的安装就不赘述，首先是创建一个虚拟环境：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name your-env-name python=3.13</span><br></pre></td></tr></table></figure><br><code>your-env-name</code>是环境名称，随意更换，python版本也可根据不同环境进行更改。这里要注意<code>--name</code>是两个<code>-</code>，如果只打一个<code>-</code>你有概率会获得一个名字叫<code>ame</code>的虚拟环境😂</p><p>千万不要忘了进入虚拟环境再进行下面的操作：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate your-env-name</span><br></pre></td></tr></table></figure></p><h2 id="安装Cuda"><a href="#安装Cuda" class="headerlink" title="安装Cuda"></a>安装Cuda</h2><p>这里有两种方法，第一是用conda命令进行安装，源应该是conda仓库。第二种是通过pip，源是pip的仓库。其中conda安装的命令虽然更简单，但是conda仓库里Cuda版本十分有限，所以如果conda仓库里如果没有自己想要的版本还是推荐用pip进行安装。</p><h3 id="通过conda安装"><a href="#通过conda安装" class="headerlink" title="通过conda安装"></a>通过conda安装</h3><p>可以通过以下命令查看conda仓库中有哪些版本的Cuda：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda search cudatoolkit --info</span><br></pre></td></tr></table></figure><br>通过conda安装Cuda的命令为：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install cudatoolkit=11.7</span><br></pre></td></tr></table></figure></p><h3 id="通过pip安装"><a href="#通过pip安装" class="headerlink" title="通过pip安装"></a>通过pip安装</h3><p><a href="https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#pip-wheels-windows">NVIDIA 官网</a>提供了通过pip安装的方法。</p><p>安装命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新pip</span></span><br><span class="line">py -m pip install --upgrade setuptools pip wheel</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装nvidia-pyindex</span></span><br><span class="line">py -m pip install nvidia-pyindex</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装cuda12</span></span><br><span class="line">py -m pip install nvidia-cuda-runtime-cu12</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可选 安装其他模块</span></span><br><span class="line">py -m pip install nvidia-&lt;library&gt;</span><br></pre></td></tr></table></figure><br>其中<code>py</code>需要替换成<code>python</code>。</p><h2 id="安装Pytorch"><a href="#安装Pytorch" class="headerlink" title="安装Pytorch"></a>安装Pytorch</h2><p><a href="https://pytorch.org/get-started/locally/">Pytorch 官网</a>提供了对应的安装命令<br><img src="https://images.whff521.top/Screenshot%202025-07-05%20at%2010.35.01.png" alt="安装命令"></p><p>这里贴出我使用的：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118</span><br></pre></td></tr></table></figure></p><h2 id="检验安装"><a href="#检验安装" class="headerlink" title="检验安装"></a>检验安装</h2><p>直接在命令行中输入<code>python</code>进入到python，输入以下几行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(torch.version.cuda)</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure><p>注意import之后会有一段时间等待python加载。</p><p>PS：今天也是我第一次用anaconda进行搭建这个环境，仅仅是搭建还未投入到代码的使用，可能会有问题。</p><p>PS2：封面是大空スバル，两天前是她的生日！しゅばしゅばしゅば！！！ </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Pytorch </tag>
+            
+            <tag> Cuda </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Codeforces Adjacent Digit Sums</title>
       <link href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/"/>
       <url>/2025/02/13/Codeforces-Adjacent-Digit-Sums/</url>
