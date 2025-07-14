@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>antfu的薅牛毛地图的自用方法 | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="antfu的薅牛毛地图的自用方法背景去年看了Anthony Fu的“薅牛毛”演讲，当时看到ppt里密集的路线图着实是被视觉冲击了。将复杂的学习路线通过路线图一个个表示出来，最后整体去俯瞰，竟有一种宏伟的成就感。 什么是薅牛毛呢？在我的现状下，在学习新东西或者完成任务的时候，难免会有一些“前置知识”需要去了解，然后要理解“前置知识”的话，还需要学习一下“前置知识”的“前置知识”。这可能会变成一种df">
+<meta property="og:type" content="article">
+<meta property="og:title" content="antfu的薅牛毛地图的自用方法">
+<meta property="og:url" content="https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="antfu的薅牛毛地图的自用方法背景去年看了Anthony Fu的“薅牛毛”演讲，当时看到ppt里密集的路线图着实是被视觉冲击了。将复杂的学习路线通过路线图一个个表示出来，最后整体去俯瞰，竟有一种宏伟的成就感。 什么是薅牛毛呢？在我的现状下，在学习新东西或者完成任务的时候，难免会有一些“前置知识”需要去了解，然后要理解“前置知识”的话，还需要学习一下“前置知识”的“前置知识”。这可能会变成一种df">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.whff521.top/IMG_7322.JPG">
+<meta property="article:published_time" content="2025-07-14T08:47:56.000Z">
+<meta property="article:modified_time" content="2025-07-14T11:53:12.362Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="-- 路线图 -- YOLO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.whff521.top/IMG_7322.JPG"><link rel="shortcut icon" href="/images/101.ico"><link rel="canonical" href="https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="9ws3s15bqXTtMN6ESVURO4Ces-UA9EELAL9f16L_lc0"/><meta name="baidu-site-verification" content="codeva-LMHDaMyBu1"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'antfu的薅牛毛地图的自用方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-14 19:53:12'
+}</script><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="AiRomance" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.whff521.top/IMG_7322.JPG);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AiRomance</span></a><a class="nav-page-title" href="/"><span class="site-name">antfu的薅牛毛地图的自用方法</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">antfu的薅牛毛地图的自用方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-14T08:47:56.000Z" title="Created 2025-07-14 16:47:56">2025-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-07-14T11:53:12.362Z" title="Updated 2025-07-14 19:53:12">2025-07-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="antfu的薅牛毛地图的自用方法"><a href="#antfu的薅牛毛地图的自用方法" class="headerlink" title="antfu的薅牛毛地图的自用方法"></a>antfu的薅牛毛地图的自用方法</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>去年看了Anthony Fu的“薅牛毛”演讲，当时看到ppt里密集的路线图着实是被视觉冲击了。将复杂的学习路线通过路线图一个个表示出来，最后整体去俯瞰，竟有一种宏伟的成就感。</p>
+<p>什么是薅牛毛呢？在我的现状下，在学习新东西或者完成任务的时候，难免会有一些“前置知识”需要去了解，然后要理解“前置知识”的话，还需要学习一下“前置知识”的“前置知识”。这可能会变成一种dfs或者bfs，越学越多，越学越远，可能有一天发现自己在草原上薅牛毛，而一开始的目标和薅牛毛没有一点点关联。</p>
+<p>最近正在学习图像识别的内容，最主要的目标就是学会使用YOLOv5。当然仅仅是使用的话很简单，我需要的是了解其中的原理并使用它。也因此我的“薅牛毛”之旅开始了。</p>
+<h2 id="制作方法"><a href="#制作方法" class="headerlink" title="制作方法"></a>制作方法</h2><h3 id="下载代码"><a href="#下载代码" class="headerlink" title="下载代码"></a>下载代码</h3><p>我们可以先fork一下Anthony Fu的<a target="_blank" rel="noopener" href="https://github.com/antfu/yak-shaving-map">仓库代码</a>。</p>
+<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><p>然后将自己仓库的代码下载到本地，先安装环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果本地没有pnpm要先下载pnpm，什么？连npm都没有？</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">那可以“薅牛毛”了😂</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm install -g pnpm</span></span><br><span class="line">pnpm install</span><br></pre></td></tr></table></figure>
+<p>运行代码只需要运行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm run dev</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>其中<code>data.ts</code>中存储的是节点的上下级关系以及节点形状，我们可以删除原来的节点，填写自己想要的节点。</p>
+<p><code>yak-map-pos.json</code>里边是节点的坐标，这个文件不需要手动更改，运行项目后使用鼠标可以拖动节点位置，会自动添加当前节点到json中，json中的节点坐标会自动变化。<strong>建议先把这里面的所有节点删除再添加编写<code>data.ts</code>。</strong></p>
+<p>其中节点类似下面代码：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">shape</span>: <span class="string">&#x27;circle&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;yolov5&#x27;</span>],</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;YOLOv4&#x27;</span>],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>注意第一个节点要自定义<code>x</code>和<code>y</code>为0。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>运行后我们打开网页，界面右上角可以调节暗夜模式，鼠标点击左侧空白是回退，鼠标点击右侧空白是前进，右下角按钮可以进入step模式和展示全部。</p>
+<p>这里附上我制作完成后的页面截图：</p>
+<p><img src="https://images.whff521.top/Screenshot%202025-07-14%20at%2019.41.23.png" alt="yolo map"></p>
+<p>我部署到了Cloudflare的pages上了，方便随时查看。这里附上<a target="_blank" rel="noopener" href="https://github.com/WHFF521/yak-shaving-map-yolo">我仓库的链接</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/">https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B7%AF%E7%BA%BF%E5%9B%BE-YOLO/">-- 路线图 -- YOLO</a></div><div class="post-share"><div class="social-share" data-image="https://images.whff521.top/IMG_7322.JPG" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="Pytorch和cuda环境安装"><img class="cover" src="https://images.whff521.top/Gu2x-3JWwAA_lx0.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Pytorch和cuda环境安装</div></div><div class="info-2"><div class="info-item-1">Pytorch和cuda环境安装为了避免更换不同版本Cuda的麻烦，环境在Anaconda里面搭建。 创建conda环境Anaconda的安装就不赘述，首先是创建一个虚拟环境：1conda create --name your-env-name python=3.13your-env-name是环境名称，随意更换，python版本也可根据不同环境进行更改。这里要注意--name是两个-，如果只打一个-你有概率会获得一个名字叫ame的虚拟环境😂 千万不要忘了进入虚拟环境再进行下面的操作：1conda activate your-env-name 安装Cuda这里有两种方法，第一是用conda命令进行安装，源应该是conda仓库。第二种是通过pip，源是pip的仓库。其中conda安装的命令虽然更简单，但是conda仓库里Cuda版本十分有限，所以如果conda仓库里如果没有自己想要的版本还是推荐用pip进行安装。 通过conda安装可以通过以下命令查看conda仓库中有哪些版本的Cuda：1conda search cudatoolkit...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AiRomance</div><div class="author-info-description">又遇到什么好事了吗？</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #f26522;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">猫又おかゆは世界で一番かわいい</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">antfu的薅牛毛地图的自用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">制作方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.1.</span> <span class="toc-text">下载代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.2.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.3.</span> <span class="toc-text">修改代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.4.</span> <span class="toc-text">使用方法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/" title="antfu的薅牛毛地图的自用方法"><img src="https://images.whff521.top/IMG_7322.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="antfu的薅牛毛地图的自用方法"/></a><div class="content"><a class="title" href="/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/" title="antfu的薅牛毛地图的自用方法">antfu的薅牛毛地图的自用方法</a><time datetime="2025-07-14T08:47:56.000Z" title="Created 2025-07-14 16:47:56">2025-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="Pytorch和cuda环境安装"><img src="https://images.whff521.top/Gu2x-3JWwAA_lx0.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pytorch和cuda环境安装"/></a><div class="content"><a class="title" href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="Pytorch和cuda环境安装">Pytorch和cuda环境安装</a><time datetime="2025-07-05T02:09:36.000Z" title="Created 2025-07-05 10:09:36">2025-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums"><img src="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Codeforces Adjacent Digit Sums"/></a><div class="content"><a class="title" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums">Codeforces Adjacent Digit Sums</a><time datetime="2025-02-13T02:12:29.000Z" title="Created 2025-02-13 10:12:29">2025-02-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/" title="曾经最想去的地方是现在最讨厌的地方"><img src="https://images.whff521.top/GiNy2ieaIAA-EBt.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="曾经最想去的地方是现在最讨厌的地方"/></a><div class="content"><a class="title" href="/2025/01/26/%E6%9B%BE%E7%BB%8F%E6%9C%80%E6%83%B3%E5%8E%BB%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%9C%B0%E6%96%B9/" title="曾经最想去的地方是现在最讨厌的地方">曾经最想去的地方是现在最讨厌的地方</a><time datetime="2025-01-26T15:19:58.000Z" title="Created 2025-01-26 23:19:58">2025-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/" title="FFmpeg提取视频音频"><img src="https://images.whff521.top/GhkQ1IkaEAA1T1A.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FFmpeg提取视频音频"/></a><div class="content"><a class="title" href="/2025/01/21/FFmpeg%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91/" title="FFmpeg提取视频音频">FFmpeg提取视频音频</a><time datetime="2025-01-21T15:05:16.000Z" title="Created 2025-01-21 23:05:16">2025-01-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'b574649da36a28a0c3bb',
+      clientSecret: 'caae8c036167555e8f4ed612d8ef1ec3ce94e2d4',
+      repo: 'WHFF521.github.io',
+      owner: 'WHFF521',
+      admin: ['WHFF521'],
+      id: '1051914a775421a9a5f1c3112402163e',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

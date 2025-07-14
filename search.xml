@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>antfu的薅牛毛地图的自用方法</title>
+      <link href="/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+      <url>/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="antfu的薅牛毛地图的自用方法"><a href="#antfu的薅牛毛地图的自用方法" class="headerlink" title="antfu的薅牛毛地图的自用方法"></a>antfu的薅牛毛地图的自用方法</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>去年看了Anthony Fu的“薅牛毛”演讲，当时看到ppt里密集的路线图着实是被视觉冲击了。将复杂的学习路线通过路线图一个个表示出来，最后整体去俯瞰，竟有一种宏伟的成就感。</p><p>什么是薅牛毛呢？在我的现状下，在学习新东西或者完成任务的时候，难免会有一些“前置知识”需要去了解，然后要理解“前置知识”的话，还需要学习一下“前置知识”的“前置知识”。这可能会变成一种dfs或者bfs，越学越多，越学越远，可能有一天发现自己在草原上薅牛毛，而一开始的目标和薅牛毛没有一点点关联。</p><p>最近正在学习图像识别的内容，最主要的目标就是学会使用YOLOv5。当然仅仅是使用的话很简单，我需要的是了解其中的原理并使用它。也因此我的“薅牛毛”之旅开始了。</p><h2 id="制作方法"><a href="#制作方法" class="headerlink" title="制作方法"></a>制作方法</h2><h3 id="下载代码"><a href="#下载代码" class="headerlink" title="下载代码"></a>下载代码</h3><p>我们可以先fork一下Anthony Fu的<a href="https://github.com/antfu/yak-shaving-map">仓库代码</a>。</p><h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><p>然后将自己仓库的代码下载到本地，先安装环境：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果本地没有pnpm要先下载pnpm，什么？连npm都没有？</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">那可以“薅牛毛”了😂</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm install -g pnpm</span></span><br><span class="line">pnpm install</span><br></pre></td></tr></table></figure><p>运行代码只需要运行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm run dev</span><br></pre></td></tr></table></figure></p><h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>其中<code>data.ts</code>中存储的是节点的上下级关系以及节点形状，我们可以删除原来的节点，填写自己想要的节点。</p><p><code>yak-map-pos.json</code>里边是节点的坐标，这个文件不需要手动更改，运行项目后使用鼠标可以拖动节点位置，会自动添加当前节点到json中，json中的节点坐标会自动变化。<strong>建议先把这里面的所有节点删除再添加编写<code>data.ts</code>。</strong></p><p>其中节点类似下面代码：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">shape</span>: <span class="string">&#x27;circle&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;yolov5&#x27;</span>],</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;YOLOv4&#x27;</span>],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p><p>注意第一个节点要自定义<code>x</code>和<code>y</code>为0。</p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>运行后我们打开网页，界面右上角可以调节暗夜模式，鼠标点击左侧空白是回退，鼠标点击右侧空白是前进，右下角按钮可以进入step模式和展示全部。</p><p>这里附上我制作完成后的页面截图：</p><p><img src="https://images.whff521.top/Screenshot%202025-07-14%20at%2019.41.23.png" alt="yolo map"></p><p>我部署到了Cloudflare的pages上了，方便随时查看。这里附上<a href="https://github.com/WHFF521/yak-shaving-map-yolo">我仓库的链接</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> -- 路线图 -- YOLO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Pytorch和cuda环境安装</title>
       <link href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"/>
       <url>/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</url>
