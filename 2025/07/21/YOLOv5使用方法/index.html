@@ -1,0 +1,1226 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>YOLOv5使用方法 | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="YOLOv5使用方法数据集YOLOv5 使用的数据集遵循的是 YOLO格式（YOLO annotation format）。以下是 YOLOv5 所需数据集的完整规范：  ✅ 1. 目录结构YOLOv5 通常的数据集结构如下： 123456789101112131415161718dataset&#x2F;├── images&#x2F;│   ├── train&#x2F;│   │   ├── img1.jpg│   │">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLOv5使用方法">
+<meta property="og:url" content="https://blog.whff521.xyz/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="YOLOv5使用方法数据集YOLOv5 使用的数据集遵循的是 YOLO格式（YOLO annotation format）。以下是 YOLOv5 所需数据集的完整规范：  ✅ 1. 目录结构YOLOv5 通常的数据集结构如下： 123456789101112131415161718dataset&#x2F;├── images&#x2F;│   ├── train&#x2F;│   │   ├── img1.jpg│   │">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.whff521.top/IMG_7343.JPG">
+<meta property="article:published_time" content="2025-07-21T02:40:45.000Z">
+<meta property="article:modified_time" content="2025-07-21T03:25:42.145Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="yolo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.whff521.top/IMG_7343.JPG"><link rel="shortcut icon" href="/images/101.ico"><link rel="canonical" href="https://blog.whff521.xyz/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="9ws3s15bqXTtMN6ESVURO4Ces-UA9EELAL9f16L_lc0"/><meta name="baidu-site-verification" content="codeva-LMHDaMyBu1"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'YOLOv5使用方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-21 11:25:42'
+}</script><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="AiRomance" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.whff521.top/IMG_7343.JPG);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AiRomance</span></a><a class="nav-page-title" href="/"><span class="site-name">YOLOv5使用方法</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">YOLOv5使用方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-21T02:40:45.000Z" title="Created 2025-07-21 10:40:45">2025-07-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-07-21T03:25:42.145Z" title="Updated 2025-07-21 11:25:42">2025-07-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="YOLOv5使用方法"><a href="#YOLOv5使用方法" class="headerlink" title="YOLOv5使用方法"></a>YOLOv5使用方法</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>YOLOv5 使用的数据集遵循的是 <strong>YOLO格式（YOLO annotation format）</strong>。以下是 YOLOv5 所需数据集的完整规范：</p>
+<hr>
+<h4 id="✅-1-目录结构"><a href="#✅-1-目录结构" class="headerlink" title="✅ 1. 目录结构"></a>✅ 1. <strong>目录结构</strong></h4><p>YOLOv5 通常的数据集结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dataset/</span><br><span class="line">├── images/</span><br><span class="line">│   ├── train/</span><br><span class="line">│   │   ├── img1.jpg</span><br><span class="line">│   │   ├── img2.jpg</span><br><span class="line">│   ├── val/</span><br><span class="line">│   │   ├── img3.jpg</span><br><span class="line">│   │   ├── img4.jpg</span><br><span class="line">│</span><br><span class="line">├── labels/</span><br><span class="line">│   ├── train/</span><br><span class="line">│   │   ├── img1.txt</span><br><span class="line">│   │   ├── img2.txt</span><br><span class="line">│   ├── val/</span><br><span class="line">│   │   ├── img3.txt</span><br><span class="line">│   │   ├── img4.txt</span><br><span class="line">│</span><br><span class="line">└── data.yaml</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="✅-2-标签文件格式（-txt）"><a href="#✅-2-标签文件格式（-txt）" class="headerlink" title="✅ 2. 标签文件格式（.txt）"></a>✅ 2. <strong>标签文件格式（<code>.txt</code>）</strong></h4><p>每张图像对应一个 <code>.txt</code> 文件，命名相同，内容如下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;class_id&gt; &lt;x_center&gt; &lt;y_center&gt; &lt;width&gt; &lt;height&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="坐标说明："><a href="#坐标说明：" class="headerlink" title="坐标说明："></a>坐标说明：</h5><ul>
+<li><code>class_id</code>：整数，表示目标所属的类别，从0开始。</li>
+<li><code>x_center</code>、<code>y_center</code>：目标中心的相对位置（范围是0~1，相对于图像宽度和高度）。</li>
+<li><code>width</code>、<code>height</code>：目标框的相对宽度和高度（范围0~1）。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0.5 0.5 0.2 0.3</span><br></pre></td></tr></table></figure>
+<p>表示第0类物体，其边界框中心在图像正中间，宽20%，高30%。</p>
+<hr>
+<h4 id="✅-3-data-yaml-文件格式"><a href="#✅-3-data-yaml-文件格式" class="headerlink" title="✅ 3. data.yaml 文件格式"></a>✅ 3. <strong><code>data.yaml</code> 文件格式</strong></h4><p>用于配置训练集、验证集、类别名等信息。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># path: ./dataset</span></span><br><span class="line"><span class="attr">train:</span> <span class="string">images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">images/val</span></span><br><span class="line"><span class="comment"># test: ./dataset/images/test</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">3</span>  <span class="comment"># 类别数量</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;person&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure>
+<p>注释代表非必须字段，<code>path</code>指定后后面的路径只需写相对路径</p>
+<hr>
+<h4 id="✅-4-图片格式"><a href="#✅-4-图片格式" class="headerlink" title="✅ 4. 图片格式"></a>✅ 4. <strong>图片格式</strong></h4><ul>
+<li>支持常见格式：<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code></li>
+<li>图片尺寸不必统一，但建议大小适中（训练时可自动resize）</li>
+</ul>
+<hr>
+<h4 id="✅-5-常见注意事项"><a href="#✅-5-常见注意事项" class="headerlink" title="✅ 5. 常见注意事项"></a>✅ 5. <strong>常见注意事项</strong></h4><ul>
+<li>标签文件中坐标必须是 <strong>归一化格式</strong>，即相对于图像宽高，范围在 <code>[0, 1]</code>。</li>
+<li>每一行为一个标注框，<strong>没有标注的图像也必须有空的 <code>.txt</code> 文件</strong>。</li>
+<li><code>images/train</code> 和 <code>labels/train</code> 中的文件名必须一一对应。</li>
+</ul>
+<hr>
+<h4 id="✅-示例"><a href="#✅-示例" class="headerlink" title="✅ 示例"></a>✅ 示例</h4><p>假设有一张图像 <code>dog.jpg</code> 尺寸为 <code>800x600</code>，目标狗的位置是：</p>
+<ul>
+<li>左上角 <code>(x1=200, y1=150)</code></li>
+<li>右下角 <code>(x2=600, y2=450)</code></li>
+</ul>
+<p>则：</p>
+<ul>
+<li><code>x_center = (200+600)/2 / 800 = 0.5</code></li>
+<li><code>y_center = (150+450)/2 / 600 = 0.5</code></li>
+<li><code>width = (600 - 200) / 800 = 0.5</code></li>
+<li><code>height = (450 - 150) / 600 = 0.5</code></li>
+</ul>
+<p>标签行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 0.5 0.5 0.5 0.5</span><br></pre></td></tr></table></figure>
+<p>（假设“狗”的 <code>class_id=1</code>）</p>
+<h2 id="配置文件说明"><a href="#配置文件说明" class="headerlink" title="配置文件说明"></a>配置文件说明</h2><p>YOLOv5 的配置文件主要包括以下几类，它们用于配置模型结构、训练过程、数据集路径等。下面是各类配置文件的说明：</p>
+<hr>
+<h4 id="🗂-1-data-yaml-—-数据集配置文件（训练-验证-测试路径-类别信息）"><a href="#🗂-1-data-yaml-—-数据集配置文件（训练-验证-测试路径-类别信息）" class="headerlink" title="🗂 1. data.yaml — 数据集配置文件（训练/验证/测试路径 + 类别信息）"></a>🗂 1. <code>data.yaml</code> — 数据集配置文件（<strong>训练/验证/测试路径 + 类别信息</strong>）</h4><p>位置：你自己创建或放在 <code>data/</code> 目录中</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">../dataset</span>                 <span class="comment"># 数据集根路径（可选）</span></span><br><span class="line"><span class="attr">train:</span> <span class="string">images/train</span>              <span class="comment"># 训练图片路径（相对 path 或绝对路径）</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">images/val</span>                  <span class="comment"># 验证图片路径</span></span><br><span class="line"><span class="attr">test:</span> <span class="string">images/test</span>                <span class="comment"># （可选）测试图片路径</span></span><br><span class="line"></span><br><span class="line"><span class="attr">nc:</span> <span class="number">3</span>                            <span class="comment"># 类别数量</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;person&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="📐-2-yaml-—-模型结构配置文件（模型架构与参数设置）"><a href="#📐-2-yaml-—-模型结构配置文件（模型架构与参数设置）" class="headerlink" title="📐 2. *.yaml — 模型结构配置文件（模型架构与参数设置）"></a>📐 2. <code>*.yaml</code> — 模型结构配置文件（<strong>模型架构与参数设置</strong>）</h4><p>位置：<code>models/</code> 目录下，常见如 <code>yolov5s.yaml</code>、<code>yolov5m.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yolov5s.yaml 示例</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">80</span>  <span class="comment"># 类别数，会在训练时被 data.yaml 中的 nc 覆盖</span></span><br><span class="line"><span class="attr">depth_multiple:</span> <span class="number">0.33</span>  <span class="comment"># 网络深度系数（层数缩放）</span></span><br><span class="line"><span class="attr">width_multiple:</span> <span class="number">0.50</span>  <span class="comment"># 通道宽度系数（通道数缩放）</span></span><br><span class="line"></span><br><span class="line"><span class="attr">anchors:</span></span><br><span class="line">  <span class="bullet">-</span> [<span class="number">10</span>,<span class="number">13</span>, <span class="number">16</span>,<span class="number">30</span>, <span class="number">33</span>,<span class="number">23</span>]  <span class="comment"># P3</span></span><br><span class="line">  <span class="bullet">-</span> [<span class="number">30</span>,<span class="number">61</span>, <span class="number">62</span>,<span class="number">45</span>, <span class="number">59</span>,<span class="number">119</span>] <span class="comment"># P4</span></span><br><span class="line">  <span class="bullet">-</span> [<span class="number">116</span>,<span class="number">90</span>, <span class="number">156</span>,<span class="number">198</span>, <span class="number">373</span>,<span class="number">326</span>] <span class="comment"># P5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">backbone:</span></span><br><span class="line">  [[<span class="number">-1</span>, <span class="number">1</span>, <span class="string">Focus</span>, [<span class="number">64</span>, <span class="number">3</span>]],</span><br><span class="line">   [<span class="number">-1</span>, <span class="number">1</span>, <span class="string">Conv</span>, [<span class="number">128</span>, <span class="number">3</span>, <span class="number">2</span>]],</span><br><span class="line">   <span class="string">...</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">head:</span></span><br><span class="line">  [[<span class="number">-1</span>, <span class="number">1</span>, <span class="string">Detect</span>, [<span class="string">nc</span>, <span class="string">anchors</span>]]]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>✅ 训练时，使用的是你自己选择的模型结构文件（通过 <code>--cfg</code> 或 <code>--weights</code> 推断出）。</p>
+</blockquote>
+<hr>
+<h4 id="⚙️-3-hyp-yaml-—-超参数配置文件（学习率、增强、损失函数等超参数）"><a href="#⚙️-3-hyp-yaml-—-超参数配置文件（学习率、增强、损失函数等超参数）" class="headerlink" title="⚙️ 3. hyp.yaml — 超参数配置文件（学习率、增强、损失函数等超参数）"></a>⚙️ 3. <code>hyp.yaml</code> — 超参数配置文件（<strong>学习率、增强、损失函数等超参数</strong>）</h4><p>位置：默认在 <code>data/hyps/</code> 目录下，如 <code>hyp.scratch-low.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lr0:</span> <span class="number">0.01</span>           <span class="comment"># 初始学习率</span></span><br><span class="line"><span class="attr">lrf:</span> <span class="number">0.01</span>           <span class="comment"># 最终学习率 (final LR = lr0 * lrf)</span></span><br><span class="line"><span class="attr">momentum:</span> <span class="number">0.937</span>     <span class="comment"># SGD动量</span></span><br><span class="line"><span class="attr">weight_decay:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="attr">warmup_epochs:</span> <span class="number">3.0</span>  <span class="comment"># 预热轮数</span></span><br><span class="line"><span class="attr">hsv_h:</span> <span class="number">0.015</span>        <span class="comment"># 色调增强</span></span><br><span class="line"><span class="attr">hsv_s:</span> <span class="number">0.7</span>          <span class="comment"># 饱和度增强</span></span><br><span class="line"><span class="attr">fl_gamma:</span> <span class="number">0.0</span>       <span class="comment"># Focal Loss gamma</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你可以通过 <code>--hyp</code> 参数指定这个文件，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py --hyp data/hyps/hyp.scratch-low.yaml</span><br></pre></td></tr></table></figure>
+</blockquote>
+<hr>
+<h4 id="✅-小结：三大核心配置文件说明表"><a href="#✅-小结：三大核心配置文件说明表" class="headerlink" title="✅ 小结：三大核心配置文件说明表"></a>✅ 小结：三大核心配置文件说明表</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>配置文件</th>
+<th>作用</th>
+<th>常见位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data.yaml</code></td>
+<td>指定训练/验证/测试集和类别信息</td>
+<td>你项目目录 / <code>data/</code></td>
+</tr>
+<tr>
+<td><code>*.yaml</code></td>
+<td>定义模型结构（yolov5s 等）</td>
+<td><code>models/</code></td>
+</tr>
+<tr>
+<td><code>hyp.yaml</code></td>
+<td>设置训练超参数（增强、LR 等）</td>
+<td><code>data/hyps/</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><h3 id="执行指令说明"><a href="#执行指令说明" class="headerlink" title="执行指令说明"></a>执行指令说明</h3><p>一般训练运行命令行命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py --img 640 --batch 16 --epochs 50 --data wheat.yaml --weights yolov5s.pt --name wheat_yolov5</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="📂-模型与数据相关参数"><a href="#📂-模型与数据相关参数" class="headerlink" title="📂 模型与数据相关参数"></a>📂 模型与数据相关参数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--weights</code></td>
+<td><code>str</code></td>
+<td><code>yolov5s.pt</code></td>
+<td>初始权重路径，可为官方模型或自定义训练的 <code>.pt</code> 文件。</td>
+</tr>
+<tr>
+<td><code>--cfg</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>模型结构配置文件（如 <code>yolov5s.yaml</code>）。为空则从 <code>weights</code> 推断。</td>
+</tr>
+<tr>
+<td><code>--data</code></td>
+<td><code>str</code></td>
+<td><code>data/coco128.yaml</code></td>
+<td>数据集配置文件，包含 <code>train</code>, <code>val</code>, <code>nc</code>, <code>names</code> 等字段。</td>
+</tr>
+<tr>
+<td><code>--hyp</code></td>
+<td><code>str</code></td>
+<td><code>data/hyps/hyp.scratch-low.yaml</code></td>
+<td>超参数配置文件，包括学习率、IoU阈值、损失等。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="📈-训练控制参数"><a href="#📈-训练控制参数" class="headerlink" title="📈 训练控制参数"></a>📈 训练控制参数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--epochs</code></td>
+<td><code>int</code></td>
+<td><code>100</code></td>
+<td>训练总轮数。</td>
+</tr>
+<tr>
+<td><code>--batch-size</code></td>
+<td><code>int</code></td>
+<td><code>16</code></td>
+<td>批大小，所有GPU总和。<code>-1</code> 表示自动推断。</td>
+</tr>
+<tr>
+<td><code>--imgsz</code> / <code>--img</code> / <code>--img-size</code></td>
+<td><code>int</code></td>
+<td><code>640</code></td>
+<td>输入图像尺寸（会缩放为正方形）。</td>
+</tr>
+<tr>
+<td><code>--rect</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否启用矩形训练（图像按长宽比例分组）。</td>
+</tr>
+<tr>
+<td><code>--multi-scale</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否在训练中动态改变图像大小（±50%）。</td>
+</tr>
+<tr>
+<td><code>--resume</code></td>
+<td>可选参数</td>
+<td><code>False</code></td>
+<td>是否从最近的断点继续训练。</td>
+</tr>
+<tr>
+<td><code>--freeze</code></td>
+<td><code>List[int]</code></td>
+<td><code>[0]</code></td>
+<td>冻结网络层，示例：<code>--freeze 0 1 2</code> 表示冻结前3层。</td>
+</tr>
+<tr>
+<td><code>--single-cls</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否将所有类别视为一个类别（适用于单类数据）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="💾-模型保存与验证参数"><a href="#💾-模型保存与验证参数" class="headerlink" title="💾 模型保存与验证参数"></a>💾 模型保存与验证参数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--nosave</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否只保存最后一个模型，不保存中间checkpoint。</td>
+</tr>
+<tr>
+<td><code>--noval</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否仅在最后一个 epoch 验证模型性能。</td>
+</tr>
+<tr>
+<td><code>--save-period</code></td>
+<td><code>int</code></td>
+<td><code>-1</code></td>
+<td>每间隔 x 个 epoch 保存一次模型。小于1表示禁用。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧠-超参数进化（进阶功能）"><a href="#🧠-超参数进化（进阶功能）" class="headerlink" title="🧠 超参数进化（进阶功能）"></a>🧠 超参数进化（进阶功能）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--evolve</code></td>
+<td><code>int</code></td>
+<td>可选，默认<code>300</code></td>
+<td>使用遗传算法自动进化超参数，运行 <code>x</code> 代。</td>
+</tr>
+<tr>
+<td><code>--evolve_population</code></td>
+<td><code>str</code></td>
+<td><code>data/hyps</code></td>
+<td>进化时加载的初始种群超参数路径。</td>
+</tr>
+<tr>
+<td><code>--resume_evolve</code></td>
+<td><code>str</code></td>
+<td><code>None</code></td>
+<td>从先前进化的最后一代恢复。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧰-运行控制参数"><a href="#🧰-运行控制参数" class="headerlink" title="🧰 运行控制参数"></a>🧰 运行控制参数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--device</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>指定设备：如 <code>0</code>、<code>0,1</code> 或 <code>cpu</code>。</td>
+</tr>
+<tr>
+<td><code>--optimizer</code></td>
+<td><code>str</code></td>
+<td><code>SGD</code></td>
+<td>选择优化器：<code>SGD</code>, <code>Adam</code>, <code>AdamW</code>。</td>
+</tr>
+<tr>
+<td><code>--sync-bn</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>启用同步BatchNorm（仅 DDP 模式有效）。</td>
+</tr>
+<tr>
+<td><code>--quad</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>启用四元加载器优化（某些GPU加速）。</td>
+</tr>
+<tr>
+<td><code>--cos-lr</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>使用余弦学习率调度器。</td>
+</tr>
+<tr>
+<td><code>--label-smoothing</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>标签平滑因子（防止过拟合）。</td>
+</tr>
+<tr>
+<td><code>--patience</code></td>
+<td><code>int</code></td>
+<td><code>100</code></td>
+<td>EarlyStopping容忍的无改进epoch数。</td>
+</tr>
+<tr>
+<td><code>--seed</code></td>
+<td><code>int</code></td>
+<td><code>0</code></td>
+<td>设置随机种子，确保结果可复现。</td>
+</tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>int</code></td>
+<td><code>8</code></td>
+<td>每个进程的数据加载线程数。</td>
+</tr>
+<tr>
+<td><code>--local_rank</code></td>
+<td><code>int</code></td>
+<td><code>-1</code></td>
+<td>DDP 多GPU模式下自动设置，不要手动修改。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="📝-日志记录与结果保存"><a href="#📝-日志记录与结果保存" class="headerlink" title="📝 日志记录与结果保存"></a>📝 日志记录与结果保存</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--project</code></td>
+<td><code>str</code></td>
+<td><code>runs/train</code></td>
+<td>保存训练结果的项目目录。</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td><code>str</code></td>
+<td><code>exp</code></td>
+<td>子目录名称。</td>
+</tr>
+<tr>
+<td><code>--exist-ok</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>如果目录存在，则不自动增加编号。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="☁️-云与缓存相关"><a href="#☁️-云与缓存相关" class="headerlink" title="☁️ 云与缓存相关"></a>☁️ 云与缓存相关</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--bucket</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>用于 Google Cloud Storage 的 gsutil bucket 路径。</td>
+</tr>
+<tr>
+<td><code>--cache</code></td>
+<td><code>str</code></td>
+<td>可选</td>
+<td><code>ram</code> 或 <code>disk</code>，缓存图像到内存或硬盘以加速训练。</td>
+</tr>
+<tr>
+<td><code>--image-weights</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>图像采样根据权重进行（提升少数类样本）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🔗-W-amp-B-Artifact-日志参数（用于实验追踪）"><a href="#🔗-W-amp-B-Artifact-日志参数（用于实验追踪）" class="headerlink" title="🔗 W\&amp;B / Artifact 日志参数（用于实验追踪）"></a>🔗 W\&amp;B / Artifact 日志参数（用于实验追踪）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--entity</code></td>
+<td><code>str</code></td>
+<td><code>None</code></td>
+<td>W\&amp;B 实验的团队或个人实体名。</td>
+</tr>
+<tr>
+<td><code>--upload_dataset</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>是否上传数据集到 W\&amp;B。可选 <code>&quot;val&quot;</code>。</td>
+</tr>
+<tr>
+<td><code>--bbox_interval</code></td>
+<td><code>int</code></td>
+<td><code>-1</code></td>
+<td>日志中显示检测框图片的间隔 epoch。</td>
+</tr>
+<tr>
+<td><code>--artifact_alias</code></td>
+<td><code>str</code></td>
+<td><code>&quot;latest&quot;</code></td>
+<td>指定使用的 artifact 版本标签。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧾-NDJSON-日志参数（结构化日志）"><a href="#🧾-NDJSON-日志参数（结构化日志）" class="headerlink" title="🧾 NDJSON 日志参数（结构化日志）"></a>🧾 NDJSON 日志参数（结构化日志）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--ndjson-console</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>在控制台输出 ndjson 格式日志。</td>
+</tr>
+<tr>
+<td><code>--ndjson-file</code></td>
+<td><code>store_true</code></td>
+<td><code>False</code></td>
+<td>将 ndjson 日志输出到文件。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="模型推理与验证"><a href="#模型推理与验证" class="headerlink" title="模型推理与验证"></a>模型推理与验证</h2><h3 id="执行指令说明-1"><a href="#执行指令说明-1" class="headerlink" title="执行指令说明"></a>执行指令说明</h3><p>一般目标检测执行命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python detect.py --weights runs/train/wheat_yolov5/weights/best.pt --source /test_image_folder --img 640 --conf 0.25 --save-txt --save-conf --project runs/predict --name wheat_test</span><br></pre></td></tr></table></figure></p>
+<h4 id="🎯-核心推理参数"><a href="#🎯-核心推理参数" class="headerlink" title="🎯 核心推理参数"></a>🎯 核心推理参数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--weights</code></td>
+<td><code>str/list[str]</code></td>
+<td><code>yolov5s.pt</code></td>
+<td>模型路径（<code>.pt</code> 文件），也可为多个模型或 Triton 服务器地址。</td>
+</tr>
+<tr>
+<td><code>--source</code></td>
+<td><code>str</code></td>
+<td><code>data/images</code></td>
+<td>输入来源：文件、文件夹、URL、glob、摄像头（如 <code>0</code>）或 <code>screen</code>。</td>
+</tr>
+<tr>
+<td><code>--data</code></td>
+<td><code>str</code></td>
+<td><code>data/coco128.yaml</code></td>
+<td>数据集配置文件（可选）。用于加载类别名等信息。</td>
+</tr>
+<tr>
+<td><code>--imgsz</code> / <code>--img</code> / <code>--img-size</code></td>
+<td><code>list[int]</code></td>
+<td><code>[640]</code></td>
+<td>推理图像的尺寸，单个值或 <code>[h, w]</code>。如果只给一个，则会扩展成 <code>[640, 640]</code>。</td>
+</tr>
+<tr>
+<td><code>--conf-thres</code></td>
+<td><code>float</code></td>
+<td><code>0.25</code></td>
+<td>置信度阈值，低于该值的检测框会被过滤。</td>
+</tr>
+<tr>
+<td><code>--iou-thres</code></td>
+<td><code>float</code></td>
+<td><code>0.45</code></td>
+<td>非极大值抑制（NMS）中的 IoU 阈值。</td>
+</tr>
+<tr>
+<td><code>--max-det</code></td>
+<td><code>int</code></td>
+<td><code>1000</code></td>
+<td>每张图片最多保留的目标检测数量。</td>
+</tr>
+<tr>
+<td><code>--device</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>计算设备，如 <code>&#39;0&#39;</code>, <code>&#39;0,1&#39;</code>, <code>&#39;cpu&#39;</code> 等。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🖼️-可视化与保存选项"><a href="#🖼️-可视化与保存选项" class="headerlink" title="🖼️ 可视化与保存选项"></a>🖼️ 可视化与保存选项</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--view-img</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>是否显示检测结果图像（本地窗口）。</td>
+</tr>
+<tr>
+<td><code>--save-txt</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>是否将检测结果保存为 <code>.txt</code> 文件（YOLO格式或Pascal VOC格式）。</td>
+</tr>
+<tr>
+<td><code>--save-format</code></td>
+<td><code>int</code></td>
+<td><code>0</code></td>
+<td>配合 <code>--save-txt</code>：<code>0</code> 为 YOLO 格式，<code>1</code> 为 Pascal VOC 格式。</td>
+</tr>
+<tr>
+<td><code>--save-csv</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>是否将结果保存为 <code>.csv</code> 文件。</td>
+</tr>
+<tr>
+<td><code>--save-conf</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>是否将置信度一同保存到 <code>.txt</code> 文件中。</td>
+</tr>
+<tr>
+<td><code>--save-crop</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>是否保存每个检测框裁剪出的目标图像。</td>
+</tr>
+<tr>
+<td><code>--nosave</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>不保存任何图像或视频结果，仅在控制台输出。</td>
+</tr>
+<tr>
+<td><code>--project</code></td>
+<td><code>str</code></td>
+<td><code>runs/detect</code></td>
+<td>结果保存根目录。</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td><code>str</code></td>
+<td><code>exp</code></td>
+<td>子目录名称。</td>
+</tr>
+<tr>
+<td><code>--exist-ok</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>如果目录已存在，不自动创建 <code>exp2</code>, <code>exp3</code>，而是直接覆盖或重用。</td>
+</tr>
+<tr>
+<td><code>--line-thickness</code></td>
+<td><code>int</code></td>
+<td><code>3</code></td>
+<td>检测框的线宽（像素）。</td>
+</tr>
+<tr>
+<td><code>--hide-labels</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>不在图像上显示类别标签。</td>
+</tr>
+<tr>
+<td><code>--hide-conf</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>不在图像上显示置信度分数。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="📊-检测控制选项"><a href="#📊-检测控制选项" class="headerlink" title="📊 检测控制选项"></a>📊 检测控制选项</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--classes</code></td>
+<td><code>list[int]</code></td>
+<td><code>None</code></td>
+<td>仅检测指定类别，例如 <code>--classes 0 2 3</code>。</td>
+</tr>
+<tr>
+<td><code>--agnostic-nms</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>使用类别无关的 NMS（所有类别共用抑制逻辑）。</td>
+</tr>
+<tr>
+<td><code>--augment</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>启用数据增强的推理（略慢但可能更鲁棒）。</td>
+</tr>
+<tr>
+<td><code>--visualize</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>可视化中间特征图（需模型支持）。</td>
+</tr>
+<tr>
+<td><code>--update</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>自动更新模型（转换旧格式为新格式）。</td>
+</tr>
+<tr>
+<td><code>--half</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>使用半精度（FP16）推理，仅限于 <code>CUDA</code>。</td>
+</tr>
+<tr>
+<td><code>--dnn</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>使用 OpenCV DNN 模式进行 ONNX 推理。</td>
+</tr>
+<tr>
+<td><code>--vid-stride</code></td>
+<td><code>int</code></td>
+<td><code>1</code></td>
+<td>视频推理时的帧跳跃间隔，例如 <code>--vid-stride 5</code> 表示每5帧处理一帧。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="✅-示例命令"><a href="#✅-示例命令" class="headerlink" title="✅ 示例命令"></a>✅ 示例命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检测单张图片并保存结果</span></span><br><span class="line">python detect.py --weights yolov5s.pt --<span class="built_in">source</span> ./data/images/zidane.jpg --conf-thres 0.3 --save-txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅检测类别 0 和 2，显示结果但不保存图像</span></span><br><span class="line">python detect.py --weights yolov5s.pt --<span class="built_in">source</span> ./data/images --classes 0 2 --view-img --nosave</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对视频推理，每5帧检测一次，保存检测框为 Pascal VOC 格式</span></span><br><span class="line">python detect.py --weights yolov5s.pt --<span class="built_in">source</span> video.mp4 --vid-stride 5 --save-txt --save-format 1</span><br></pre></td></tr></table></figure>
+<h2 id="模型导出与部署"><a href="#模型导出与部署" class="headerlink" title="模型导出与部署"></a>模型导出与部署</h2><h3 id="执行指令说明-2"><a href="#执行指令说明-2" class="headerlink" title="执行指令说明"></a>执行指令说明</h3><p>以下是对每个命令行参数的详细解释：</p>
+<hr>
+<h4 id="🗂️-数据和模型路径配置"><a href="#🗂️-数据和模型路径配置" class="headerlink" title="🗂️ 数据和模型路径配置"></a>🗂️ 数据和模型路径配置</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--data</code></td>
+<td>str</td>
+<td><code>data/coco128.yaml</code></td>
+<td>数据集配置文件路径，主要用于获取类别数等信息</td>
+</tr>
+<tr>
+<td><code>--weights</code></td>
+<td>str/list</td>
+<td><code>yolov5s.pt</code></td>
+<td>训练好的模型权重路径，支持多个模型同时导出</td>
+</tr>
+<tr>
+<td><code>--imgsz</code> / <code>--img</code> / <code>--img-size</code></td>
+<td>int list</td>
+<td><code>[640, 640]</code></td>
+<td>输入图片尺寸 <code>[height, width]</code>，默认是正方形</td>
+</tr>
+<tr>
+<td><code>--batch-size</code></td>
+<td>int</td>
+<td>1</td>
+<td>推理时的 batch size，一般保持为1以防不兼容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="⚙️-设备和推理精度"><a href="#⚙️-设备和推理精度" class="headerlink" title="⚙️ 设备和推理精度"></a>⚙️ 设备和推理精度</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--device</code></td>
+<td>str</td>
+<td><code>cpu</code></td>
+<td>运行导出过程所使用的设备，如 <code>0</code>, <code>cpu</code>, <code>0,1</code> 等</td>
+</tr>
+<tr>
+<td><code>--half</code></td>
+<td>flag</td>
+<td>False</td>
+<td>是否使用 FP16 精度导出（仅限支持的平台）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="⚙️-导出行为控制"><a href="#⚙️-导出行为控制" class="headerlink" title="⚙️ 导出行为控制"></a>⚙️ 导出行为控制</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--inplace</code></td>
+<td>flag</td>
+<td>False</td>
+<td>是否将 Detect() 的 <code>inplace=True</code>，影响模型输出张量的修改方式</td>
+</tr>
+<tr>
+<td><code>--keras</code></td>
+<td>flag</td>
+<td>False</td>
+<td>TensorFlow 导出时是否使用 Keras 模式（<code>.h5</code>）</td>
+</tr>
+<tr>
+<td><code>--optimize</code></td>
+<td>flag</td>
+<td>False</td>
+<td>TorchScript 优化用于移动端部署（会应用 graph 优化）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🎯-量化和动态轴控制"><a href="#🎯-量化和动态轴控制" class="headerlink" title="🎯 量化和动态轴控制"></a>🎯 量化和动态轴控制</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--int8</code></td>
+<td>flag</td>
+<td>False</td>
+<td>导出 INT8 量化模型（支持 TF、CoreML、OpenVINO）</td>
+</tr>
+<tr>
+<td><code>--per-tensor</code></td>
+<td>flag</td>
+<td>False</td>
+<td>TensorFlow 的 per-tensor 量化方式（默认是 per-channel）</td>
+</tr>
+<tr>
+<td><code>--dynamic</code></td>
+<td>flag</td>
+<td>False</td>
+<td>启用动态输入尺寸（支持 ONNX、TF、TensorRT）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧠-ONNX-相关"><a href="#🧠-ONNX-相关" class="headerlink" title="🧠 ONNX 相关"></a>🧠 ONNX 相关</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--simplify</code></td>
+<td>flag</td>
+<td>False</td>
+<td>简化 ONNX 模型图（需安装 <code>onnxsim</code>）</td>
+</tr>
+<tr>
+<td><code>--opset</code></td>
+<td>int</td>
+<td>17</td>
+<td>ONNX 的 opset 版本，常见为 11~17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧠-TensorRT-相关"><a href="#🧠-TensorRT-相关" class="headerlink" title="🧠 TensorRT 相关"></a>🧠 TensorRT 相关</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--engine</code>（由 <code>--include engine</code> 控制）</td>
+<td></td>
+<td></td>
+<td>TensorRT 导出开关</td>
+</tr>
+<tr>
+<td><code>--cache</code></td>
+<td>str</td>
+<td>“”</td>
+<td>TensorRT 的时间 cache 文件路径（加速编译）</td>
+</tr>
+<tr>
+<td><code>--workspace</code></td>
+<td>int</td>
+<td>4</td>
+<td>TensorRT 最大 workspace 大小（单位 GB）</td>
+</tr>
+<tr>
+<td><code>--verbose</code></td>
+<td>flag</td>
+<td>False</td>
+<td>TensorRT 导出时是否打印详细日志</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🍏-CoreML-相关"><a href="#🍏-CoreML-相关" class="headerlink" title="🍏 CoreML 相关"></a>🍏 CoreML 相关</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--mlmodel</code></td>
+<td>flag</td>
+<td>False</td>
+<td>导出 CoreML <code>.mlmodel</code> 格式</td>
+</tr>
+<tr>
+<td><code>--int8</code></td>
+<td>flag</td>
+<td>False</td>
+<td>可配合用于量化 CoreML</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🧪-TensorFlow-js（TF-js）相关（用于-Web-端）"><a href="#🧪-TensorFlow-js（TF-js）相关（用于-Web-端）" class="headerlink" title="🧪 TensorFlow.js（TF.js）相关（用于 Web 端）"></a>🧪 TensorFlow.js（TF.js）相关（用于 Web 端）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--nms</code></td>
+<td>flag</td>
+<td>False</td>
+<td>添加非极大抑制 NMS（默认模型中不包含）</td>
+</tr>
+<tr>
+<td><code>--agnostic-nms</code></td>
+<td>flag</td>
+<td>False</td>
+<td>类别无关的 NMS</td>
+</tr>
+<tr>
+<td><code>--topk-per-class</code></td>
+<td>int</td>
+<td>100</td>
+<td>每个类别保留前 K 个检测结果</td>
+</tr>
+<tr>
+<td><code>--topk-all</code></td>
+<td>int</td>
+<td>100</td>
+<td>所有类别一共保留前 K 个检测结果</td>
+</tr>
+<tr>
+<td><code>--iou-thres</code></td>
+<td>float</td>
+<td>0.45</td>
+<td>NMS 的 IoU 阈值</td>
+</tr>
+<tr>
+<td><code>--conf-thres</code></td>
+<td>float</td>
+<td>0.25</td>
+<td>置信度阈值，低于此值的框会被丢弃</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h4 id="🎯-导出格式设置（核心参数）"><a href="#🎯-导出格式设置（核心参数）" class="headerlink" title="🎯 导出格式设置（核心参数）"></a>🎯 导出格式设置（核心参数）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--include</code></td>
+<td>list</td>
+<td><code>[&#39;torchscript&#39;]</code></td>
+<td>要导出的格式，可以包含多个：<br> <code>torchscript</code>, <code>onnx</code>, <code>openvino</code>, <code>engine</code>, <code>coreml</code>, <code>saved_model</code>, <code>pb</code>, <code>tflite</code>, <code>edgetpu</code>, <code>tfjs</code>, <code>paddle</code> 等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="✅-示例用法"><a href="#✅-示例用法" class="headerlink" title="✅ 示例用法"></a>✅ 示例用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出 ONNX + TorchScript + TensorRT 引擎（使用 GPU）</span></span><br><span class="line">python export.py \</span><br><span class="line">  --weights yolov5s.pt \</span><br><span class="line">  --img 640 \</span><br><span class="line">  --device 0 \</span><br><span class="line">  --include onnx torchscript engine \</span><br><span class="line">  --dynamic \</span><br><span class="line">  --simplify \</span><br><span class="line">  --opset 17</span><br></pre></td></tr></table></figure>
+<hr>
+<p>PS：封面图来源：<a target="_blank" rel="noopener" href="https://x.com/nakiriayame/status/1946478772301213900?s=46"><br>百鬼あやめ😈ホロライブ2期生
+</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">https://blog.whff521.xyz/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/yolo/">yolo</a></div><div class="post-share"><div class="social-share" data-image="https://images.whff521.top/IMG_7343.JPG" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/19/Kaggle-CIFAR-10-Object-Recognition-in-Images/" title="Kaggle:  CIFAR-10-Object Recognition in Images"><img class="cover" src="https://images.whff521.top/IMG_7341.JPG" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Kaggle:  CIFAR-10-Object Recognition in Images</div></div><div class="info-2"><div class="info-item-1">Kaggle:  CIFAR-10-Object Recognition in Images本文是实现d2l网站代码的总结，教程链接 本文所用环境如下：1234python==3.9.23nvidia-cuda-runtime-cu12==12.9.79torch==2.7.1+cu118d2l==1.0.3 📚 数据集介绍CIFAR-10 是由加拿大多伦多大学 Alex Krizhevsky 等人收集的图像数据集，包含了 10 个类别的彩色图片。这些图片都是从真实世界拍摄的物体中裁剪而来的。 📏 数据细节：    项目 描述     图片大小 32x32 像素，RGB（三通道）   图片数量 60,000 张图像   类别数量 10 个   训练集 50,000 张图像   测试集 10,000 张图像   图像格式 .png 图像 + .csv 标签/预测     预测流程导包123456789import collectionsimport mathimport osimport shutilimport pandas as pdimport torchimport...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AiRomance</div><div class="author-info-description">又遇到什么好事了吗？</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #f26522;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">猫又おかゆは世界で一番かわいい</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">YOLOv5使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-1-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">✅ 1. 目录结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-2-%E6%A0%87%E7%AD%BE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%88-txt%EF%BC%89"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">✅ 2. 标签文件格式（.txt）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">1.1.0.2.1.</span> <span class="toc-text">坐标说明：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-3-data-yaml-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">✅ 3. data.yaml 文件格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-4-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">✅ 4. 图片格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-5-%E5%B8%B8%E8%A7%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.1.0.5.</span> <span class="toc-text">✅ 5. 常见注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.1.0.6.</span> <span class="toc-text">✅ 示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">配置文件说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%97%82-1-data-yaml-%E2%80%94-%E6%95%B0%E6%8D%AE%E9%9B%86%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E8%AE%AD%E7%BB%83-%E9%AA%8C%E8%AF%81-%E6%B5%8B%E8%AF%95%E8%B7%AF%E5%BE%84-%E7%B1%BB%E5%88%AB%E4%BF%A1%E6%81%AF%EF%BC%89"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">🗂 1. data.yaml — 数据集配置文件（训练&#x2F;验证&#x2F;测试路径 + 类别信息）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%93%90-2-yaml-%E2%80%94-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">📐 2. *.yaml — 模型结构配置文件（模型架构与参数设置）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-3-hyp-yaml-%E2%80%94-%E8%B6%85%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E5%AD%A6%E4%B9%A0%E7%8E%87%E3%80%81%E5%A2%9E%E5%BC%BA%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%AD%89%E8%B6%85%E5%8F%82%E6%95%B0%EF%BC%89"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">⚙️ 3. hyp.yaml — 超参数配置文件（学习率、增强、损失函数等超参数）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-%E5%B0%8F%E7%BB%93%EF%BC%9A%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E%E8%A1%A8"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">✅ 小结：三大核心配置文件说明表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">1.3.</span> <span class="toc-text">模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%8C%87%E4%BB%A4%E8%AF%B4%E6%98%8E"><span class="toc-number">1.3.1.</span> <span class="toc-text">执行指令说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%93%82-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">📂 模型与数据相关参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%93%88-%E8%AE%AD%E7%BB%83%E6%8E%A7%E5%88%B6%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">📈 训练控制参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%92%BE-%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98%E4%B8%8E%E9%AA%8C%E8%AF%81%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">💾 模型保存与验证参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%A0-%E8%B6%85%E5%8F%82%E6%95%B0%E8%BF%9B%E5%8C%96%EF%BC%88%E8%BF%9B%E9%98%B6%E5%8A%9F%E8%83%BD%EF%BC%89"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">🧠 超参数进化（进阶功能）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%B0-%E8%BF%90%E8%A1%8C%E6%8E%A7%E5%88%B6%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.5.</span> <span class="toc-text">🧰 运行控制参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%93%9D-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E7%BB%93%E6%9E%9C%E4%BF%9D%E5%AD%98"><span class="toc-number">1.3.1.6.</span> <span class="toc-text">📝 日志记录与结果保存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%98%81%EF%B8%8F-%E4%BA%91%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9B%B8%E5%85%B3"><span class="toc-number">1.3.1.7.</span> <span class="toc-text">☁️ 云与缓存相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%97-W-amp-B-Artifact-%E6%97%A5%E5%BF%97%E5%8F%82%E6%95%B0%EF%BC%88%E7%94%A8%E4%BA%8E%E5%AE%9E%E9%AA%8C%E8%BF%BD%E8%B8%AA%EF%BC%89"><span class="toc-number">1.3.1.8.</span> <span class="toc-text">🔗 W\&amp;B &#x2F; Artifact 日志参数（用于实验追踪）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%BE-NDJSON-%E6%97%A5%E5%BF%97%E5%8F%82%E6%95%B0%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E6%97%A5%E5%BF%97%EF%BC%89"><span class="toc-number">1.3.1.9.</span> <span class="toc-text">🧾 NDJSON 日志参数（结构化日志）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="toc-number">1.4.</span> <span class="toc-text">模型推理与验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%8C%87%E4%BB%A4%E8%AF%B4%E6%98%8E-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">执行指令说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%A0%B8%E5%BF%83%E6%8E%A8%E7%90%86%E5%8F%82%E6%95%B0"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">🎯 核心推理参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%96%BC%EF%B8%8F-%E5%8F%AF%E8%A7%86%E5%8C%96%E4%B8%8E%E4%BF%9D%E5%AD%98%E9%80%89%E9%A1%B9"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">🖼️ 可视化与保存选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%93%8A-%E6%A3%80%E6%B5%8B%E6%8E%A7%E5%88%B6%E9%80%89%E9%A1%B9"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">📊 检测控制选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9C%85-%E7%A4%BA%E4%BE%8B%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">✅ 示例命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="toc-number">1.5.</span> <span class="toc-text">模型导出与部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%8C%87%E4%BB%A4%E8%AF%B4%E6%98%8E-2"><span class="toc-number">1.5.1.</span> <span class="toc-text">执行指令说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%97%82%EF%B8%8F-%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A8%A1%E5%9E%8B%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">🗂️ 数据和模型路径配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E8%AE%BE%E5%A4%87%E5%92%8C%E6%8E%A8%E7%90%86%E7%B2%BE%E5%BA%A6"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">⚙️ 设备和推理精度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%AF%BC%E5%87%BA%E8%A1%8C%E4%B8%BA%E6%8E%A7%E5%88%B6"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">⚙️ 导出行为控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8E%AF-%E9%87%8F%E5%8C%96%E5%92%8C%E5%8A%A8%E6%80%81%E8%BD%B4%E6%8E%A7%E5%88%B6"><span class="toc-number">1.5.1.4.</span> <span class="toc-text">🎯 量化和动态轴控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%A0-ONNX-%E7%9B%B8%E5%85%B3"><span class="toc-number">1.5.1.5.</span> <span class="toc-text">🧠 ONNX 相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%A0-TensorRT-%E7%9B%B8%E5%85%B3"><span class="toc-number">1.5.1.6.</span> <span class="toc-text">🧠 TensorRT 相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8D%8F-CoreML-%E7%9B%B8%E5%85%B3"><span class="toc-number">1.5.1.7.</span> <span class="toc-text">🍏 CoreML 相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%A7%AA-TensorFlow-js%EF%BC%88TF-js%EF%BC%89%E7%9B%B8%E5%85%B3%EF%BC%88%E7%94%A8%E4%BA%8E-Web-%E7%AB%AF%EF%BC%89"><span class="toc-number">1.5.1.8.</span> <span class="toc-text">🧪 TensorFlow.js（TF.js）相关（用于 Web 端）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8E%AF-%E5%AF%BC%E5%87%BA%E6%A0%BC%E5%BC%8F%E8%AE%BE%E7%BD%AE%EF%BC%88%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0%EF%BC%89"><span class="toc-number">1.5.1.9.</span> <span class="toc-text">🎯 导出格式设置（核心参数）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E7%A4%BA%E4%BE%8B%E7%94%A8%E6%B3%95"><span class="toc-number">1.5.2.</span> <span class="toc-text">✅ 示例用法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="YOLOv5使用方法"><img src="https://images.whff521.top/IMG_7343.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="YOLOv5使用方法"/></a><div class="content"><a class="title" href="/2025/07/21/YOLOv5%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="YOLOv5使用方法">YOLOv5使用方法</a><time datetime="2025-07-21T02:40:45.000Z" title="Created 2025-07-21 10:40:45">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/Kaggle-CIFAR-10-Object-Recognition-in-Images/" title="Kaggle:  CIFAR-10-Object Recognition in Images"><img src="https://images.whff521.top/IMG_7341.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kaggle:  CIFAR-10-Object Recognition in Images"/></a><div class="content"><a class="title" href="/2025/07/19/Kaggle-CIFAR-10-Object-Recognition-in-Images/" title="Kaggle:  CIFAR-10-Object Recognition in Images">Kaggle:  CIFAR-10-Object Recognition in Images</a><time datetime="2025-07-19T02:14:45.000Z" title="Created 2025-07-19 10:14:45">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/" title="antfu的薅牛毛地图的自用方法"><img src="https://images.whff521.top/IMG_7322.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="antfu的薅牛毛地图的自用方法"/></a><div class="content"><a class="title" href="/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/" title="antfu的薅牛毛地图的自用方法">antfu的薅牛毛地图的自用方法</a><time datetime="2025-07-14T08:47:56.000Z" title="Created 2025-07-14 16:47:56">2025-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="Pytorch和cuda环境安装"><img src="https://images.whff521.top/Gu2x-3JWwAA_lx0.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pytorch和cuda环境安装"/></a><div class="content"><a class="title" href="/2025/07/05/Pytorch%E5%92%8Ccuda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="Pytorch和cuda环境安装">Pytorch和cuda环境安装</a><time datetime="2025-07-05T02:09:36.000Z" title="Created 2025-07-05 10:09:36">2025-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums"><img src="https://images.whff521.top/GjXIRWzaEAAxtVN.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Codeforces Adjacent Digit Sums"/></a><div class="content"><a class="title" href="/2025/02/13/Codeforces-Adjacent-Digit-Sums/" title="Codeforces Adjacent Digit Sums">Codeforces Adjacent Digit Sums</a><time datetime="2025-02-13T02:12:29.000Z" title="Created 2025-02-13 10:12:29">2025-02-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'b574649da36a28a0c3bb',
+      clientSecret: 'caae8c036167555e8f4ed612d8ef1ec3ce94e2d4',
+      repo: 'WHFF521.github.io',
+      owner: 'WHFF521',
+      admin: ['WHFF521'],
+      id: '75bb3211db74740713468ab94ec14f31',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
