@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.whff521.xyz/2025/08/04/yolov5-obb%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E6%94%B9%E8%BF%9B/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>
+  <url>
     <loc>https://blog.whff521.xyz/2025/07/22/Kaggle-%E7%A6%BB%E7%BA%BF%E4%BD%BF%E7%94%A8YOLOv5%E2%80%94%E2%80%94Global-Wheat-Detection/</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
@@ -269,11 +273,11 @@
     <lastmod>2024-04-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.whff521.xyz/2024/04/07/verbal-advantage-level-1-41-50/</loc>
+    <loc>https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/</loc>
     <lastmod>2024-04-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.whff521.xyz/2024/04/14/verbal-advantage-level-2-1-20/</loc>
+    <loc>https://blog.whff521.xyz/2024/04/07/verbal-advantage-level-1-41-50/</loc>
     <lastmod>2024-04-15</lastmod>
   </url>
   <url>
@@ -289,11 +293,11 @@
     <lastmod>2024-04-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.whff521.xyz/2024/03/13/POV-of-Oppenheimer/</loc>
+    <loc>https://blog.whff521.xyz/2024/03/18/The-Pragmatic-Programmer/</loc>
     <lastmod>2024-04-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.whff521.xyz/2024/03/18/The-Pragmatic-Programmer/</loc>
+    <loc>https://blog.whff521.xyz/2024/03/13/POV-of-Oppenheimer/</loc>
     <lastmod>2024-04-15</lastmod>
   </url>
 </urlset> 
