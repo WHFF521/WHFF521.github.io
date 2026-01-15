@@ -6,7 +6,7 @@
   <link href="https://blog.whff521.xyz/atom.xml" rel="self"/>
   <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
   <link href="https://blog.whff521.xyz/"/>
-  <updated>2025-08-05T05:55:39.331Z</updated>
+  <updated>2026-01-15T12:22:12.147Z</updated>
   <id>https://blog.whff521.xyz/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mamba 模型在视觉上的开发</title>
+    <link href="https://blog.whff521.xyz/2026/01/14/mamba/"/>
+    <id>https://blog.whff521.xyz/2026/01/14/mamba/</id>
+    <published>2026-01-14T05:52:13.000Z</published>
+    <updated>2026-01-15T12:22:12.147Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Mamba-模型在视觉上的开发"><a href="#Mamba-模型在视觉上的开发" class="headerlink" title="Mamba 模型在视觉上的开发"></a>Mamba 模型在视觉上的开发</h1><h2 id="状态空间模型（State-Space-Models）"><a href="#状态空间模型（State-Space-Models）" class="headerlink" title="状态空间模型（State Space Models）"></a>状态空间模型（State Space Models）</h2><p>用于预测连续序列在给定输入下的下一状态。<br>固定动态特性</p><h2 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h2><p>Mamba 是一种基于 选择性状态空间模型（Selective SSM） 的序列建模架构，它最大的特点是：</p><ul><li>时间复杂度和显存复杂度都是 线性 O(L)</li><li>非常擅长 长序列建模</li><li>可以作为 Transformer Block 的高效替代</li></ul><p>目前已经在 NLP、Vision 以及多模态领域 都有广泛应用。</p><p>从本质上看，Mamba 用 SSM 来建模序列依赖，避免了自注意力的二次复杂度瓶颈。</p><h2 id="MambaVision-A-Hybrid-Mamba-Transformer-Vision-Backbone"><a href="#MambaVision-A-Hybrid-Mamba-Transformer-Vision-Backbone" class="headerlink" title="MambaVision: A Hybrid Mamba-Transformer Vision Backbone"></a><a href="https://arxiv.org/abs/2407.08083">MambaVision: A Hybrid Mamba-Transformer Vision Backbone</a></h2><p>这篇文章是英伟达更改Mamba结构然后在视觉任务上的一次尝试。</p><h3 id="核心问题"><a href="#核心问题" class="headerlink" title="核心问题"></a>核心问题</h3><ul><li>transformer 计算瓶颈（n2）</li><li>原生Mamba在视觉任务上局限性</li></ul><h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h3><ul><li>专为视觉设计的Mamba模块：MambaVision Mixer</li><li>Mamba与Transformer混合新架构</li><li>分层设计</li></ul><h3 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h3><p><img src="https://images.whff521.top/arch.png" alt="架构"></p><ol><li>在高分辨率图像输入后先用卷积层进行下采样（前两个阶段）</li><li>MambaVision blocks 进行深度特征的序列建模，Transformer blocks 恢复丢失的全局上下文并捕获长程空间依赖性。</li></ol><p>先用 MambaVision Mixer 提升 token 的全局语义一致性<br>再用 Transformer 精修空间关系</p><h2 id="RoMA-Scaling-up-Mamba-based-Foundation-Models-for-Remote-Sensing"><a href="#RoMA-Scaling-up-Mamba-based-Foundation-Models-for-Remote-Sensing" class="headerlink" title="RoMA: Scaling up Mamba-based Foundation Models for Remote Sensing"></a><a href="https://arxiv.org/abs/2503.10392">RoMA: Scaling up Mamba-based Foundation Models for Remote Sensing</a></h2><p>这篇论文是讲Mamba模型应用到遥感图像领域，专注于高分辨率遥感图像中的多尺度视觉任务。</p><p>RoMA 主要有三点贡献：</p><ol><li>它是首个面向遥感的 Mamba 自监督自回归预训练框架。</li><li>提出了 动态旋转感知机制，应对目标方向任意的问题。</li><li>设计了 多尺度预测目标，解决遥感中目标尺度变化极大的问题。</li></ol><h3 id="自回归预训练策略"><a href="#自回归预训练策略" class="headerlink" title="自回归预训练策略"></a>自回归预训练策略</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2011.13.47.png" alt="pipeline"><br>在预训练策略上，RoMA 和 MAE 有本质区别。</p><ul><li>MAE 只编码部分可见 patch</li><li>RoMA 用 Mamba 编码 所有 patch<br>同时：</li><li>MAE 是重建被 mask 的区域</li><li>RoMA 是预测 下一个 token<br>这种自回归方式与 Mamba 的顺序建模特性是天然契合的。</li></ul><h3 id="自适应旋转编码"><a href="#自适应旋转编码" class="headerlink" title="自适应旋转编码"></a>自适应旋转编码</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2014.03.52.png" alt="rotate"><br>针对遥感目标 方向任意、分布稀疏 的问题，RoMA 提出了自适应旋转编码策略。<br>核心包括两点：</p><ul><li>使用 LBP 算法筛选高价值区域进行旋转增强</li><li>显式引入角度嵌入，提供方向先验<br>这显著提升了模型对旋转不变性的感知能力。</li></ul><h3 id="多尺度预测-amp-可扩展性"><a href="#多尺度预测-amp-可扩展性" class="headerlink" title="多尺度预测 &amp; 可扩展性"></a>多尺度预测 &amp; 可扩展性</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2015.40.53.png" alt="loss"><br>在多尺度方面，RoMA 不仅计算每个 patch 的 loss，还计算 patch 组合形成的 簇级别 loss。<br>这让模型同时关注：</p><ul><li>小目标</li><li>大结构</li></ul><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2015.54.37.png" alt="table"><br>同时实验表明：</p><ul><li>数据越多，效果越好</li><li>模型越大，效果越好<br>具备良好的基础模型扩展性。</li></ul><h3 id="下游任务-amp-总结"><a href="#下游任务-amp-总结" class="headerlink" title="下游任务 &amp; 总结"></a>下游任务 &amp; 总结</h3><p>在下游任务上，RoMA 在场景分类、变化检测和语义分割中都取得了优异表现。<br>特别是在线性探测设置下，小目标效果依然很好，说明预训练特征质量很高。</p><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2010.49.25.png" alt="OOM"><br>在 1248×1248 分辨率下，相对于ViT模型，</p><ul><li>显存降低近 79%</li><li>推理速度提升 1.56 倍</li></ul><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol><li><a href="https://www.ibm.com/cn-zh/think/topics/mamba-model">Mamba 模型</a></li><li><a href="https://www.bilibili.com/video/BV1ys8FzcEwz">【SCI论文高能解析】从NLP杀到CV的降维打击！MambaVision首次挑战Transformer霸主地位！</a></li></ol><p>PS: 封面来自<a href="https://x.com/11matsuri_co11/status/2005934384755695796?s=20">这里</a></p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Mamba-模型在视觉上的开发&quot;&gt;&lt;a href=&quot;#Mamba-模型在视觉上的开发&quot; class=&quot;headerlink&quot; title=&quot;Mamba 模型在视觉上的开发&quot;&gt;&lt;/a&gt;Mamba 模型在视觉上的开发&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="论文阅读" scheme="https://blog.whff521.xyz/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="Mamba" scheme="https://blog.whff521.xyz/tags/Mamba/"/>
+    
+  </entry>
   
   <entry>
     <title>yolov5_obb的兼容性改进</title>
@@ -123,35 +150,6 @@
     
     
     <category term="Pytorch" scheme="https://blog.whff521.xyz/tags/Pytorch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>antfu的薅牛毛地图的自用方法</title>
-    <link href="https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/"/>
-    <id>https://blog.whff521.xyz/2025/07/14/antfu%E7%9A%84%E8%96%85%E7%89%9B%E6%AF%9B%E5%9C%B0%E5%9B%BE%E7%9A%84%E8%87%AA%E7%94%A8%E6%96%B9%E6%B3%95/</id>
-    <published>2025-07-14T08:47:56.000Z</published>
-    <updated>2025-07-22T07:12:58.101Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="antfu的薅牛毛地图的自用方法"><a href="#antfu的薅牛毛地图的自用方法" class="headerlink" title="antfu的薅牛毛地图的自用方法"></a>antfu的薅牛毛地图的自用方法</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>去年看了Anthony Fu的“薅牛毛”演讲，当时看到ppt里密集的路线图着实是被视觉冲击了。将复杂的学习路线通过路线图一个个表示出来，最后整体去俯瞰，竟有一种宏伟的成就感。</p><p>什么是薅牛毛呢？在我的现状下，在学习新东西或者完成任务的时候，难免会有一些“前置知识”需要去了解，然后要理解“前置知识”的话，还需要学习一下“前置知识”的“前置知识”。这可能会变成一种dfs或者bfs，越学越多，越学越远，可能有一天发现自己在草原上薅牛毛，而一开始的目标和薅牛毛没有一点点关联。</p><p>最近正在学习图像识别的内容，最主要的目标就是学会使用YOLOv5。当然仅仅是使用的话很简单，我需要的是了解其中的原理并使用它。也因此我的“薅牛毛”之旅开始了。</p><h2 id="制作方法"><a href="#制作方法" class="headerlink" title="制作方法"></a>制作方法</h2><h3 id="下载代码"><a href="#下载代码" class="headerlink" title="下载代码"></a>下载代码</h3><p>我们可以先fork一下Anthony Fu的<a href="https://github.com/antfu/yak-shaving-map">仓库代码</a>。</p><h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><p>然后将自己仓库的代码下载到本地，先安装环境：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果本地没有pnpm要先下载pnpm，什么？连npm都没有？</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">那可以“薅牛毛”了😂</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm install -g pnpm</span></span><br><span class="line">pnpm install</span><br></pre></td></tr></table></figure><p>运行代码只需要运行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm run dev</span><br></pre></td></tr></table></figure></p><h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>其中<code>data.ts</code>中存储的是节点的上下级关系以及节点形状，我们可以删除原来的节点，填写自己想要的节点。</p><p><code>yak-map-pos.json</code>里边是节点的坐标，这个文件不需要手动更改，运行项目后使用鼠标可以拖动节点位置，会自动添加当前节点到json中，json中的节点坐标会自动变化。<strong>建议先把这里面的所有节点删除再添加编写<code>data.ts</code>。</strong></p><p>其中节点类似下面代码：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;YOLOv4&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">shape</span>: <span class="string">&#x27;circle&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;yolov5&#x27;</span>],</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&#x27;CSPDarknet53&#x27;</span>,</span><br><span class="line">  <span class="attr">link</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">color</span>: colors.<span class="property">YOLOv4</span>,</span><br><span class="line">  <span class="attr">from</span>: [<span class="string">&#x27;YOLOv4&#x27;</span>],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p><p>注意第一个节点要自定义<code>x</code>和<code>y</code>为0。</p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>运行后我们打开网页，界面右上角可以调节暗夜模式，鼠标点击左侧空白是回退，鼠标点击右侧空白是前进，右下角按钮可以进入step模式和展示全部。</p><p>这里附上我制作完成后的页面截图：</p><p><img src="https://images.whff521.top/Screenshot%202025-07-14%20at%2019.41.23.png" alt="yolo map"></p><p>我部署到了Cloudflare的pages上了，方便随时查看。这里附上<a href="https://github.com/WHFF521/yak-shaving-map-yolo">我仓库的链接</a></p>]]></content>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;antfu的薅牛毛地图的自用方法&quot;&gt;&lt;a href=&quot;#antfu的薅牛毛地图的自用方法&quot; class=&quot;headerlink&quot; title=&quot;antfu的薅牛毛地图的自用方法&quot;&gt;&lt;/a&gt;antfu的薅牛毛地图的自用方法&lt;/h1&gt;&lt;h2 id=&quot;背景&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="深度学习" scheme="https://blog.whff521.xyz/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-    <category term="yolo" scheme="https://blog.whff521.xyz/tags/yolo/"/>
-    
-    <category term="路线图" scheme="https://blog.whff521.xyz/tags/%E8%B7%AF%E7%BA%BF%E5%9B%BE/"/>
     
   </entry>
   

@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Mamba 模型在视觉上的开发</title>
+      <link href="/2026/01/14/mamba/"/>
+      <url>/2026/01/14/mamba/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Mamba-模型在视觉上的开发"><a href="#Mamba-模型在视觉上的开发" class="headerlink" title="Mamba 模型在视觉上的开发"></a>Mamba 模型在视觉上的开发</h1><h2 id="状态空间模型（State-Space-Models）"><a href="#状态空间模型（State-Space-Models）" class="headerlink" title="状态空间模型（State Space Models）"></a>状态空间模型（State Space Models）</h2><p>用于预测连续序列在给定输入下的下一状态。<br>固定动态特性</p><h2 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h2><p>Mamba 是一种基于 选择性状态空间模型（Selective SSM） 的序列建模架构，它最大的特点是：</p><ul><li>时间复杂度和显存复杂度都是 线性 O(L)</li><li>非常擅长 长序列建模</li><li>可以作为 Transformer Block 的高效替代</li></ul><p>目前已经在 NLP、Vision 以及多模态领域 都有广泛应用。</p><p>从本质上看，Mamba 用 SSM 来建模序列依赖，避免了自注意力的二次复杂度瓶颈。</p><h2 id="MambaVision-A-Hybrid-Mamba-Transformer-Vision-Backbone"><a href="#MambaVision-A-Hybrid-Mamba-Transformer-Vision-Backbone" class="headerlink" title="MambaVision: A Hybrid Mamba-Transformer Vision Backbone"></a><a href="https://arxiv.org/abs/2407.08083">MambaVision: A Hybrid Mamba-Transformer Vision Backbone</a></h2><p>这篇文章是英伟达更改Mamba结构然后在视觉任务上的一次尝试。</p><h3 id="核心问题"><a href="#核心问题" class="headerlink" title="核心问题"></a>核心问题</h3><ul><li>transformer 计算瓶颈（n2）</li><li>原生Mamba在视觉任务上局限性</li></ul><h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h3><ul><li>专为视觉设计的Mamba模块：MambaVision Mixer</li><li>Mamba与Transformer混合新架构</li><li>分层设计</li></ul><h3 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h3><p><img src="https://images.whff521.top/arch.png" alt="架构"></p><ol><li>在高分辨率图像输入后先用卷积层进行下采样（前两个阶段）</li><li>MambaVision blocks 进行深度特征的序列建模，Transformer blocks 恢复丢失的全局上下文并捕获长程空间依赖性。</li></ol><p>先用 MambaVision Mixer 提升 token 的全局语义一致性<br>再用 Transformer 精修空间关系</p><h2 id="RoMA-Scaling-up-Mamba-based-Foundation-Models-for-Remote-Sensing"><a href="#RoMA-Scaling-up-Mamba-based-Foundation-Models-for-Remote-Sensing" class="headerlink" title="RoMA: Scaling up Mamba-based Foundation Models for Remote Sensing"></a><a href="https://arxiv.org/abs/2503.10392">RoMA: Scaling up Mamba-based Foundation Models for Remote Sensing</a></h2><p>这篇论文是讲Mamba模型应用到遥感图像领域，专注于高分辨率遥感图像中的多尺度视觉任务。</p><p>RoMA 主要有三点贡献：</p><ol><li>它是首个面向遥感的 Mamba 自监督自回归预训练框架。</li><li>提出了 动态旋转感知机制，应对目标方向任意的问题。</li><li>设计了 多尺度预测目标，解决遥感中目标尺度变化极大的问题。</li></ol><h3 id="自回归预训练策略"><a href="#自回归预训练策略" class="headerlink" title="自回归预训练策略"></a>自回归预训练策略</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2011.13.47.png" alt="pipeline"><br>在预训练策略上，RoMA 和 MAE 有本质区别。</p><ul><li>MAE 只编码部分可见 patch</li><li>RoMA 用 Mamba 编码 所有 patch<br>同时：</li><li>MAE 是重建被 mask 的区域</li><li>RoMA 是预测 下一个 token<br>这种自回归方式与 Mamba 的顺序建模特性是天然契合的。</li></ul><h3 id="自适应旋转编码"><a href="#自适应旋转编码" class="headerlink" title="自适应旋转编码"></a>自适应旋转编码</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2014.03.52.png" alt="rotate"><br>针对遥感目标 方向任意、分布稀疏 的问题，RoMA 提出了自适应旋转编码策略。<br>核心包括两点：</p><ul><li>使用 LBP 算法筛选高价值区域进行旋转增强</li><li>显式引入角度嵌入，提供方向先验<br>这显著提升了模型对旋转不变性的感知能力。</li></ul><h3 id="多尺度预测-amp-可扩展性"><a href="#多尺度预测-amp-可扩展性" class="headerlink" title="多尺度预测 &amp; 可扩展性"></a>多尺度预测 &amp; 可扩展性</h3><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2015.40.53.png" alt="loss"><br>在多尺度方面，RoMA 不仅计算每个 patch 的 loss，还计算 patch 组合形成的 簇级别 loss。<br>这让模型同时关注：</p><ul><li>小目标</li><li>大结构</li></ul><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2015.54.37.png" alt="table"><br>同时实验表明：</p><ul><li>数据越多，效果越好</li><li>模型越大，效果越好<br>具备良好的基础模型扩展性。</li></ul><h3 id="下游任务-amp-总结"><a href="#下游任务-amp-总结" class="headerlink" title="下游任务 &amp; 总结"></a>下游任务 &amp; 总结</h3><p>在下游任务上，RoMA 在场景分类、变化检测和语义分割中都取得了优异表现。<br>特别是在线性探测设置下，小目标效果依然很好，说明预训练特征质量很高。</p><p><img src="https://images.whff521.top/Screenshot%202026-01-15%20at%2010.49.25.png" alt="OOM"><br>在 1248×1248 分辨率下，相对于ViT模型，</p><ul><li>显存降低近 79%</li><li>推理速度提升 1.56 倍</li></ul><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol><li><a href="https://www.ibm.com/cn-zh/think/topics/mamba-model">Mamba 模型</a></li><li><a href="https://www.bilibili.com/video/BV1ys8FzcEwz">【SCI论文高能解析】从NLP杀到CV的降维打击！MambaVision首次挑战Transformer霸主地位！</a></li></ol><p>PS: 封面来自<a href="https://x.com/11matsuri_co11/status/2005934384755695796?s=20">这里</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文阅读 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mamba </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>yolov5_obb的兼容性改进</title>
       <link href="/2025/08/04/yolov5-obb%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E6%94%B9%E8%BF%9B/"/>
       <url>/2025/08/04/yolov5-obb%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E6%94%B9%E8%BF%9B/</url>
@@ -1795,11 +1820,11 @@
       
         <tags>
             
+            <tag> vscode </tag>
+            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
-            
-            <tag> vscode </tag>
             
         </tags>
       
