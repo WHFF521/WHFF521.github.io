@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>离线环境harbor开启Trivy扫描</title>
+      <link href="/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/"/>
+      <url>/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="离线环境harbor开启Trivy扫描"><a href="#离线环境harbor开启Trivy扫描" class="headerlink" title="离线环境harbor开启Trivy扫描"></a>离线环境harbor开启Trivy扫描</h1><p>Harbor自带Trivy扫描器，可以用来扫描仓库中的镜像是否有漏洞。开启仅需要运行命令<code>sudo ./install.sh --with-trivy</code>即可。但是Trivy默认要联网下载数据库，国内服务器完全连不上它的数据库网址，然后下载失败。</p><p>总体思路是在别的电脑上先下载所需要的文件，然后通过scp上传到服务器上，解压后放在Trivy挂载的文件夹里面。</p><h2 id="下载db和java-db文件"><a href="#下载db和java-db文件" class="headerlink" title="下载db和java-db文件"></a>下载db和java-db文件</h2><p>我们需要<a href="https://github.com/aquasecurity/trivy-db">Trivy DB v2</a>，这里选择用<code>Oras CLI</code>进行下载。<br>根据<a href="https://oras.land/docs/installation">Oras官网安装文档</a>,选择通过Docker下载。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull ghcr.io/oras-project/oras:v1.3.0</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这里需要用wsl或者linux运行命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --rm -v $(pwd):/workspace ghcr.io/oras-project/oras:v1.3.0 pull ghcr.io/aquasecurity/trivy-db:2</span><br><span class="line">docker run -it --rm -v $(pwd):/workspace ghcr.io/oras-project/oras:v1.3.0 pull ghcr.io/aquasecurity/trivy-java-db:1</span><br></pre></td></tr></table></figure><br>这两条指令会在当前文件夹下通过oras镜像下载两个压缩包，分别是<code>db.tar.gz</code>和<code>javadb.tar.gz</code>。<br>下载完后通过scp命令上传到服务器上并解压即可，解压完后应该是<code>db</code>和<code>javadb</code>两个文件夹，需要将<code>javadb</code>改名为<code>java-db</code>。</p><h2 id="关闭trivy自动更新"><a href="#关闭trivy自动更新" class="headerlink" title="关闭trivy自动更新"></a>关闭trivy自动更新</h2><p>在harbor.yml文件里找到trivy的配置：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skip_update:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">skip_java_db_update:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">offline_scan:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure><br>然后在harbor文件夹下运行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker compose down</span><br><span class="line">sudo docker compose up -d</span><br></pre></td></tr></table></figure></p><h2 id="将文件放在挂载目录"><a href="#将文件放在挂载目录" class="headerlink" title="将文件放在挂载目录"></a>将文件放在挂载目录</h2><p>harbor会自动将自己默认存储位置挂载到trivy镜像里面，<br>如何查看Trivy挂载的文件位置：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect &lt;trivy容器ID&gt; | grep -A5 Mounts</span><br></pre></td></tr></table></figure><br>会有类似输出：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Mounts&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bind&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/home/harbor/data/trivy-adapter/trivy&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/home/scanner/.cache/trivy&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;rw&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><br>因为我将harbor默认存储位置改为了<code>data_volume: /home/harbor/data</code>,所以查到的Source是<code>/home/harbor/data/trivy-adapter/trivy</code>,<code>data</code>文件夹下默认是没有文件夹的，我们要先创建<code>trivy-adapter/trivy</code>文件夹。<br>然后将db和java-db拷贝进去。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">假设你当前在 /home/yourname/trivy</span></span><br><span class="line">sudo cp -r trivy/db /home/yourname/harbor/data/trivy-adapter/trivy/</span><br><span class="line">sudo cp -r trivy/java-db /home/yourname/harbor/data/trivy-adapter/trivy/</span><br></pre></td></tr></table></figure><p>最终文件结构：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/home/</span>yourname<span class="regexp">/harbor/</span>data<span class="regexp">/trivy-adapter/</span>trivy<span class="operator">/</span></span><br><span class="line"><span class="operator">├──</span> db</span><br><span class="line"><span class="operator">│</span>   <span class="operator">├──</span> trivy.db</span><br><span class="line"><span class="operator">│</span>   <span class="operator">└──</span> metadata.json</span><br><span class="line"><span class="operator">├──</span> java<span class="operator">-</span>db</span><br><span class="line">    <span class="operator">├──</span> trivy<span class="operator">-</span>java.db</span><br><span class="line">    <span class="operator">└──</span> metadata.json</span><br></pre></td></tr></table></figure></p><p>拷贝完trivy应该能正常工作了。如果有问题的话有可能是文件的权限问题。</p><p>PS: <a href="https://x.com/absentable655/status/2013197240832299370?s=46">封面来自这里</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Harbor </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Harbor的部署</title>
       <link href="/2026/01/19/Harbor%E7%9A%84%E9%83%A8%E7%BD%B2/"/>
       <url>/2026/01/19/Harbor%E7%9A%84%E9%83%A8%E7%BD%B2/</url>
@@ -172,9 +197,9 @@
       
         <tags>
             
-            <tag> yolo </tag>
-            
             <tag> 路线图 </tag>
+            
+            <tag> yolo </tag>
             
         </tags>
       
@@ -1845,11 +1870,11 @@
       
         <tags>
             
+            <tag> vscode </tag>
+            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
-            
-            <tag> vscode </tag>
             
         </tags>
       
