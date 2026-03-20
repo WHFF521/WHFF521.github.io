@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>关于目标检测模型的量化</title>
+      <link href="/2026/03/16/%E5%85%B3%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8F%E5%8C%96/"/>
+      <url>/2026/03/16/%E5%85%B3%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8F%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<h1 id="关于目标检测模型的量化"><a href="#关于目标检测模型的量化" class="headerlink" title="关于目标检测模型的量化"></a>关于目标检测模型的量化</h1><p>量化可以分为两类，一类是模型压缩，一类是网络结构设计。</p><p>模型压缩的技术主要包括剪枝，量化和知识蒸馏。</p><p>现有的目标检测模型的Backbone主要是基于CNN或者Transformer。相比之下CNN是更有效率的，Transformer的注意力机制会产生大量的计算。</p><h2 id="关于轻量级网络设计"><a href="#关于轻量级网络设计" class="headerlink" title="关于轻量级网络设计"></a>关于轻量级网络设计</h2><h3 id="基于CNN的轻量级网络设计"><a href="#基于CNN的轻量级网络设计" class="headerlink" title="基于CNN的轻量级网络设计"></a>基于CNN的轻量级网络设计</h3><p>这里多是设计base CNN的网络的，卷积块的设计。比如深度可分离卷积、分组卷积和幽灵卷积。</p><p>对于普通卷积，输入特征图的尺寸为$H×W×C<em>{in}$，输出特征图的尺寸为$H×W×C</em>{out}$，卷积核实际维度为$K×K×C<em>{in}$。输出通道数为$C</em>{out}$，代表卷积核的数量。</p><p>深度可分离卷积是将标准卷积分解为深度卷积和逐点卷积。深度卷积对每个输入通道进行独立的卷积操作，而逐点卷积则使用1x1卷积来混合不同通道的信息。这种方法显著减少了计算量和参数数量。但是深度卷积并行效率较低，信息提取能力也更弱。</p><p>分组卷积将输入通道分成多个组，每个组独立进行卷积操作。然后将每个组的输出特征图连接起来形成最终的输出特征图。但是不同组之间不能信息交换，有channel shuffle operation来解决这个问题。反向想，如果分组卷积用和普通卷积相同参数量，那么就会生成分组数倍的特征图，比如YOLOv7中的E-ELAN。但是分组卷机会增加memory access costs（内存访问成本）。</p><p>幽灵卷积，一代幽灵卷积是通过生成一些“幽灵特征图”来减少计算量和参数数量。它首先使用一个小的卷积核生成一部分特征图，然后通过线性变换生成剩余的特征图。v2引入DFC注意力机制来解决空间信息表示不足的问题。v3加入很多轻量化策略。</p><p>因为卷积块还是受限于矩形形状，也有很多研究不同形状的卷积块。</p><p>总之，轻量卷积的方法基本就是在保证特征提取能力的同时减少冗余计算，同时也要注意计算效率。</p><p>Reparameterisation，训练时使用复杂的结构来增强模型的表达能力，推理时将其转换为更简单的结构以提高效率。比如训练时使用残差网络结构，推理时将其转换为普通卷积结构。</p><h3 id="基于Transformer的轻量级网络设计"><a href="#基于Transformer的轻量级网络设计" class="headerlink" title="基于Transformer的轻量级网络设计"></a>基于Transformer的轻量级网络设计</h3><p>开发高效的轻量级注意力机制对于轻量级Transformer模型至关重要。注意力机制的更改需要非常专业的知识，也有Neural Architecture Search (NAS)来自动搜索更高效的注意力机制。</p><h2 id="关于模型压缩"><a href="#关于模型压缩" class="headerlink" title="关于模型压缩"></a>关于模型压缩</h2><h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>对于目标检测模型，模型结构对结果的影响很大，所以大多数剪枝的研究都是结构化剪枝。剪枝主要是将不重要的卷积核或者通道剪掉，减少计算量和参数数量。早期的剪枝方法主要是基于权重的绝对值来判断重要性，后来引入了更多的指标，比如梯度、特征图等。剪枝后需要进行微调来恢复模型的性能。</p><h3 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h3><p>量化指用低精度数据替换高精度数据。</p><p>根据量化过程发生的阶段，可分为训练时量化（Quantization Aware Training, QAT）和后训练量化（Post-Training Quantization, PTQ）。QAT在训练过程中模拟量化误差，允许模型适应低精度表示，从而通常能获得更好的性能。PTQ则是在模型训练完成后进行量化。</p><p>根据量化的数据点之间的间隔，可分为均匀量化和非均匀量化。均匀量化使用固定的间隔将数值范围划分为离散的级别，而非均匀量化则根据数据分布动态调整间隔。均匀量化常用方法有超低精度量化和INT8量化。</p><h3 id="知识蒸馏"><a href="#知识蒸馏" class="headerlink" title="知识蒸馏"></a>知识蒸馏</h3><p>蒸馏分为离线蒸馏和在线蒸馏。离线蒸馏是先训练一个大模型（教师模型），然后用它来指导一个小模型（学生模型）的训练。在线蒸馏则是同时训练教师模型和学生模型，教师模型在训练过程中不断更新。</p><p>还有自蒸馏（Self-Distillation），即模型自己作为教师来指导自己的训练。</p><p>根据传递的知识类型，蒸馏可以分为响应蒸馏、特征蒸馏和关系蒸馏。响应蒸馏是通过教师模型的输出概率分布来指导学生模型的训练。特征蒸馏是通过教师模型的中间特征图来指导学生模型的训练。关系蒸馏是通过教师模型中不同层之间的关系来指导学生模型的训练。</p><p>以上总结基于以下文章：<br>He, Jing, Jianfei Jiang, and Changfan Zhang. “A Survey of Lightweight Methods for Object Detection Networks.” Array (2025): 100589.</p><p>PS：封面图来源：<a href="https://x.com/marronpan160/status/2034218045342937149?s=20">marronpan160</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 轻量化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 目标检测 </tag>
+            
+            <tag> 轻量化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>离线环境harbor开启Trivy扫描</title>
       <link href="/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/"/>
       <url>/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/</url>
@@ -197,9 +224,9 @@
       
         <tags>
             
-            <tag> 路线图 </tag>
-            
             <tag> yolo </tag>
+            
+            <tag> 路线图 </tag>
             
         </tags>
       
@@ -1870,11 +1897,11 @@
       
         <tags>
             
-            <tag> vscode </tag>
-            
             <tag> 服务器 </tag>
             
             <tag> 备份 </tag>
+            
+            <tag> vscode </tag>
             
         </tags>
       
