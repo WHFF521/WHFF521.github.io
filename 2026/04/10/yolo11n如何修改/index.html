@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="ZH-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>YOLO11n 内部结构修改指南 | AiRomance</title><meta name="author" content="AiRomance"><meta name="copyright" content="AiRomance"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="YOLO11n 内部结构修改指南本文由GPT-5.3-Codex·Medium撰写。 1. 先理解 YOLO11n 是如何被加载的在这个仓库里，YOLO11n 不是单独一个 yolo11n.yaml 文件，而是通过 yolo11.yaml 里的 scales.n 缩放规则得到。 核心流程：  传入 model&#x3D;yolo11n.yaml 或 yolo11n.pt 解析时会统一映射到 ultralyt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLO11n 内部结构修改指南">
+<meta property="og:url" content="https://blog.whff521.xyz/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/index.html">
+<meta property="og:site_name" content="AiRomance">
+<meta property="og:description" content="YOLO11n 内部结构修改指南本文由GPT-5.3-Codex·Medium撰写。 1. 先理解 YOLO11n 是如何被加载的在这个仓库里，YOLO11n 不是单独一个 yolo11n.yaml 文件，而是通过 yolo11.yaml 里的 scales.n 缩放规则得到。 核心流程：  传入 model&#x3D;yolo11n.yaml 或 yolo11n.pt 解析时会统一映射到 ultralyt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.whff521.top/HFJiS6JbAAAJiEF.jpeg">
+<meta property="article:published_time" content="2026-04-10T05:53:43.000Z">
+<meta property="article:modified_time" content="2026-04-10T05:58:08.661Z">
+<meta property="article:author" content="AiRomance">
+<meta property="article:tag" content="YOLO11n">
+<meta property="article:tag" content="模型修改">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.whff521.top/HFJiS6JbAAAJiEF.jpeg"><link rel="shortcut icon" href="/images/101.ico"><link rel="canonical" href="https://blog.whff521.xyz/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="9ws3s15bqXTtMN6ESVURO4Ces-UA9EELAL9f16L_lc0"/><meta name="baidu-site-verification" content="codeva-LMHDaMyBu1"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'YOLO11n 内部结构修改指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-04-10 13:58:08'
+}</script><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="AiRomance" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/101.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">80</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">81</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.whff521.top/HFJiS6JbAAAJiEF.jpeg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AiRomance</span></a><a class="nav-page-title" href="/"><span class="site-name">YOLO11n 内部结构修改指南</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">YOLO11n 内部结构修改指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-04-10T05:53:43.000Z" title="Created 2026-04-10 13:53:43">2026-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-10T05:58:08.661Z" title="Updated 2026-04-10 13:58:08">2026-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="YOLO11n-内部结构修改指南"><a href="#YOLO11n-内部结构修改指南" class="headerlink" title="YOLO11n 内部结构修改指南"></a>YOLO11n 内部结构修改指南</h1><p>本文由GPT-5.3-Codex·Medium撰写。</p>
+<h2 id="1-先理解-YOLO11n-是如何被加载的"><a href="#1-先理解-YOLO11n-是如何被加载的" class="headerlink" title="1. 先理解 YOLO11n 是如何被加载的"></a>1. 先理解 YOLO11n 是如何被加载的</h2><p>在这个仓库里，YOLO11n 不是单独一个 yolo11n.yaml 文件，而是通过 yolo11.yaml 里的 scales.n 缩放规则得到。</p>
+<p>核心流程：</p>
+<ol>
+<li>传入 model=yolo11n.yaml 或 yolo11n.pt</li>
+<li>解析时会统一映射到 ultralytics/cfg/models/11/yolo11.yaml</li>
+<li>从文件名中提取 scale=n</li>
+<li>使用 parse_model() 按 YAML 的 backbone/head 构建网络</li>
+</ol>
+<p>涉及关键代码：</p>
+<ul>
+<li>ultralytics/nn/tasks.py<ul>
+<li>yaml_model_load()</li>
+<li>guess_model_scale()</li>
+<li>parse_model()</li>
+<li>DetectionModel.<strong>init</strong>()</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-改结构时通常要改哪些文件"><a href="#2-改结构时通常要改哪些文件" class="headerlink" title="2. 改结构时通常要改哪些文件"></a>2. 改结构时通常要改哪些文件</h2><h3 id="A-只改网络拓扑（不新增新算子）"><a href="#A-只改网络拓扑（不新增新算子）" class="headerlink" title="A. 只改网络拓扑（不新增新算子）"></a>A. 只改网络拓扑（不新增新算子）</h3><p>只需要改：</p>
+<ul>
+<li>ultralytics/cfg/models/11/yolo11.yaml</li>
+</ul>
+<p>建议不要直接覆盖官方 yolo11.yaml，改为新文件，例如：</p>
+<ul>
+<li>ultralytics/cfg/models/11/yolo11n_my.yaml</li>
+</ul>
+<p>前提：你用到的模块（如 Conv、C2f、C3k2、SPPF、Detect）已经在 parse_model 中支持。</p>
+<h3 id="B-新增自定义模块（新增算子-Block）"><a href="#B-新增自定义模块（新增算子-Block）" class="headerlink" title="B. 新增自定义模块（新增算子/Block）"></a>B. 新增自定义模块（新增算子/Block）</h3><p>通常至少需要改 3 类文件：</p>
+<ol>
+<li>模块实现文件</li>
+</ol>
+<ul>
+<li>ultralytics/nn/modules/block.py</li>
+<li>或 ultralytics/nn/modules/conv.py</li>
+<li>或 ultralytics/nn/modules/head.py</li>
+</ul>
+<ol>
+<li>模块导出文件</li>
+</ol>
+<ul>
+<li>ultralytics/nn/modules/<strong>init</strong>.py</li>
+</ul>
+<ol>
+<li>模型解析与注册</li>
+</ol>
+<ul>
+<li>ultralytics/nn/tasks.py<ul>
+<li>顶部 import 列表要导入新模块</li>
+<li>parse_model() 里按模块类型处理参数</li>
+<li>若你的模块是 [c1, c2, …] 这种常规结构块，要加入 base_modules</li>
+<li>若你的模块支持 repeats，要加入 repeat_modules</li>
+</ul>
+</li>
+</ul>
+<h3 id="C-如果改了检测头输出定义"><a href="#C-如果改了检测头输出定义" class="headerlink" title="C. 如果改了检测头输出定义"></a>C. 如果改了检测头输出定义</h3><p>还要同步检查：</p>
+<ul>
+<li>ultralytics/nn/modules/head.py</li>
+<li>ultralytics/utils/loss.py</li>
+<li>推理后处理相关逻辑（如解码、维度约定）</li>
+</ul>
+<p>否则可能出现训练正常但推理/导出异常，或 loss 维度不匹配。</p>
+<h2 id="3-示例-1：只改-YAML（推荐先从这里开始）"><a href="#3-示例-1：只改-YAML（推荐先从这里开始）" class="headerlink" title="3. 示例 1：只改 YAML（推荐先从这里开始）"></a>3. 示例 1：只改 YAML（推荐先从这里开始）</h2><p>目标：把骨干某层从 C3k2 改成 C2f，快速验证结构变更流程。</p>
+<h3 id="3-1-新建配置文件"><a href="#3-1-新建配置文件" class="headerlink" title="3.1 新建配置文件"></a>3.1 新建配置文件</h3><p>复制：</p>
+<ul>
+<li>ultralytics/cfg/models/11/yolo11.yaml<br>到：</li>
+<li>ultralytics/cfg/models/11/yolo11n_my.yaml</li>
+</ul>
+<p>然后把其中一层改掉（示例）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原来</span></span><br><span class="line"><span class="bullet">-</span> [<span class="number">-1</span>, <span class="number">2</span>, <span class="string">C3k2</span>, [<span class="number">256</span>, <span class="literal">False</span>, <span class="number">0.25</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改后</span></span><br><span class="line"><span class="bullet">-</span> [<span class="number">-1</span>, <span class="number">2</span>, <span class="string">C2f</span>, [<span class="number">256</span>, <span class="literal">True</span>]]</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>C2f 已被 parse_model 支持，通常不需要改 Python 源码。</li>
+<li>这是最稳妥的“改结构”方式，适合先做 baseline。</li>
+</ul>
+<h3 id="3-2-训练验证"><a href="#3-2-训练验证" class="headerlink" title="3.2 训练验证"></a>3.2 训练验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yolo detect train model=ultralytics/cfg/models/11/yolo11n_my.yaml data=coco8.yaml imgsz=640 epochs=1</span><br></pre></td></tr></table></figure>
+<h2 id="4-示例-2：新增自定义模块-MyBlock"><a href="#4-示例-2：新增自定义模块-MyBlock" class="headerlink" title="4. 示例 2：新增自定义模块 MyBlock"></a>4. 示例 2：新增自定义模块 MyBlock</h2><p>假设你要新增一个模块 MyBlock，并在 YAML 里使用它。</p>
+<h3 id="4-1-在模块文件中实现"><a href="#4-1-在模块文件中实现" class="headerlink" title="4.1 在模块文件中实现"></a>4.1 在模块文件中实现</h3><p>在 ultralytics/nn/modules/block.py 增加：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyBlock</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">3</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.cv1 = Conv(c1, c2, k, <span class="number">1</span>)</span><br><span class="line">        self.cv2 = Conv(c2, c2, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.cv2(self.cv1(x))</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-在导出文件注册"><a href="#4-2-在导出文件注册" class="headerlink" title="4.2 在导出文件注册"></a>4.2 在导出文件注册</h3><p>在 ultralytics/nn/modules/<strong>init</strong>.py：</p>
+<ol>
+<li>从 block import MyBlock</li>
+<li>把 MyBlock 加入 <strong>all</strong></li>
+</ol>
+<h3 id="4-3-在-tasks-py-注册给解析器"><a href="#4-3-在-tasks-py-注册给解析器" class="headerlink" title="4.3 在 tasks.py 注册给解析器"></a>4.3 在 tasks.py 注册给解析器</h3><p>在 ultralytics/nn/tasks.py：</p>
+<ol>
+<li>顶部 from ultralytics.nn.modules import (…) 中加入 MyBlock</li>
+<li>在 parse_model() 的 base_modules 集合加入 MyBlock</li>
+<li>如果 MyBlock 支持 repeats 参数 n，再加入 repeat_modules</li>
+</ol>
+<h3 id="4-4-在-YAML-中使用"><a href="#4-4-在-YAML-中使用" class="headerlink" title="4.4 在 YAML 中使用"></a>4.4 在 YAML 中使用</h3><p>例如在 yolo11n_my.yaml 中：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [<span class="number">-1</span>, <span class="number">1</span>, <span class="string">MyBlock</span>, [<span class="number">256</span>, <span class="number">3</span>]]</span><br></pre></td></tr></table></figure>
+<h2 id="5-高风险注意事项（非常重要）"><a href="#5-高风险注意事项（非常重要）" class="headerlink" title="5. 高风险注意事项（非常重要）"></a>5. 高风险注意事项（非常重要）</h2><ol>
+<li>文件命名与 scale 自动识别</li>
+</ol>
+<ul>
+<li>scale 是从文件名里识别的（n/s/m/l/x）。</li>
+<li>如果命名不规范，可能拿不到期望的缩放系数。</li>
+<li>推荐命名包含 n/s/m/l/x，例如 yolo11n_my.yaml。</li>
+</ul>
+<ol>
+<li>通道数和拼接索引必须匹配</li>
+</ol>
+<ul>
+<li>Concat 的输入层索引、输出通道必须和后续层对齐。</li>
+<li>一旦改动 backbone/head 任意层，后续引用索引都要复核。</li>
+</ul>
+<ol>
+<li>repeats 和参数顺序</li>
+</ol>
+<ul>
+<li>parse_model 会对部分模块自动插入 repeats 到参数中。</li>
+<li>如果你的模块参数顺序设计不一致，会在构建时报错或 silent shape 错误。</li>
+</ul>
+<ol>
+<li>Detect 头改动要联动 loss 与后处理</li>
+</ol>
+<ul>
+<li>改检测头输出格式，不仅要改 head，还要改 loss 与 decode 逻辑。</li>
+</ul>
+<ol>
+<li>预训练权重加载不是全量匹配</li>
+</ol>
+<ul>
+<li>改结构后常见现象是仅部分权重能迁移，这是正常的。</li>
+<li>需要关注日志里的 transferred items，确认是否符合预期。</li>
+</ul>
+<ol>
+<li>先做最小可运行验证</li>
+</ol>
+<ul>
+<li>建议先用 coco8 做 1 个 epoch 烟雾测试，再跑正式训练。</li>
+</ul>
+<h2 id="6-推荐修改流程（实践版）"><a href="#6-推荐修改流程（实践版）" class="headerlink" title="6. 推荐修改流程（实践版）"></a>6. 推荐修改流程（实践版）</h2><ol>
+<li>先只改 YAML，确保能 train + val + predict。</li>
+<li>再引入自定义模块，逐步加到 parse_model。</li>
+<li>每改一步都做一次最小训练/推理验证。</li>
+<li>最后再考虑导出（ONNX/TensorRT）兼容性测试。</li>
+</ol>
+<h2 id="7-快速自检清单"><a href="#7-快速自检清单" class="headerlink" title="7. 快速自检清单"></a>7. 快速自检清单</h2><ul>
+<li>是否新建了独立 YAML（避免污染官方配置）</li>
+<li>parse_model 是否能识别你的模块名</li>
+<li>base_modules/repeat_modules 是否注册正确</li>
+<li>Concat/Detect 的输入索引和通道是否一致</li>
+<li>训练、推理、导出至少各做过一次最小验证</li>
+</ul>
+<p>PS：封面图来源：<a target="_blank" rel="noopener" href="https://x.com/AiLuoManSanSan/status/2040801665541189654?s=20">AiRomance</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz">AiRomance</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://blog.whff521.xyz/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/">https://blog.whff521.xyz/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/YOLO11n/">YOLO11n</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E5%9E%8B%E4%BF%AE%E6%94%B9/">模型修改</a></div><div class="post-share"><div class="social-share" data-image="https://images.whff521.top/HFJiS6JbAAAJiEF.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/03/16/%E5%85%B3%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8F%E5%8C%96/" title="关于目标检测模型的量化"><img class="cover" src="https://images.whff521.top/HDr-hnsaUAANf-Z.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">关于目标检测模型的量化</div></div><div class="info-2"><div class="info-item-1">关于目标检测模型的量化量化可以分为两类，一类是模型压缩，一类是网络结构设计。 模型压缩的技术主要包括剪枝，量化和知识蒸馏。 现有的目标检测模型的Backbone主要是基于CNN或者Transformer。相比之下CNN是更有效率的，Transformer的注意力机制会产生大量的计算。 关于轻量级网络设计基于CNN的轻量级网络设计这里多是设计base CNN的网络的，卷积块的设计。比如深度可分离卷积、分组卷积和幽灵卷积。 对于普通卷积，输入特征图的尺寸为$H×W×C{in}$，输出特征图的尺寸为$H×W×C{out}$，卷积核实际维度为$K×K×C{in}$。输出通道数为$C{out}$，代表卷积核的数量。 深度可分离卷积是将标准卷积分解为深度卷积和逐点卷积。深度卷积对每个输入通道进行独立的卷积操作，而逐点卷积则使用1x1卷积来混合不同通道的信息。这种方法显著减少了计算量和参数数量。但是深度卷积并行效率较低，信息提取能力也更弱。 分组卷积将输入通道分成多个组，每个组独立进行卷积操作。然后将每个组的输出特征图连接起来形成最终的输出特征图。但是不同组之间不能信息交换，有channel...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/101.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AiRomance</div><div class="author-info-description">又遇到什么好事了吗？</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">80</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">81</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/WHFF521" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:whff521@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/AiLuoManSanSan" target="_blank" title="Twitter"><i class="fab fa-x-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #f26522;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">猫又おかゆは世界で一番かわいい</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#YOLO11n-%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84%E4%BF%AE%E6%94%B9%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">YOLO11n 内部结构修改指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%85%88%E7%90%86%E8%A7%A3-YOLO11n-%E6%98%AF%E5%A6%82%E4%BD%95%E8%A2%AB%E5%8A%A0%E8%BD%BD%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">1. 先理解 YOLO11n 是如何被加载的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%94%B9%E7%BB%93%E6%9E%84%E6%97%B6%E9%80%9A%E5%B8%B8%E8%A6%81%E6%94%B9%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">2. 改结构时通常要改哪些文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-%E5%8F%AA%E6%94%B9%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91%EF%BC%88%E4%B8%8D%E6%96%B0%E5%A2%9E%E6%96%B0%E7%AE%97%E5%AD%90%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">A. 只改网络拓扑（不新增新算子）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%96%B0%E5%A2%9E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%EF%BC%88%E6%96%B0%E5%A2%9E%E7%AE%97%E5%AD%90-Block%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">B. 新增自定义模块（新增算子&#x2F;Block）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E5%A6%82%E6%9E%9C%E6%94%B9%E4%BA%86%E6%A3%80%E6%B5%8B%E5%A4%B4%E8%BE%93%E5%87%BA%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">C. 如果改了检测头输出定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A4%BA%E4%BE%8B-1%EF%BC%9A%E5%8F%AA%E6%94%B9-YAML%EF%BC%88%E6%8E%A8%E8%8D%90%E5%85%88%E4%BB%8E%E8%BF%99%E9%87%8C%E5%BC%80%E5%A7%8B%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">3. 示例 1：只改 YAML（推荐先从这里开始）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%96%B0%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 新建配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%AE%AD%E7%BB%83%E9%AA%8C%E8%AF%81"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 训练验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%A4%BA%E4%BE%8B-2%EF%BC%9A%E6%96%B0%E5%A2%9E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97-MyBlock"><span class="toc-number">1.4.</span> <span class="toc-text">4. 示例 2：新增自定义模块 MyBlock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9C%A8%E6%A8%A1%E5%9D%97%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 在模块文件中实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%9C%A8%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E6%B3%A8%E5%86%8C"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 在导出文件注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%9C%A8-tasks-py-%E6%B3%A8%E5%86%8C%E7%BB%99%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 在 tasks.py 注册给解析器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%9C%A8-YAML-%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4 在 YAML 中使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E9%AB%98%E9%A3%8E%E9%99%A9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%88%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">5. 高风险注意事项（非常重要）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%8E%A8%E8%8D%90%E4%BF%AE%E6%94%B9%E6%B5%81%E7%A8%8B%EF%BC%88%E5%AE%9E%E8%B7%B5%E7%89%88%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">6. 推荐修改流程（实践版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%BF%AB%E9%80%9F%E8%87%AA%E6%A3%80%E6%B8%85%E5%8D%95"><span class="toc-number">1.7.</span> <span class="toc-text">7. 快速自检清单</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/" title="YOLO11n 内部结构修改指南"><img src="https://images.whff521.top/HFJiS6JbAAAJiEF.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="YOLO11n 内部结构修改指南"/></a><div class="content"><a class="title" href="/2026/04/10/yolo11n%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9/" title="YOLO11n 内部结构修改指南">YOLO11n 内部结构修改指南</a><time datetime="2026-04-10T05:53:43.000Z" title="Created 2026-04-10 13:53:43">2026-04-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/16/%E5%85%B3%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8F%E5%8C%96/" title="关于目标检测模型的量化"><img src="https://images.whff521.top/HDr-hnsaUAANf-Z.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于目标检测模型的量化"/></a><div class="content"><a class="title" href="/2026/03/16/%E5%85%B3%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8F%E5%8C%96/" title="关于目标检测模型的量化">关于目标检测模型的量化</a><time datetime="2026-03-16T08:56:10.000Z" title="Created 2026-03-16 16:56:10">2026-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/" title="离线环境harbor开启Trivy扫描"><img src="https://images.whff521.top/IMG_9304%202.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线环境harbor开启Trivy扫描"/></a><div class="content"><a class="title" href="/2026/01/27/%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83harbor%E5%BC%80%E5%90%AFTrivy%E6%89%AB%E6%8F%8F/" title="离线环境harbor开启Trivy扫描">离线环境harbor开启Trivy扫描</a><time datetime="2026-01-27T09:09:06.000Z" title="Created 2026-01-27 17:09:06">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/19/Harbor%E7%9A%84%E9%83%A8%E7%BD%B2/" title="Harbor的部署"><img src="https://images.whff521.top/G8yEjO_aYAE2dzA.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Harbor的部署"/></a><div class="content"><a class="title" href="/2026/01/19/Harbor%E7%9A%84%E9%83%A8%E7%BD%B2/" title="Harbor的部署">Harbor的部署</a><time datetime="2026-01-19T01:13:36.000Z" title="Created 2026-01-19 09:13:36">2026-01-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/14/mamba/" title="Mamba 模型在视觉上的开发"><img src="https://images.whff521.top/G9ZEpO-aoAAOp5s.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mamba 模型在视觉上的开发"/></a><div class="content"><a class="title" href="/2026/01/14/mamba/" title="Mamba 模型在视觉上的开发">Mamba 模型在视觉上的开发</a><time datetime="2026-01-14T05:52:13.000Z" title="Created 2026-01-14 13:52:13">2026-01-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By AiRomance</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'b574649da36a28a0c3bb',
+      clientSecret: 'caae8c036167555e8f4ed612d8ef1ec3ce94e2d4',
+      repo: 'WHFF521.github.io',
+      owner: 'WHFF521',
+      admin: ['WHFF521'],
+      id: '533373396200781d85e2759a9bbe0273',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
